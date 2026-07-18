@@ -3,6 +3,7 @@ using Recompiled;
 
 WidescreenSettings.Register();
 CheatMenu.Register();
+QualityOfLifeMenu.Register();
 
 var m = new PSMemory();
 Entry.Run(m, args.Length > 0 ? args[0] : null);

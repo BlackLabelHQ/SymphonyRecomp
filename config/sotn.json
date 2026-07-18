@@ -1789,6 +1789,36 @@
       "function": "HandleGravityBootsMP",
       "mode": "pre",
       "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
+    },
+    {
+      "overlay": "dra",
+      "function": "RenderEntities",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.Apply"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckSoulStealInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasySpellInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckWingSmashInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyWingInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckGravityBootsInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyGravInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_8010E168",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyIFrames"
     }
   ]
 }
