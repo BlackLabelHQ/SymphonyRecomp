@@ -30,6 +30,8 @@ public sealed class QualityOfLifePanel : IPanel
         }
 
         ImGui.SeparatorText("Toggles");
+        ImGui.Checkbox("Color Blind Fixes", ref QualityOfLife.ColorBlind);
+        ImGui.SetItemTooltip("Makes relics easier to distinguish for colorblind players.");
         ImGui.Checkbox("Bug Fixes", ref QualityOfLife.BugFixes);
         ImGui.SetItemTooltip("Various bug fixes and crash prevention items.");
         ImGui.Checkbox("Clear File", ref QualityOfLife.ClearFile);
