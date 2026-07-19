@@ -1798,6 +1798,12 @@
     },
     {
       "overlay": "dra",
+      "function": "RenderEntities",
+      "mode": "post",
+      "target": "Recompiled.SotNAudioSettings.ApplyAudio"
+    },
+    {
+      "overlay": "dra",
       "function": "CheckSoulStealInput",
       "mode": "pre",
       "target": "Recompiled.QualityOfLife.EasySpellInput"
