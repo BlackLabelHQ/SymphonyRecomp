@@ -2,7 +2,6 @@ using RecompOne.Runtime.Memory;
 using Recompiled;
 
 WidescreenSettings.Register();
-SotNAudioSettings.Register();
 CheatMenu.Register();
 QualityOfLifeMenu.Register();
 
