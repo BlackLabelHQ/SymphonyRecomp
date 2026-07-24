@@ -45,7 +45,7 @@ public static partial class Randomizer
                                             0x80181620, 0x80180A3C, 0x801807C8, 0x80180CC8, 0x80180EC8, 0x00000000, 0x00000000,
                                             0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
                                             0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
-                                            0x00000000, 0x80181C8C };
+                                            0x00000000, 0x80181C8C, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     static readonly byte[] StageItemListLength = { 0xE, 0x7, 0xB, 0x15, 0xD, 0xD, 0x10, 0xA, 0x00, 0x25, 0x8, 0x13, 0xB, 0xC, 0x0, 0x0,
                                                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25, 0x00, 0x00, 0x00, 0x00,
                                                    0x10, 0x10, 0x11, 0x20, 0xC, 0xF, 0x15, 0x13, 0x00, 0x20, 0x10, 0x20, 0x10, 0xC, 0, 0,
@@ -712,14 +712,18 @@ public static partial class Randomizer
 
         if(RandomizeItems == true)
         {
+
             int ItemIndex = 0;
             UInt32 StageListAddress = StageItemListOffset[StageId];
 
-            while(ItemIndex < StageItemListLength[StageId])
+            if (StageItemListOffset[StageId] > 0)
             {
-                m.WriteU16(StageListAddress, StageItems[StageId, ItemIndex]);
-                StageListAddress += 2;
-                ItemIndex++;
+                while (ItemIndex < StageItemListLength[StageId])
+                {
+                    m.WriteU16(StageListAddress, StageItems[StageId, ItemIndex]);
+                    StageListAddress += 2;
+                    ItemIndex++;
+                }
             }
 
             if (StageId == 0x02)
