@@ -1734,6 +1734,18 @@
       "target": "Recompiled.RandoPatch.DetectPreset"
     },
     {
+      "comment": "JP Familiar Cards in Menu 1 of 2",
+      "overlay": "dra",
+      "function": "DrawRelicsMenu",
+      "target": "Recompiled.RandoPatch.DrawRelicsMenu"
+    },
+    {
+      "comment": "JP Familiar Cards in Menu 2 of 2",
+      "overlay": "dra",
+      "function": "MenuHandle",
+      "target": "Recompiled.RandoPatch.MenuHandle"
+    },
+    {
       "comment": "For presets that change Transformation MP costs.",
       "overlay": "dra",
       "function": "HandleTransformationMP",
@@ -1753,10 +1765,46 @@
       "target": "Recompiled.RandoPatch.func_801AC7CC_rnz1"
     },
     {
+      "comment": "Darkwing Bat Relic spawn in.",
+      "overlay": "rnz1",
+      "function": "func_801BE578",
+      "target": "Recompiled.RandoPatch.func_801BE578"
+    },
+    {
+      "comment": "Heart of Vlad Boss Room Controller",
+      "overlay": "rbo3",
+      "function": "func_us_80192B38",
+      "target": "Recompiled.RandoPatch.func_us_80192B38"
+    },
+    {
+      "comment": "Tooth of Vlad Boss Room Controller",
+      "overlay": "rbo4",
+      "function": "func_8019879C",
+      "target": "Recompiled.RandoPatch.func_8019879C"
+    },
+    {
+      "comment": "Rib of Vlad Boss Room Controller",
+      "overlay": "rbo7",
+      "function": "func_80193E88",
+      "target": "Recompiled.RandoPatch.func_80193E88"
+    },
+    {
+      "comment": "Eye of Vlad Boss Room Controller",
+      "overlay": "rbo2",
+      "function": "func_8019F4AC",
+      "target": "Recompiled.RandoPatch.func_8019F4AC"
+    },
+    {
       "comment": "Holy Glasses Item event.",
       "overlay": "cen",
       "function": "EntityPlatform",
       "target": "Recompiled.RandoPatch.EntityPlatform"
+    },
+    {
+      "comment": "Jewel of Open Purchase Limit",
+      "overlay": "lib",
+      "function": "func_us_801B29C4",
+      "target": "Recompiled.RandoPatch.func_us_801B29C4"
     },
     {
       "comment": "Gold Ring drop entity.",
@@ -1801,12 +1849,6 @@
       "target": "Recompiled.RandoPatch.RBO0_EntityBoss"
     },
     {
-      "comment": "Trio Relic Drop",
-      "overlay": "rbo0",
-      "function": "EntityLifeUpSpawn",
-      "target": "Recompiled.RandoPatch.EntityLifeUpSpawn_rbo0"
-    },
-    {
       "comment": "AntiFreeze Support",
       "overlay": "dra",
       "function": "EntityLevelUpAnimation",
@@ -1845,6 +1887,13 @@
       "function": "HandleGravityBootsMP",
       "mode": "pre",
       "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
+    },
+    {
+      "comment": "Apply Integrated Randomizer Changes on Stage Load",
+      "overlay": "dra",
+      "function": "func_800F16D0",
+      "mode": "post",
+      "target": "Recompiled.Randomizer.ApplyInternalRandomizer"
     },
     {
       "overlay": "dra",

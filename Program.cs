@@ -12,6 +12,7 @@ WidescreenSettings.Register();
 CheatMenu.Register();
 QualityOfLifeMenu.Register();
 TrackerMenu.Register();
+RandoMenu.Register();
 
 var m = new PSMemory();
 Entry.Run(m, args.Length > 0 ? args[0] : null);
