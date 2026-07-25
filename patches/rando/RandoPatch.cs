@@ -157,6 +157,25 @@ public static partial class RandoPatch
         if (CUR_PRESET == (byte)PresetId.Warlock)
         {
             m.WriteU8(0x80097964 + 7, 0x03);    // Form of Mist
+            m.WriteU8(0x80097BB8, 0x01);    // 1 STR
+            m.WriteU8(0x80097BBC, 0x01);    // 1 CON
+            m.WriteU8(0x80097BC0, 0x99);    // 99 INT
+            m.WriteU8(0x80097BC4, 0x01);    // 1 LCK
+        }
+        if (CUR_PRESET == (byte)PresetId.BountyHunter)
+        {
+            m.WriteU8(0x80097964 + 0xF, 0x03);
+            m.WriteU8(0x80097BC4, 0x63);    // 99 LCK
+        }
+        if (CUR_PRESET == (byte)PresetId.Hitman)
+        {
+            m.WriteU8(0x80097964 + 0x0F, 0x03);
+            m.WriteU8(0x80097964 + 0x12, 0x01);
+            m.WriteU8(0x80097964 + 0x13, 0x01);
+            m.WriteU8(0x80097964 + 0x14, 0x01);
+            m.WriteU8(0x80097964 + 0x15, 0x01);
+            m.WriteU8(0x80097964 + 0x16, 0x01);
+            m.WriteU8(0x80097BC4, 0x63);    // 99 LCK
         }
     }
 
