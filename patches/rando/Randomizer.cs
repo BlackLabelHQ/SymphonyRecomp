@@ -894,6 +894,7 @@ public static partial class Randomizer
         else
         {
             // Is Relic
+            m.WriteU8(0x8018FEA0, 0);   // Remove Item.
             HGOFFSET = 0x80181328;
             for(int i = 0;i < 2; i++)
             {
