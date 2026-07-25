@@ -5,16 +5,18 @@
 //
 // Currently we are just doing the basics for simple presets as well as for the built-in randomizer feature.
 
+using System.Data.SqlTypes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Dispatch;
 using RecompOne.Runtime.Hle;
 using RecompOne.Runtime.Memory;
 using Silk.NET.Vulkan;
+using SixLabors.ImageSharp;
 
 namespace Recompiled;
 
-public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, Unknown, Integrated }
+public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, Unknown, Integrated }
 
 public static partial class RandoPatch
 {
@@ -190,6 +192,16 @@ public static partial class RandoPatch
         if (PresetNameIs(c, m, "expedition"))
         {
             m.WriteU8(0x8000C000, (byte)PresetId.Expedition);
+        }
+        // Bounty Hunter
+        if (PresetNameIs(c, m, "bounty-hunter"))
+        {
+            m.WriteU8(0x8000C000, (byte)PresetId.BountyHunter);
+        }
+        // Hitman
+        if (PresetNameIs(c, m, "hitman"))
+        {
+            m.WriteU8(0x8000C000, (byte)PresetId.Hitman);
         }
 
         // If no Preset matched yet and we don't see vanilla ( Input "RICHTER" to play ) string
@@ -11058,5 +11070,211 @@ public static partial class RandoPatch
         return;
     }
 
+
+    // Bounty Hunter
+    // Relic Drop
+    // Pre-emp
+    static readonly UInt32[] RelicTable = { 0x801CA4CC, 0x801C6E24, 0x801C769C, 0x801C3B24, 0x801BE7F8, 0x801A3F58, 0x801CC06C, 0x801BF1A0, 0, 0x801D06D4, 0x801BE7B8, 0x801B3714, 0x801BF5B8, 0x801B27E8, 0, 0x801C6E24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x801BD408, 0x801AF0D0, 0x801A8C44, 0x801BA034, 0x801BCDD4, 0x801A0CD8, 0x801BA710, 0x801B9F94, 0, 0x801D02C8, 0x801ACC24, 0x801A85D8, 0x801B2CE8, 0x801B2F84, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x801C7930 };
+
+    public static bool func_800FF494(CpuContext c, IMemory m)
+    {
+        byte CUR_PRESET = m.ReadU8(0x8000C000);
+
+        if (CUR_PRESET != (byte)PresetId.BountyHunter && CUR_PRESET != (byte)PresetId.Hitman)
+            return true;    // Execute original function
+
+        Int32 rnd;
+        UInt32 RingOfArcanaCount;
+        UInt32 EnemyDefAddress = c.A0;
+        UInt32 total_lck = m.ReadU32(0x80097BE4);
+        UInt16 rareItemId = m.ReadU16(EnemyDefAddress + 0x1A);
+        UInt16 uncommonItemId = m.ReadU16(EnemyDefAddress + 0x1C);
+        UInt32 rareItemDropRate = m.ReadU16(EnemyDefAddress + 0x1E);
+        UInt32 uncommonItemDropRate = m.ReadU16(EnemyDefAddress + 0x20);
+        UInt16 RelicNumber = 0; ;
+        UInt16 DropRelic = 0;
+        UInt32 EntitySlot = 78;
+        UInt32 EntityListBase = 0x800733D8;
+        UInt32 RelicUpdatePtr;
+        byte StageId = m.ReadU8(0x800974a0);
+        UInt16 SpawnX;
+        UInt16 SpawnY;
+        bool HasRelicDrop = false;
+
+        if (rareItemId >= 0x9D && rareItemId < 0xBB)
+            HasRelicDrop = true;
+        if (uncommonItemId >= 0x9D && uncommonItemId < 0xBB)
+            HasRelicDrop = true;
+
+        if (HasRelicDrop == false)
+            return true;
+
+        // Get Arcana Count
+        c.A0 = 0u | 0x004Bu;
+        c.A1 = 0u | 0x0004u;
+        SoTN.CheckEquipmentItemCount(c, m);
+        RingOfArcanaCount = c.V0;
+
+        SoTN.rand(c, m);
+        rnd = (Int32)(c.V0 & 0xFF);
+
+        SoTN.rand(c, m);
+        rnd -= (Int32)((c.V0 & 0x1F) + (total_lck)) / 20;
+
+        if(RingOfArcanaCount != 0)
+        {
+            rnd -= (Int32)rareItemDropRate * (Int32)RingOfArcanaCount;
+        }
+
+        if (rnd < rareItemDropRate || (m.ReadU8(0x80097490)&1) == 1)
+        {
+            if (rareItemId >= 0x9D && rareItemId < 0xBB)  // If ItemID for Drop is Oranges to Green Tea
+            {
+                RelicNumber = rareItemId;                 // Save it and goto Relic Spawning Sequence.
+                DropRelic = 1;
+            }
+            else
+            {
+                c.V0 = 0x40;            // Regular Rare Drop
+                goto L_BHDROP_RETURN;
+            }
+        }
+        else
+        {
+            // Dropping Uncommon or Common
+            if (DropRelic == 0)
+            {
+                rnd -= (Int32)rareItemDropRate;
+                if (RingOfArcanaCount != 0)
+                {
+                    rnd -= (Int32)uncommonItemDropRate * (Int32)RingOfArcanaCount;
+                }
+                SoTN.rand(c, m);
+                rnd -= (Int32)((c.V0 & 0x1F) + total_lck) / 20;
+
+                if (rnd >= uncommonItemDropRate)
+                {
+                    SoTN.rand(c, m);
+                    rnd = (Int32)c.V0 % 28;
+                    if (rareItemDropRate == 0)
+                    {
+                        rnd++;
+                    }
+                    if (uncommonItemDropRate == 0)
+                    {
+                        rnd++;
+                    }
+                    c.V0 = (UInt32)rnd + RingOfArcanaCount;
+                    goto L_BHDROP_RETURN;
+                }
+                else
+                {
+                    if (uncommonItemId >= 0x9D && uncommonItemId < 0xBB)  // If ItemID for Drop is Oranges to Green Tea
+                    {
+                        RelicNumber = uncommonItemId;                     // Save it and goto Relic Spawning Sequence.
+                        DropRelic = 1;
+                    }
+                    else
+                    {
+                        c.V0 = 0x20;
+                        goto L_BHDROP_RETURN;
+                    }
+                }
+            }
+        }
+
+        RelicNumber -= 0x9D;    // Rebase
+
+        while (true)    // Find Entity Slot to Use.
+        {
+            if (m.ReadU16( EntityListBase + (EntitySlot*0xBC) + 0x26) == 0)
+                break;
+            EntitySlot++;
+            if (EntitySlot > 255)
+            {
+                c.V0 = 0;
+                goto L_BHDROP_RETURN;
+            }
+        }
+
+        RelicUpdatePtr = 0;
+        RelicUpdatePtr = RelicTable[StageId];
+
+        if (RelicUpdatePtr != 0)
+        {
+            m.WriteU32(EntityListBase + (EntitySlot * 0xBC) + 0x28, RelicUpdatePtr);
+            m.WriteU16(EntityListBase + (EntitySlot * 0xBC) + 0x2C, 0);
+            m.WriteU16(EntityListBase + (EntitySlot * 0xBC) + 0x26, 0xB);
+            m.WriteU16(EntityListBase + (EntitySlot * 0xBC) + 0x30, RelicNumber);
+            SpawnX = m.ReadU16(EntityListBase + 0x02);
+            SpawnY = m.ReadU16(EntityListBase + 0x06);
+            SpawnY -= 24;
+            m.WriteU16(EntityListBase + (EntitySlot * 0xBC) + 0x02, SpawnX);
+            m.WriteU16(EntityListBase + (EntitySlot * 0xBC) + 0x06, SpawnY);
+        }
+
+        c.V0 = 0;
+
+    L_BHDROP_RETURN:
+        return false;   // Don't Execute original function
+
+    }   // End of Bounty Hunter Relic Drop
+
+    // Reverse Library Card
+    // Detects if Library Card should be changed to reverse Library Card
+    // Attach to func_8010E42C
+    public static void ReverseLibraryCard_func_8010E42C_Pre(CpuContext c, IMemory m)
+    {
+        byte CUR_PRESET = m.ReadU8(0x8000C000);
+
+        // Check for the Down Arrow at the end of the Library Card name.
+        if (m.ReadU8(0x800DD20C) != 0xE6)
+            return;
+
+        UInt16 PlayerInput = (UInt16)(m.ReadU16(0x80097490) & 0x4000);
+        UInt32 SavedRichter = m.ReadU32(0x8003CA60);
+
+        // Regular Library Card Behavior
+        if(SavedRichter == 0 || PlayerInput == 0)
+        {
+            m.WriteU8(0x8000C001, 0);
+            m.WriteU16(0x800A3C98, 0x7C0E);
+            return;
+        }
+
+        // Reverse Library Card
+        m.WriteU8(0x8000C001,1);
+        m.WriteU16(0x800A3C98, 0x88BE);
+    }
+
+    // Reverse Library Card
+    // func_800F16D0 post
+    public static void ReverseLibraryCard_func_800F16D0_Post(CpuContext c, IMemory m)
+    {
+        if (m.ReadU8(0x80097C98) == 0x06 && m.ReadU8(0x8000C001) == 1)   // RLBC Mode
+        {
+            if (c.V0 == 0x02)
+            {
+                c.V0 = 0x22;
+            }
+                
+        }
+        if( m.ReadU8(0x80097C98) == 0x05)   // Teleporting to Keep
+        {
+            m.WriteU16(0x800A3C98, 0x7C0E);
+        }
+    }
+
+    // Reverse Library Card
+    // Attach to func_800F223C
+    public static void ReverseLibraryCard_func_800F223C_Pre(CpuContext c, IMemory m)
+    {
+        byte StageId = m.ReadU8(0x800974a0);
+
+        if(StageId == 0x22 && m.ReadU8(0x8000C001) == 1)
+        {
+            m.WriteU8(0x800974a0, 0x02);
+        }
+    }
 
 }

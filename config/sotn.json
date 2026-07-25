@@ -1889,10 +1889,38 @@
       "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
     },
     {
-      "comment": "Apply Integrated Randomizer Changes on Stage Load",
+      "comment": "Bounty Hunter Relic Drops",
+      "overlay": "dra",
+      "function": "func_800FF494",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.func_800FF494"
+    },
+    {
+      "comment": "Reverse LBC 1 of 3",
+      "overlay": "dra",
+      "function": "func_8010E42C",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_8010E42C_Pre"
+    },
+    {
+      "comment": "Reverse LBC 2 of 3",
       "overlay": "dra",
       "function": "func_800F16D0",
       "mode": "post",
+      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F16D0_Post"
+    },
+    {
+      "comment": "Reverse LBC 3 of 3",
+      "overlay": "dra",
+      "function": "func_800F223C",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
+    },
+    {
+      "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
+      "overlay": "dra",
+      "function": "func_800F16D0",
+      "mode": "pre",
       "target": "Recompiled.Randomizer.ApplyInternalRandomizer"
     },
     {
