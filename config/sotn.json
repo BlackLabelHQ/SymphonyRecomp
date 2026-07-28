@@ -2028,6 +2028,36 @@
             "function": "func_800F2860",
             "mode": "pre",
             "target": "Recompiled.FairySongPatch.RestoreNocturne"
+        },
+        {
+            "overlay": "dra",
+            "function": "InitStatsAndGear",
+            "mode": "post",
+            "target": "Recompiled.GameHooks.OnInitStatsAndGear"
+        },
+        {
+            "overlay": "dra",
+            "function": "ApplySaveData",
+            "mode": "post",
+            "target": "Recompiled.GameHooks.OnApplySaveData"
+        },
+        {
+            "overlay": "stsel",
+            "function": "ApplySaveData",
+            "mode": "post",
+            "target": "Recompiled.GameHooks.OnApplySaveData"
+        },
+        {
+            "overlay": "dra",
+            "function": "StoreSaveData",
+            "mode": "post",
+            "target": "Recompiled.GameHooks.OnStoreSaveData"
+        },
+        {
+            "overlay": "stsel",
+            "function": "StoreSaveData",
+            "mode": "post",
+            "target": "Recompiled.GameHooks.OnStoreSaveData"
         }
     ]
 }

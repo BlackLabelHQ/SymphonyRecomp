@@ -543,6 +543,23 @@ public static partial class Randomizer
     public static void RandomizeSeedNumber()
     {
         SeedNumber = Random.Shared.Next(0, 0x7FFFFFFF);
+        SaveSeed();
+    }
+
+    static bool _seedLoaded;
+
+    public static void EnsureSeedLoaded()
+    {
+        if (_seedLoaded)
+            return;
+        _seedLoaded = true;
+        SeedNumber = RecompOne.Runtime.Runtime.View.GetInt("Rando.SeedNumber", SeedNumber);
+    }
+
+    static void SaveSeed()
+    {
+        RecompOne.Runtime.Runtime.View.SetInt("Rando.SeedNumber", SeedNumber);
+        RecompOne.Runtime.Runtime.SaveView();
     }
 
     public static void RandomizeSeed()
@@ -564,7 +581,7 @@ public static partial class Randomizer
         // Update Preset to Integrated
         m.WriteU8(0x8000C000, (byte)PresetId.Integrated);
 
-        // todo: Save Seed Number and Settings somewhere maybe?
+        SaveSeed();
 
         // Seed the RNG with our starting seed number. In theory this creates a recreateable seed?
         SeedRNG = new Random(SeedNumber);

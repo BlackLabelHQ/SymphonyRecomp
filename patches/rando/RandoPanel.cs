@@ -11,6 +11,8 @@ public sealed class RandoPanel : IPanel
 
     public void Draw()
     {
+        Randomizer.EnsureSeedLoaded();
+
         bool AlreadyRandomized = false;
         byte CurrentPreset = 0;
 
