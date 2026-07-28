@@ -17,6 +17,9 @@ internal class QualityOfLife
     public static bool InfiniteWingSmash;
     public static bool EasyMode;
 
+    /* Enhancements */
+    public static bool RestoreFairySong;
+
     public static void Apply(CpuContext c, IMemory m)
     {
         // Colorblind Fixes
@@ -170,4 +173,5 @@ internal class QualityOfLife
         }
         return true;
     }
+
 }

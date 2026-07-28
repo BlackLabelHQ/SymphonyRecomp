@@ -45,6 +45,11 @@ public sealed class QualityOfLifePanel : IPanel
         ImGui.Checkbox("Easy Mode", ref QualityOfLife.EasyMode);
         ImGui.SetItemTooltip("Increases the invincibility frames by 4 frames on everything \nwhich already gives them. Also makes spell inputs, gravity \njumps and Wing Smashes all easier to input through use of L2: \n- L2: Gravity Jump\n- L2 + Up + Square: Soul Steal\n- L2 + Dn + Square: Tetra Spirit\n- L2 + Lf or Ri + Square: Hellfire\n- L2 in Bat: Wing Smash");
 
+        /* Enhancements */
+        ImGui.SeparatorText("Enhancements");
+        ImGui.Checkbox("Restore Fairy Nocturne Song", ref QualityOfLife.RestoreFairySong);
+        ImGui.SetItemTooltip("If you have the Sprite familiar, otherwise known as the Pixie familiar, summoned and you're\n sitting in a chair idle for 1 minute, it will make her sing the song 'Nocturne,' in Japanese.");
+
         IsOpen = open;
         ImGui.End();
     }

@@ -26,6 +26,8 @@ public static class FairySongPatch
 
     public static void RestoreNocturne(CpuContext c, IMemory m)
     {
+        if (QualityOfLife.RestoreFairySong == false) return;
+         
         if (m.ReadU16(FairyMode) != ModeSitOnShoulder)
         {
             if (_sung)
