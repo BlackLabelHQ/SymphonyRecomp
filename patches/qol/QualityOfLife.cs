@@ -10,6 +10,7 @@ namespace Recompiled;
 internal class QualityOfLife
 {
     public static bool ColorBlind;
+    public static bool RemoveFlashing;
     public static bool BugFixes;
     public static bool ClearFile;
     public static bool AntiFreeze;
@@ -18,17 +19,6 @@ internal class QualityOfLife
 
     public static void Apply(CpuContext c, IMemory m)
     {
-        // Bug Fixes application
-        if (QualityOfLife.BugFixes == true)
-        {
-            // Force screen scroll entity in Marble Gallery near Ctulhu to spawn
-            if (m.ReadU8(0x800974a0) == 0x00)
-            {
-                m.WriteU8(0x80182f9f, 0xa0);
-                m.WriteU8(0x80183e51, 0xa0);
-            }
-        }
-
         // Colorblind Fixes
         if (QualityOfLife.ColorBlind == true)
         {
@@ -169,6 +159,15 @@ internal class QualityOfLife
             return true;
         }
         c.A1 += 0x04;
+        return true;
+    }
+
+    public static bool RemoveFlashes(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.RemoveFlashing == true)
+        {
+            return false;
+        }
         return true;
     }
 }

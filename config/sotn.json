@@ -1972,6 +1972,30 @@
       "function": "func_8010E168",
       "mode": "pre",
       "target": "Recompiled.QualityOfLife.EasyIFrames"
+    },
+    {
+      "overlay": "bo3",
+      "function": "func_801A1BE8",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.ScyllaDoorFix"
+    },
+    {
+      "overlay": "bo0",
+      "function": "func_801B551C",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.OlroxExploFix"
+    },
+    {
+      "overlay": "nz1",
+      "function": "EntitySecretAreaDoor",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.ClockCollisionFix"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_80118C28",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.RemoveFlashes"
     }
   ]
 }
