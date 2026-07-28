@@ -2022,6 +2022,12 @@
             "function": "func_80118C28",
             "mode": "pre",
             "target": "Recompiled.QualityOfLife.RemoveFlashes"
+        },
+        {
+            "overlay": "dra",
+            "function": "func_800F2860",
+            "mode": "pre",
+            "target": "Recompiled.FairySongPatch.RestoreNocturne"
         }
     ]
 }
