@@ -1,2027 +1,2027 @@
 {
-  "game": {
-    "id": "SLUS-00067",
-    "name": "SoTN",
-    "output": "../generated"
-  },
-  "cue": "../disc/Castlevania - Symphony of the Night (USA).cue",
-  "funcMap": "funcmaps/main.json",
-  "debug": false,
-  "addressComments": true,
-  "disasmComments": true,
-  "functions": [],
-  "overlays": [
-    {
-      "name": "dra",
-      "file": "DRA.BIN",
-      "funcMap": "funcmaps/dra.json",
-      "base": "0x800A0000"
-    },
-    {
-      "name": "ric",
-      "file": "BIN/RIC.BIN",
-      "funcMap": "funcmaps/ric.json",
-      "base": "0x8013C000"
-    },
-    {
-      "name": "cen",
-      "file": "ST/CEN/CEN.BIN",
-      "funcMap": "funcmaps/stcen.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "chi",
-      "file": "ST/CHI/CHI.BIN",
-      "funcMap": "funcmaps/stchi.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "dai",
-      "file": "ST/DAI/DAI.BIN",
-      "funcMap": "funcmaps/stdai.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "wrp",
-      "file": "ST/WRP/WRP.BIN",
-      "funcMap": "funcmaps/stwrp.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "top",
-      "file": "ST/TOP/TOP.BIN",
-      "funcMap": "funcmaps/sttop.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "cat",
-      "file": "ST/CAT/CAT.BIN",
-      "funcMap": "funcmaps/stcat.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "nz0",
-      "file": "ST/NZ0/NZ0.BIN",
-      "funcMap": "funcmaps/stnz0.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "nz1",
-      "file": "ST/NZ1/NZ1.BIN",
-      "funcMap": "funcmaps/stnz1.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "np3",
-      "file": "ST/NP3/NP3.BIN",
-      "funcMap": "funcmaps/stnp3.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "lib",
-      "file": "ST/LIB/LIB.BIN",
-      "funcMap": "funcmaps/stlib.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "mad",
-      "file": "ST/MAD/MAD.BIN",
-      "funcMap": "funcmaps/stmad.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "are",
-      "file": "ST/ARE/ARE.BIN",
-      "funcMap": "funcmaps/stare.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "dre",
-      "file": "ST/DRE/DRE.BIN",
-      "funcMap": "funcmaps/stdre.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rare",
-      "file": "ST/RARE/RARE.BIN",
-      "funcMap": "funcmaps/strare.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rcat",
-      "file": "ST/RCAT/RCAT.BIN",
-      "funcMap": "funcmaps/strcat.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rwrp",
-      "file": "ST/RWRP/RWRP.BIN",
-      "funcMap": "funcmaps/strwrp.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rtop",
-      "file": "ST/RTOP/RTOP.BIN",
-      "funcMap": "funcmaps/strtop.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "sel",
-      "file": "ST/SEL/SEL.BIN",
-      "funcMap": "funcmaps/stsel.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "bo4",
-      "file": "BOSS/BO4/BO4.BIN",
-      "funcMap": "funcmaps/bobo4.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "bo6",
-      "file": "BOSS/BO6/BO6.BIN",
-      "funcMap": "funcmaps/bobo6.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "mar",
-      "file": "BOSS/MAR/MAR.BIN",
-      "funcMap": "funcmaps/bomar.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rbo0",
-      "file": "BOSS/RBO0/RBO0.BIN",
-      "funcMap": "funcmaps/borbo0.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rbo3",
-      "file": "BOSS/RBO3/RBO3.BIN",
-      "funcMap": "funcmaps/borbo3.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rbo5",
-      "file": "BOSS/RBO5/RBO5.BIN",
-      "funcMap": "funcmaps/borbo5.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "st0",
-      "file": "ST/ST0/ST0.BIN",
-      "funcMap": "funcmaps/stst0.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "no0",
-      "file": "ST/NO0/NO0.BIN",
-      "funcMap": "funcmaps/stno0.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "no1",
-      "file": "ST/NO1/NO1.BIN",
-      "funcMap": "funcmaps/stno1.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "no2",
-      "file": "ST/NO2/NO2.BIN",
-      "funcMap": "funcmaps/stno2.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "no3",
-      "file": "ST/NO3/NO3.BIN",
-      "funcMap": "funcmaps/stno3.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "no4",
-      "file": "ST/NO4/NO4.BIN",
-      "funcMap": "funcmaps/stno4.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rnz0",
-      "file": "ST/RNZ0/RNZ0.BIN",
-      "funcMap": "funcmaps/strnz0.json",
-      "base": "0x80180000"
-    },
-    {
-      "name": "rcen",
-      "file": "ST/RCEN/RCEN.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rchi",
-      "file": "ST/RCHI/RCHI.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rdai",
-      "file": "ST/RDAI/RDAI.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rlib",
-      "file": "ST/RLIB/RLIB.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rno0",
-      "file": "ST/RNO0/RNO0.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rno1",
-      "file": "ST/RNO1/RNO1.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rno2",
-      "file": "ST/RNO2/RNO2.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rno3",
-      "file": "ST/RNO3/RNO3.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rno4",
-      "file": "ST/RNO4/RNO4.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rnz1",
-      "file": "ST/RNZ1/RNZ1.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "te1",
-      "file": "ST/TE1/TE1.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "te2",
-      "file": "ST/TE2/TE2.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "te3",
-      "file": "ST/TE3/TE3.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "te4",
-      "file": "ST/TE4/TE4.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "te5",
-      "file": "ST/TE5/TE5.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "bo0",
-      "file": "BOSS/BO0/BO0.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "bo1",
-      "file": "BOSS/BO1/BO1.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "bo2",
-      "file": "BOSS/BO2/BO2.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "bo3",
-      "file": "BOSS/BO3/BO3.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "bo5",
-      "file": "BOSS/BO5/BO5.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "bo7",
-      "file": "BOSS/BO7/BO7.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rbo1",
-      "file": "BOSS/RBO1/RBO1.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rbo2",
-      "file": "BOSS/RBO2/RBO2.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rbo4",
-      "file": "BOSS/RBO4/RBO4.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rbo6",
-      "file": "BOSS/RBO6/RBO6.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rbo7",
-      "file": "BOSS/RBO7/RBO7.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "rbo8",
-      "file": "BOSS/RBO8/RBO8.BIN",
-      "base": "0x80180000",
-      "linearSweep": true
-    },
-    {
-      "name": "tt_000",
-      "file": "SERVANT/TT_000.BIN",
-      "funcMap": "funcmaps/tt_000.json",
-      "base": "0x80170000"
-    },
-    {
-      "name": "tt_001",
-      "file": "SERVANT/TT_001.BIN",
-      "funcMap": "funcmaps/tt_001.json",
-      "base": "0x80170000"
-    },
-    {
-      "name": "tt_002",
-      "file": "SERVANT/TT_002.BIN",
-      "funcMap": "funcmaps/tt_002.json",
-      "base": "0x80170000"
-    },
-    {
-      "name": "tt_003",
-      "file": "SERVANT/TT_003.BIN",
-      "funcMap": "funcmaps/tt_003.json",
-      "base": "0x80170000"
-    },
-    {
-      "name": "tt_004",
-      "file": "SERVANT/TT_004.BIN",
-      "funcMap": "funcmaps/tt_004.json",
-      "base": "0x80170000"
-    },
-    {
-      "name": "tt_005",
-      "file": "SERVANT/TT_005.BIN",
-      "base": "0x80170000",
-      "linearSweep": true
-    },
-    {
-      "name": "tt_006",
-      "file": "SERVANT/TT_006.BIN",
-      "base": "0x80170000",
-      "linearSweep": true
-    },
-    {
-      "name": "w0_000",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 0,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_000.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_001",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 28672,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_001.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_002",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 57344,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_002.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_003",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 86016,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_003.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_004",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 114688,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_004.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_005",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 143360,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_005.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_006",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 172032,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_006.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_007",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 200704,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_007.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_008",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 229376,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_008.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_009",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 258048,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_009.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_010",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 286720,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_010.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_011",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 315392,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_011.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_012",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 344064,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_012.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_013",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 372736,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_013.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_014",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 401408,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_014.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_015",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 430080,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_015.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_016",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 458752,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_016.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_017",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 487424,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_017.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_018",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 516096,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_018.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_019",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 544768,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_019.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_020",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 573440,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_020.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_021",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 602112,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_021.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_022",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 630784,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_022.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_023",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 659456,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_023.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_024",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 688128,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_024.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_025",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 716800,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_025.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_026",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 745472,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_026.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_027",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 774144,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_027.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_028",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 802816,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_028.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_029",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 831488,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_029.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_030",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 860160,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_030.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_031",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 888832,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_031.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_032",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 917504,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_032.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_033",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 946176,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_033.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_034",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 974848,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_034.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_035",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1003520,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_035.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_036",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1032192,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_036.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_037",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1060864,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_037.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_038",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1089536,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_038.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_039",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1118208,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_039.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_040",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1146880,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_040.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_041",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1175552,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_041.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_042",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1204224,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_042.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_043",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1232896,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_043.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_044",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1261568,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_044.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_045",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1290240,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_045.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_046",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1318912,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_046.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_047",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1347584,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_047.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_048",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1376256,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_048.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_049",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1404928,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_049.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_050",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1433600,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_050.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_051",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1462272,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_051.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_052",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1490944,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_052.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_053",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1519616,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_053.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_054",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1548288,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_054.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_055",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1576960,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_055.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_056",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1605632,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_056.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_057",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1634304,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_057.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w0_058",
-      "file": "BIN/WEAPON0.BIN",
-      "offset": 1662976,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_058.json",
-      "base": "0x8017A000"
-    },
-    {
-      "name": "w1_000",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 0,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_000.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_001",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 28672,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_001.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_002",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 57344,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_002.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_003",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 86016,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_003.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_004",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 114688,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_004.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_005",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 143360,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_005.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_006",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 172032,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_006.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_007",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 200704,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_007.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_008",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 229376,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_008.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_009",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 258048,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_009.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_010",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 286720,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_010.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_011",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 315392,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_011.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_012",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 344064,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_012.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_013",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 372736,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_013.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_014",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 401408,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_014.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_015",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 430080,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_015.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_016",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 458752,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_016.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_017",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 487424,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_017.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_018",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 516096,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_018.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_019",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 544768,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_019.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_020",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 573440,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_020.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_021",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 602112,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_021.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_022",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 630784,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_022.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_023",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 659456,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_023.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_024",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 688128,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_024.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_025",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 716800,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_025.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_026",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 745472,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_026.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_027",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 774144,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_027.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_028",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 802816,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_028.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_029",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 831488,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_029.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_030",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 860160,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_030.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_031",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 888832,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_031.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_032",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 917504,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_032.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_033",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 946176,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_033.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_034",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 974848,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_034.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_035",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1003520,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_035.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_036",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1032192,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_036.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_037",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1060864,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_037.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_038",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1089536,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_038.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_039",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1118208,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_039.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_040",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1146880,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_040.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_041",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1175552,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_041.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_042",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1204224,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_042.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_043",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1232896,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_043.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_044",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1261568,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_044.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_045",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1290240,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_045.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_046",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1318912,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_046.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_047",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1347584,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_047.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_048",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1376256,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_048.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_049",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1404928,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_049.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_050",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1433600,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_050.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_051",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1462272,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_051.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_052",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1490944,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_052.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_053",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1519616,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_053.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_054",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1548288,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_054.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_055",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1576960,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_055.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_056",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1605632,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_056.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_057",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1634304,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_057.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    },
-    {
-      "name": "w1_058",
-      "file": "BIN/WEAPON1.BIN",
-      "offset": 1662976,
-      "skip": 16384,
-      "size": 12288,
-      "funcMap": "funcmaps/w0_058.json",
-      "base": "0x8017A000",
-      "rebase": 12288
-    }
-  ],
-  "stubs": [],
-  "ignored": [],
-  "patches": [
-    {
-      "overlay": "dra",
-      "function": "SetStageDisplayBuffer",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetMenuDisplayBuffer",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreMenuDisplayBuffer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetCgiDisplayBuffer",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreCgiDisplayBuffer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetTitleDisplayBuffer",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
-    },
-    {
-      "overlay": "sel",
-      "function": "func_801B19F4",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
-    },
-    {
-      "overlay": "sel",
-      "function": "SetTitleDisplayBuffer",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
-    },
-    {
-      "overlay": "sel",
-      "function": "SetTitleDisplayBuffer256",
-      "mode": "pre",
-      "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
-    },
-    {
-      "overlay": "dra",
-      "function": "func_800E34DC",
-      "target": "Recompiled.WidescreenPatch.ConfigStageClip"
-    },
-    {
-      "overlay": "dra",
-      "function": "RenderTilemap",
-      "target": "Recompiled.WidescreenPatch.RenderTilemapWide"
-    },
-    {
-      "overlay": "sel",
-      "function": "func_801B195C",
-      "target": "Recompiled.WidescreenPatch.ConfigStageClip"
-    },
-    {
-      "overlay": "sel",
-      "function": "SetTitleDisplayBuffer",
-      "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer"
-    },
-    {
-      "overlay": "sel",
-      "function": "SetTitleDisplayBuffer256",
-      "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer256"
-    },
-    {
-      "overlay": "dra",
-      "function": "InitFade",
-      "target": "Recompiled.WidescreenPatch.InitFade"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetFadeWidth",
-      "target": "Recompiled.WidescreenPatch.SetFadeWidth"
-    },
-    {
-      "overlay": "st0",
-      "function": "EntityBackgroundVortex",
-      "target": "Recompiled.WidescreenPatch.VortexWide"
-    },
-    {
-      "overlay": "st0",
-      "function": "EntityClouds",
-      "target": "Recompiled.WidescreenPatch.CloudsWide"
-    },
-    {
-      "overlay": "st0",
-      "function": "EntityStageTitleFadeout",
-      "target": "Recompiled.WidescreenPatch.TitleFadeoutWide"
-    },
-    {
-      "overlay": "no3",
-      "function": "EntityTransparentWater",
-      "target": "Recompiled.WidescreenPatch.TransparentWaterWide_no3"
-    },
-    {
-      "overlay": "np3",
-      "function": "EntityTransparentWater",
-      "target": "Recompiled.WidescreenPatch.TransparentWaterWide_np3"
-    },
-    {
-      "overlay": "no4",
-      "function": "func_us_801C12B0",
-      "target": "Recompiled.WidescreenPatch.WaterSurface801C12B0Wide_no4"
-    },
-    {
-      "overlay": "cat",
-      "function": "EntityLavaGlow",
-      "target": "Recompiled.WidescreenPatch.LavaGlowWide_cat"
-    },
-    {
-      "overlay": "dra",
-      "function": "func_800F0CD8",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.PostCamCol"
-    },
-    {
-      "overlay": "st0",
-      "function": "func_801AA218",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.MarkCameraPan"
-    },
-    {
-      "overlay": "dra",
-      "function": "LoadRoomLayer",
-      "mode": "pre",
-      "target": "Recompiled.LevelEventHooks.PreLoadRoomLayer"
-    },
-    {
-      "overlay": "dra",
-      "function": "LoadRoomLayer",
-      "mode": "post",
-      "target": "Recompiled.LevelEventHooks.PostLoadRoomLayer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetRoomForegroundLayer",
-      "mode": "pre",
-      "target": "Recompiled.LevelEventHooks.PreForegroundLayer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetRoomForegroundLayer",
-      "mode": "post",
-      "target": "Recompiled.LevelEventHooks.PostForegroundLayer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetRoomBackgroundLayer",
-      "mode": "pre",
-      "target": "Recompiled.LevelEventHooks.PreBackgroundLayer"
-    },
-    {
-      "overlay": "dra",
-      "function": "SetRoomBackgroundLayer",
-      "mode": "post",
-      "target": "Recompiled.LevelEventHooks.PostBackgroundLayer"
-    },
-    {
-      "overlay": "dra",
-      "function": "HandleGameOver",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.PostHandleGameOver"
-    },
-    {
-      "overlay": "dra",
-      "function": "DrawHud",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.PostDrawHud"
-    },
-    {
-      "overlay": "dra",
-      "function": "DrawHudSubweapon",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.PostDrawHudSubweapon"
-    },
-    {
-      "overlay": "dra",
-      "function": "DrawRichterHud",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.PostDrawRichterHud"
-    },
-    {
-      "overlay": "dra",
-      "function": "DrawRichterHudSubweapon",
-      "mode": "post",
-      "target": "Recompiled.WidescreenPatch.PostDrawRichterHudSubweapon"
-    },
-    {
-      "overlay": "dra",
-      "function": "CheckStageCollision",
-      "mode": "pre",
-      "target": "Recompiled.MovementCheat.PrePhysics"
-    },
-    {
-      "overlay": "ric",
-      "function": "CheckStageCollision",
-      "mode": "pre",
-      "target": "Recompiled.MovementCheat.PrePhysics"
-    },
-    {
-      "overlay": "dra",
-      "function": "func_800F0CD8",
-      "mode": "pre",
-      "target": "Recompiled.MovementCheat.PreCamera"
-    },
-    {
-      "overlay": "dra",
-      "function": "CheckStageCollision",
-      "mode": "post",
-      "target": "Recompiled.MovementCheat.PostPhysics"
-    },
-    {
-      "overlay": "ric",
-      "function": "CheckStageCollision",
-      "mode": "post",
-      "target": "Recompiled.MovementCheat.PostPhysics"
-    },
-    {
-      "comment": "Start of Randomizer Compatibility Entries.",
-      "overlay": "sel",
-      "function": "MainMenuFadeIn",
-      "mode": "post",
-      "target": "Recompiled.RandoPatch.DetectPreset"
-    },
-    {
-      "comment": "JP Familiar Cards in Menu 1 of 2",
-      "overlay": "dra",
-      "function": "DrawRelicsMenu",
-      "target": "Recompiled.RandoPatch.DrawRelicsMenu"
-    },
-    {
-      "comment": "JP Familiar Cards in Menu 2 of 2",
-      "overlay": "dra",
-      "function": "MenuHandle",
-      "target": "Recompiled.RandoPatch.MenuHandle"
-    },
-    {
-      "comment": "For presets that change Transformation MP costs.",
-      "overlay": "dra",
-      "function": "HandleTransformationMP",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.PreHandleTransformationMP"
-    },
-    {
-      "comment": "For handling new starting gear and starting relics.",
-      "overlay": "dra",
-      "function": "InitStatsAndGear",
-      "target": "Recompiled.RandoPatch.InitStatsAndGear"
-    },
-    {
-      "comment": "Darkwing Bat post-death Relic.",
-      "overlay": "rnz1",
-      "function": "func_801AC7CC",
-      "target": "Recompiled.RandoPatch.func_801AC7CC_rnz1"
-    },
-    {
-      "comment": "Darkwing Bat Relic spawn in.",
-      "overlay": "rnz1",
-      "function": "func_801BE578",
-      "target": "Recompiled.RandoPatch.func_801BE578"
-    },
-    {
-      "comment": "Heart of Vlad Boss Room Controller",
-      "overlay": "rbo3",
-      "function": "func_us_80192B38",
-      "target": "Recompiled.RandoPatch.func_us_80192B38"
-    },
-    {
-      "comment": "Tooth of Vlad Boss Room Controller",
-      "overlay": "rbo4",
-      "function": "func_8019879C",
-      "target": "Recompiled.RandoPatch.func_8019879C"
-    },
-    {
-      "comment": "Rib of Vlad Boss Room Controller",
-      "overlay": "rbo7",
-      "function": "func_80193E88",
-      "target": "Recompiled.RandoPatch.func_80193E88"
-    },
-    {
-      "comment": "Eye of Vlad Boss Room Controller",
-      "overlay": "rbo2",
-      "function": "func_8019F4AC",
-      "target": "Recompiled.RandoPatch.func_8019F4AC"
-    },
-    {
-      "comment": "Holy Glasses Item event.",
-      "overlay": "cen",
-      "function": "EntityPlatform",
-      "target": "Recompiled.RandoPatch.EntityPlatform"
-    },
-    {
-      "comment": "Jewel of Open Purchase Limit",
-      "overlay": "lib",
-      "function": "func_us_801B29C4",
-      "target": "Recompiled.RandoPatch.func_us_801B29C4"
-    },
-    {
-      "comment": "Gold Ring drop entity.",
-      "overlay": "no4",
-      "function": "func_us_801C8248",
-      "target": "Recompiled.RandoPatch.func_us_801C8248"
-    },
-    {
-      "comment": "Pot roast drop from Block.",
-      "overlay": "no3",
-      "function": "EntityMermanRockLeftSide",
-      "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_no3"
-    },
-    {
-      "comment": "Pot roast drop from Block.",
-      "overlay": "np3",
-      "function": "EntityMermanRockLeftSide",
-      "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_np3"
-    },
-    {
-      "comment": "Turkey drop from Block.",
-      "overlay": "no3",
-      "function": "EntityStairwayPiece",
-      "target": "Recompiled.RandoPatch.EntityStairwayPiece_no3"
-    },
-    {
-      "comment": "Turkey drop from Block.",
-      "overlay": "np3",
-      "function": "EntityStairwayPiece",
-      "target": "Recompiled.RandoPatch.EntityStairwayPiece_np3"
-    },
-    {
-      "comment": "Bone Scimitar Fixed Drops",
-      "overlay": "no3",
-      "function": "EntityBoneScimitar",
-      "target": "Recompiled.RandoPatch.EntityBoneScimitar_no3"
-    },
-    {
-      "comment": "Trio Relic Drop",
-      "overlay": "rbo0",
-      "function": "RBO0_EntityBoss",
-      "target": "Recompiled.RandoPatch.RBO0_EntityBoss"
-    },
-    {
-      "comment": "AntiFreeze Support",
-      "overlay": "dra",
-      "function": "EntityLevelUpAnimation",
-      "mode": "post",
-      "target": "Recompiled.RandoPatch.AntiFreeze"
-    },
-    {
-      "comment": "Fast Warps Support",
-      "overlay": "wrp",
-      "function": "EntityWarpRoom",
-      "mode": "post",
-      "target": "Recompiled.RandoPatch.FastWarps"
-    },
-    {
-      "comment": "Fast Warps Support",
-      "overlay": "rwrp",
-      "function": "EntityRWarpRoom",
-      "mode": "post",
-      "target": "Recompiled.RandoPatch.FastWarps"
-    },
-    {
-      "comment": "Clock Statue Always Open",
-      "overlay": "no0",
-      "function": "EntityClockRoomController",
-      "target": "Recompiled.RandoPatch.EntityClockRoomController_no0"
-    },
-    {
-      "comment": "Clock Statue Always Open",
-      "overlay": "rno0",
-      "function": "func_801C0E1C",
-      "target": "Recompiled.RandoPatch.func_801C0E1C"
-    },
-    {
-      "comment": "Free Gravity Boots for NimbleLite!",
-      "overlay": "dra",
-      "function": "HandleGravityBootsMP",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
-    },
-    {
-      "comment": "Bounty Hunter Relic Drops",
-      "overlay": "dra",
-      "function": "func_800FF494",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.func_800FF494"
-    },
-    {
-      "comment": "Reverse LBC 1 of 3",
-      "overlay": "dra",
-      "function": "func_8010E42C",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_8010E42C_Pre"
-    },
-    {
-      "comment": "Reverse LBC 2 of 3",
-      "overlay": "dra",
-      "function": "func_800F16D0",
-      "mode": "post",
-      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F16D0_Post"
-    },
-    {
-      "comment": "Reverse LBC 3 of 3",
-      "overlay": "dra",
-      "function": "func_800F223C",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
-    },
-    {
-      "comment": "Target Confirmed Active",
-      "overlay": "dra",
-      "function": "EntityAlucard",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.TargetConfirmedActive"
-    },
-    {
-      "comment": "Death Cutscene Removal",
-      "overlay": "no3",
-      "function": "NO3_EntityCutscene",
-      "mode": "pre",
-      "target": "Recompiled.RandoPatch.NO3_EntityCutscene_Pre"
-    },
-    {
-      "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
-      "overlay": "dra",
-      "function": "func_800F16D0",
-      "mode": "pre",
-      "target": "Recompiled.Randomizer.ApplyInternalRandomizer"
-    },
-    {
-      "overlay": "dra",
-      "function": "RenderEntities",
-      "mode": "pre",
-      "target": "Recompiled.QualityOfLife.Apply"
-    },
-    {
-      "overlay": "dra",
-      "function": "CheckSoulStealInput",
-      "mode": "pre",
-      "target": "Recompiled.QualityOfLife.EasySpellInput"
-    },
-    {
-      "overlay": "dra",
-      "function": "CheckWingSmashInput",
-      "mode": "pre",
-      "target": "Recompiled.QualityOfLife.EasyWingInput"
-    },
-    {
-      "overlay": "dra",
-      "function": "CheckGravityBootsInput",
-      "mode": "pre",
-      "target": "Recompiled.QualityOfLife.EasyGravInput"
-    },
-    {
-      "overlay": "dra",
-      "function": "func_8010E168",
-      "mode": "pre",
-      "target": "Recompiled.QualityOfLife.EasyIFrames"
-    },
-    {
-      "overlay": "bo3",
-      "function": "func_801A1BE8",
-      "mode": "pre",
-      "target": "Recompiled.FunctionFixes.ScyllaDoorFix"
-    },
-    {
-      "overlay": "bo0",
-      "function": "func_801B551C",
-      "mode": "pre",
-      "target": "Recompiled.FunctionFixes.OlroxExploFix"
-    },
-    {
-      "overlay": "nz1",
-      "function": "EntitySecretAreaDoor",
-      "mode": "pre",
-      "target": "Recompiled.FunctionFixes.ClockCollisionFix"
-    },
-    {
-      "overlay": "dra",
-      "function": "func_80118C28",
-      "mode": "pre",
-      "target": "Recompiled.QualityOfLife.RemoveFlashes"
-    }
-  ]
+    "game": {
+        "id": "SLUS-00067",
+        "name": "SoTN",
+        "output": "../generated"
+    },
+    "cue": "../disc/Castlevania - Symphony of the Night (USA).cue",
+    "funcMap": "funcmaps/main.json",
+    "debug": false,
+    "addressComments": true,
+    "disasmComments": true,
+    "functions": [],
+    "overlays": [
+        {
+            "name": "dra",
+            "file": "DRA.BIN",
+            "funcMap": "funcmaps/dra.json",
+            "base": "0x800A0000"
+        },
+        {
+            "name": "ric",
+            "file": "BIN/RIC.BIN",
+            "funcMap": "funcmaps/ric.json",
+            "base": "0x8013C000"
+        },
+        {
+            "name": "cen",
+            "file": "ST/CEN/CEN.BIN",
+            "funcMap": "funcmaps/stcen.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "chi",
+            "file": "ST/CHI/CHI.BIN",
+            "funcMap": "funcmaps/stchi.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "dai",
+            "file": "ST/DAI/DAI.BIN",
+            "funcMap": "funcmaps/stdai.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "wrp",
+            "file": "ST/WRP/WRP.BIN",
+            "funcMap": "funcmaps/stwrp.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "top",
+            "file": "ST/TOP/TOP.BIN",
+            "funcMap": "funcmaps/sttop.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "cat",
+            "file": "ST/CAT/CAT.BIN",
+            "funcMap": "funcmaps/stcat.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "nz0",
+            "file": "ST/NZ0/NZ0.BIN",
+            "funcMap": "funcmaps/stnz0.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "nz1",
+            "file": "ST/NZ1/NZ1.BIN",
+            "funcMap": "funcmaps/stnz1.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "np3",
+            "file": "ST/NP3/NP3.BIN",
+            "funcMap": "funcmaps/stnp3.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "lib",
+            "file": "ST/LIB/LIB.BIN",
+            "funcMap": "funcmaps/stlib.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "mad",
+            "file": "ST/MAD/MAD.BIN",
+            "funcMap": "funcmaps/stmad.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "are",
+            "file": "ST/ARE/ARE.BIN",
+            "funcMap": "funcmaps/stare.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "dre",
+            "file": "ST/DRE/DRE.BIN",
+            "funcMap": "funcmaps/stdre.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rare",
+            "file": "ST/RARE/RARE.BIN",
+            "funcMap": "funcmaps/strare.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rcat",
+            "file": "ST/RCAT/RCAT.BIN",
+            "funcMap": "funcmaps/strcat.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rwrp",
+            "file": "ST/RWRP/RWRP.BIN",
+            "funcMap": "funcmaps/strwrp.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rtop",
+            "file": "ST/RTOP/RTOP.BIN",
+            "funcMap": "funcmaps/strtop.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "sel",
+            "file": "ST/SEL/SEL.BIN",
+            "funcMap": "funcmaps/stsel.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "bo4",
+            "file": "BOSS/BO4/BO4.BIN",
+            "funcMap": "funcmaps/bobo4.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "bo6",
+            "file": "BOSS/BO6/BO6.BIN",
+            "funcMap": "funcmaps/bobo6.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "mar",
+            "file": "BOSS/MAR/MAR.BIN",
+            "funcMap": "funcmaps/bomar.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rbo0",
+            "file": "BOSS/RBO0/RBO0.BIN",
+            "funcMap": "funcmaps/borbo0.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rbo3",
+            "file": "BOSS/RBO3/RBO3.BIN",
+            "funcMap": "funcmaps/borbo3.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rbo5",
+            "file": "BOSS/RBO5/RBO5.BIN",
+            "funcMap": "funcmaps/borbo5.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "st0",
+            "file": "ST/ST0/ST0.BIN",
+            "funcMap": "funcmaps/stst0.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "no0",
+            "file": "ST/NO0/NO0.BIN",
+            "funcMap": "funcmaps/stno0.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "no1",
+            "file": "ST/NO1/NO1.BIN",
+            "funcMap": "funcmaps/stno1.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "no2",
+            "file": "ST/NO2/NO2.BIN",
+            "funcMap": "funcmaps/stno2.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "no3",
+            "file": "ST/NO3/NO3.BIN",
+            "funcMap": "funcmaps/stno3.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "no4",
+            "file": "ST/NO4/NO4.BIN",
+            "funcMap": "funcmaps/stno4.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rnz0",
+            "file": "ST/RNZ0/RNZ0.BIN",
+            "funcMap": "funcmaps/strnz0.json",
+            "base": "0x80180000"
+        },
+        {
+            "name": "rcen",
+            "file": "ST/RCEN/RCEN.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rchi",
+            "file": "ST/RCHI/RCHI.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rdai",
+            "file": "ST/RDAI/RDAI.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rlib",
+            "file": "ST/RLIB/RLIB.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rno0",
+            "file": "ST/RNO0/RNO0.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rno1",
+            "file": "ST/RNO1/RNO1.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rno2",
+            "file": "ST/RNO2/RNO2.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rno3",
+            "file": "ST/RNO3/RNO3.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rno4",
+            "file": "ST/RNO4/RNO4.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rnz1",
+            "file": "ST/RNZ1/RNZ1.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "te1",
+            "file": "ST/TE1/TE1.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "te2",
+            "file": "ST/TE2/TE2.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "te3",
+            "file": "ST/TE3/TE3.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "te4",
+            "file": "ST/TE4/TE4.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "te5",
+            "file": "ST/TE5/TE5.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "bo0",
+            "file": "BOSS/BO0/BO0.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "bo1",
+            "file": "BOSS/BO1/BO1.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "bo2",
+            "file": "BOSS/BO2/BO2.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "bo3",
+            "file": "BOSS/BO3/BO3.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "bo5",
+            "file": "BOSS/BO5/BO5.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "bo7",
+            "file": "BOSS/BO7/BO7.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rbo1",
+            "file": "BOSS/RBO1/RBO1.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rbo2",
+            "file": "BOSS/RBO2/RBO2.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rbo4",
+            "file": "BOSS/RBO4/RBO4.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rbo6",
+            "file": "BOSS/RBO6/RBO6.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rbo7",
+            "file": "BOSS/RBO7/RBO7.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "rbo8",
+            "file": "BOSS/RBO8/RBO8.BIN",
+            "base": "0x80180000",
+            "linearSweep": true
+        },
+        {
+            "name": "tt_000",
+            "file": "SERVANT/TT_000.BIN",
+            "funcMap": "funcmaps/tt_000.json",
+            "base": "0x80170000"
+        },
+        {
+            "name": "tt_001",
+            "file": "SERVANT/TT_001.BIN",
+            "funcMap": "funcmaps/tt_001.json",
+            "base": "0x80170000"
+        },
+        {
+            "name": "tt_002",
+            "file": "SERVANT/TT_002.BIN",
+            "funcMap": "funcmaps/tt_002.json",
+            "base": "0x80170000"
+        },
+        {
+            "name": "tt_003",
+            "file": "SERVANT/TT_003.BIN",
+            "funcMap": "funcmaps/tt_003.json",
+            "base": "0x80170000"
+        },
+        {
+            "name": "tt_004",
+            "file": "SERVANT/TT_004.BIN",
+            "funcMap": "funcmaps/tt_004.json",
+            "base": "0x80170000"
+        },
+        {
+            "name": "tt_005",
+            "file": "SERVANT/TT_005.BIN",
+            "base": "0x80170000",
+            "linearSweep": true
+        },
+        {
+            "name": "tt_006",
+            "file": "SERVANT/TT_006.BIN",
+            "base": "0x80170000",
+            "linearSweep": true
+        },
+        {
+            "name": "w0_000",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 0,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_000.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_001",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 28672,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_001.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_002",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 57344,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_002.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_003",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 86016,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_003.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_004",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 114688,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_004.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_005",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 143360,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_005.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_006",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 172032,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_006.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_007",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 200704,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_007.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_008",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 229376,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_008.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_009",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 258048,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_009.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_010",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 286720,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_010.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_011",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 315392,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_011.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_012",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 344064,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_012.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_013",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 372736,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_013.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_014",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 401408,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_014.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_015",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 430080,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_015.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_016",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 458752,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_016.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_017",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 487424,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_017.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_018",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 516096,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_018.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_019",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 544768,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_019.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_020",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 573440,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_020.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_021",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 602112,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_021.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_022",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 630784,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_022.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_023",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 659456,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_023.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_024",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 688128,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_024.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_025",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 716800,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_025.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_026",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 745472,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_026.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_027",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 774144,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_027.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_028",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 802816,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_028.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_029",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 831488,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_029.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_030",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 860160,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_030.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_031",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 888832,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_031.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_032",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 917504,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_032.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_033",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 946176,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_033.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_034",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 974848,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_034.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_035",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1003520,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_035.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_036",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1032192,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_036.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_037",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1060864,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_037.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_038",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1089536,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_038.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_039",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1118208,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_039.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_040",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1146880,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_040.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_041",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1175552,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_041.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_042",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1204224,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_042.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_043",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1232896,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_043.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_044",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1261568,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_044.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_045",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1290240,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_045.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_046",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1318912,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_046.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_047",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1347584,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_047.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_048",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1376256,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_048.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_049",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1404928,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_049.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_050",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1433600,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_050.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_051",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1462272,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_051.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_052",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1490944,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_052.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_053",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1519616,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_053.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_054",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1548288,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_054.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_055",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1576960,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_055.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_056",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1605632,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_056.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_057",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1634304,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_057.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w0_058",
+            "file": "BIN/WEAPON0.BIN",
+            "offset": 1662976,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_058.json",
+            "base": "0x8017A000"
+        },
+        {
+            "name": "w1_000",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 0,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_000.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_001",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 28672,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_001.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_002",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 57344,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_002.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_003",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 86016,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_003.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_004",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 114688,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_004.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_005",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 143360,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_005.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_006",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 172032,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_006.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_007",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 200704,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_007.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_008",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 229376,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_008.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_009",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 258048,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_009.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_010",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 286720,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_010.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_011",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 315392,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_011.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_012",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 344064,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_012.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_013",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 372736,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_013.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_014",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 401408,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_014.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_015",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 430080,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_015.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_016",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 458752,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_016.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_017",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 487424,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_017.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_018",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 516096,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_018.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_019",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 544768,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_019.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_020",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 573440,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_020.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_021",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 602112,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_021.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_022",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 630784,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_022.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_023",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 659456,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_023.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_024",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 688128,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_024.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_025",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 716800,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_025.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_026",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 745472,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_026.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_027",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 774144,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_027.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_028",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 802816,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_028.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_029",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 831488,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_029.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_030",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 860160,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_030.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_031",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 888832,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_031.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_032",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 917504,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_032.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_033",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 946176,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_033.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_034",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 974848,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_034.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_035",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1003520,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_035.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_036",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1032192,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_036.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_037",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1060864,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_037.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_038",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1089536,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_038.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_039",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1118208,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_039.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_040",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1146880,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_040.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_041",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1175552,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_041.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_042",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1204224,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_042.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_043",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1232896,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_043.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_044",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1261568,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_044.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_045",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1290240,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_045.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_046",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1318912,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_046.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_047",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1347584,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_047.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_048",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1376256,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_048.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_049",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1404928,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_049.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_050",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1433600,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_050.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_051",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1462272,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_051.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_052",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1490944,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_052.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_053",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1519616,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_053.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_054",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1548288,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_054.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_055",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1576960,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_055.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_056",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1605632,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_056.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_057",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1634304,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_057.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        },
+        {
+            "name": "w1_058",
+            "file": "BIN/WEAPON1.BIN",
+            "offset": 1662976,
+            "skip": 16384,
+            "size": 12288,
+            "funcMap": "funcmaps/w0_058.json",
+            "base": "0x8017A000",
+            "rebase": 12288
+        }
+    ],
+    "stubs": [],
+    "ignored": [],
+    "patches": [
+        {
+            "overlay": "dra",
+            "function": "SetStageDisplayBuffer",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetMenuDisplayBuffer",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreMenuDisplayBuffer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetCgiDisplayBuffer",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreCgiDisplayBuffer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetTitleDisplayBuffer",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
+        },
+        {
+            "overlay": "sel",
+            "function": "func_801B19F4",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
+        },
+        {
+            "overlay": "sel",
+            "function": "SetTitleDisplayBuffer",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
+        },
+        {
+            "overlay": "sel",
+            "function": "SetTitleDisplayBuffer256",
+            "mode": "pre",
+            "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
+        },
+        {
+            "overlay": "dra",
+            "function": "func_800E34DC",
+            "target": "Recompiled.WidescreenPatch.ConfigStageClip"
+        },
+        {
+            "overlay": "dra",
+            "function": "RenderTilemap",
+            "target": "Recompiled.WidescreenPatch.RenderTilemapWide"
+        },
+        {
+            "overlay": "sel",
+            "function": "func_801B195C",
+            "target": "Recompiled.WidescreenPatch.ConfigStageClip"
+        },
+        {
+            "overlay": "sel",
+            "function": "SetTitleDisplayBuffer",
+            "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer"
+        },
+        {
+            "overlay": "sel",
+            "function": "SetTitleDisplayBuffer256",
+            "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer256"
+        },
+        {
+            "overlay": "dra",
+            "function": "InitFade",
+            "target": "Recompiled.WidescreenPatch.InitFade"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetFadeWidth",
+            "target": "Recompiled.WidescreenPatch.SetFadeWidth"
+        },
+        {
+            "overlay": "st0",
+            "function": "EntityBackgroundVortex",
+            "target": "Recompiled.WidescreenPatch.VortexWide"
+        },
+        {
+            "overlay": "st0",
+            "function": "EntityClouds",
+            "target": "Recompiled.WidescreenPatch.CloudsWide"
+        },
+        {
+            "overlay": "st0",
+            "function": "EntityStageTitleFadeout",
+            "target": "Recompiled.WidescreenPatch.TitleFadeoutWide"
+        },
+        {
+            "overlay": "no3",
+            "function": "EntityTransparentWater",
+            "target": "Recompiled.WidescreenPatch.TransparentWaterWide_no3"
+        },
+        {
+            "overlay": "np3",
+            "function": "EntityTransparentWater",
+            "target": "Recompiled.WidescreenPatch.TransparentWaterWide_np3"
+        },
+        {
+            "overlay": "no4",
+            "function": "func_us_801C12B0",
+            "target": "Recompiled.WidescreenPatch.WaterSurface801C12B0Wide_no4"
+        },
+        {
+            "overlay": "cat",
+            "function": "EntityLavaGlow",
+            "target": "Recompiled.WidescreenPatch.LavaGlowWide_cat"
+        },
+        {
+            "overlay": "dra",
+            "function": "func_800F0CD8",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.PostCamCol"
+        },
+        {
+            "overlay": "st0",
+            "function": "func_801AA218",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.MarkCameraPan"
+        },
+        {
+            "overlay": "dra",
+            "function": "LoadRoomLayer",
+            "mode": "pre",
+            "target": "Recompiled.LevelEventHooks.PreLoadRoomLayer"
+        },
+        {
+            "overlay": "dra",
+            "function": "LoadRoomLayer",
+            "mode": "post",
+            "target": "Recompiled.LevelEventHooks.PostLoadRoomLayer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetRoomForegroundLayer",
+            "mode": "pre",
+            "target": "Recompiled.LevelEventHooks.PreForegroundLayer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetRoomForegroundLayer",
+            "mode": "post",
+            "target": "Recompiled.LevelEventHooks.PostForegroundLayer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetRoomBackgroundLayer",
+            "mode": "pre",
+            "target": "Recompiled.LevelEventHooks.PreBackgroundLayer"
+        },
+        {
+            "overlay": "dra",
+            "function": "SetRoomBackgroundLayer",
+            "mode": "post",
+            "target": "Recompiled.LevelEventHooks.PostBackgroundLayer"
+        },
+        {
+            "overlay": "dra",
+            "function": "HandleGameOver",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.PostHandleGameOver"
+        },
+        {
+            "overlay": "dra",
+            "function": "DrawHud",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.PostDrawHud"
+        },
+        {
+            "overlay": "dra",
+            "function": "DrawHudSubweapon",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.PostDrawHudSubweapon"
+        },
+        {
+            "overlay": "dra",
+            "function": "DrawRichterHud",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.PostDrawRichterHud"
+        },
+        {
+            "overlay": "dra",
+            "function": "DrawRichterHudSubweapon",
+            "mode": "post",
+            "target": "Recompiled.WidescreenPatch.PostDrawRichterHudSubweapon"
+        },
+        {
+            "overlay": "dra",
+            "function": "CheckStageCollision",
+            "mode": "pre",
+            "target": "Recompiled.MovementCheat.PrePhysics"
+        },
+        {
+            "overlay": "ric",
+            "function": "CheckStageCollision",
+            "mode": "pre",
+            "target": "Recompiled.MovementCheat.PrePhysics"
+        },
+        {
+            "overlay": "dra",
+            "function": "func_800F0CD8",
+            "mode": "pre",
+            "target": "Recompiled.MovementCheat.PreCamera"
+        },
+        {
+            "overlay": "dra",
+            "function": "CheckStageCollision",
+            "mode": "post",
+            "target": "Recompiled.MovementCheat.PostPhysics"
+        },
+        {
+            "overlay": "ric",
+            "function": "CheckStageCollision",
+            "mode": "post",
+            "target": "Recompiled.MovementCheat.PostPhysics"
+        },
+        {
+            "comment": "Start of Randomizer Compatibility Entries.",
+            "overlay": "sel",
+            "function": "MainMenuFadeIn",
+            "mode": "post",
+            "target": "Recompiled.RandoPatch.DetectPreset"
+        },
+        {
+            "comment": "JP Familiar Cards in Menu 1 of 2",
+            "overlay": "dra",
+            "function": "DrawRelicsMenu",
+            "target": "Recompiled.RandoPatch.DrawRelicsMenu"
+        },
+        {
+            "comment": "JP Familiar Cards in Menu 2 of 2",
+            "overlay": "dra",
+            "function": "MenuHandle",
+            "target": "Recompiled.RandoPatch.MenuHandle"
+        },
+        {
+            "comment": "For presets that change Transformation MP costs.",
+            "overlay": "dra",
+            "function": "HandleTransformationMP",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.PreHandleTransformationMP"
+        },
+        {
+            "comment": "For handling new starting gear and starting relics.",
+            "overlay": "dra",
+            "function": "InitStatsAndGear",
+            "target": "Recompiled.RandoPatch.InitStatsAndGear"
+        },
+        {
+            "comment": "Darkwing Bat post-death Relic.",
+            "overlay": "rnz1",
+            "function": "func_801AC7CC",
+            "target": "Recompiled.RandoPatch.func_801AC7CC_rnz1"
+        },
+        {
+            "comment": "Darkwing Bat Relic spawn in.",
+            "overlay": "rnz1",
+            "function": "func_801BE578",
+            "target": "Recompiled.RandoPatch.func_801BE578"
+        },
+        {
+            "comment": "Heart of Vlad Boss Room Controller",
+            "overlay": "rbo3",
+            "function": "func_us_80192B38",
+            "target": "Recompiled.RandoPatch.func_us_80192B38"
+        },
+        {
+            "comment": "Tooth of Vlad Boss Room Controller",
+            "overlay": "rbo4",
+            "function": "func_8019879C",
+            "target": "Recompiled.RandoPatch.func_8019879C"
+        },
+        {
+            "comment": "Rib of Vlad Boss Room Controller",
+            "overlay": "rbo7",
+            "function": "func_80193E88",
+            "target": "Recompiled.RandoPatch.func_80193E88"
+        },
+        {
+            "comment": "Eye of Vlad Boss Room Controller",
+            "overlay": "rbo2",
+            "function": "func_8019F4AC",
+            "target": "Recompiled.RandoPatch.func_8019F4AC"
+        },
+        {
+            "comment": "Holy Glasses Item event.",
+            "overlay": "cen",
+            "function": "EntityPlatform",
+            "target": "Recompiled.RandoPatch.EntityPlatform"
+        },
+        {
+            "comment": "Jewel of Open Purchase Limit",
+            "overlay": "lib",
+            "function": "func_us_801B29C4",
+            "target": "Recompiled.RandoPatch.func_us_801B29C4"
+        },
+        {
+            "comment": "Gold Ring drop entity.",
+            "overlay": "no4",
+            "function": "func_us_801C8248",
+            "target": "Recompiled.RandoPatch.func_us_801C8248"
+        },
+        {
+            "comment": "Pot roast drop from Block.",
+            "overlay": "no3",
+            "function": "EntityMermanRockLeftSide",
+            "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_no3"
+        },
+        {
+            "comment": "Pot roast drop from Block.",
+            "overlay": "np3",
+            "function": "EntityMermanRockLeftSide",
+            "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_np3"
+        },
+        {
+            "comment": "Turkey drop from Block.",
+            "overlay": "no3",
+            "function": "EntityStairwayPiece",
+            "target": "Recompiled.RandoPatch.EntityStairwayPiece_no3"
+        },
+        {
+            "comment": "Turkey drop from Block.",
+            "overlay": "np3",
+            "function": "EntityStairwayPiece",
+            "target": "Recompiled.RandoPatch.EntityStairwayPiece_np3"
+        },
+        {
+            "comment": "Bone Scimitar Fixed Drops",
+            "overlay": "no3",
+            "function": "EntityBoneScimitar",
+            "target": "Recompiled.RandoPatch.EntityBoneScimitar_no3"
+        },
+        {
+            "comment": "Trio Relic Drop",
+            "overlay": "rbo0",
+            "function": "RBO0_EntityBoss",
+            "target": "Recompiled.RandoPatch.RBO0_EntityBoss"
+        },
+        {
+            "comment": "AntiFreeze Support",
+            "overlay": "dra",
+            "function": "EntityLevelUpAnimation",
+            "mode": "post",
+            "target": "Recompiled.RandoPatch.AntiFreeze"
+        },
+        {
+            "comment": "Fast Warps Support",
+            "overlay": "wrp",
+            "function": "EntityWarpRoom",
+            "mode": "post",
+            "target": "Recompiled.RandoPatch.FastWarps"
+        },
+        {
+            "comment": "Fast Warps Support",
+            "overlay": "rwrp",
+            "function": "EntityRWarpRoom",
+            "mode": "post",
+            "target": "Recompiled.RandoPatch.FastWarps"
+        },
+        {
+            "comment": "Clock Statue Always Open",
+            "overlay": "no0",
+            "function": "EntityClockRoomController",
+            "target": "Recompiled.RandoPatch.EntityClockRoomController_no0"
+        },
+        {
+            "comment": "Clock Statue Always Open",
+            "overlay": "rno0",
+            "function": "func_801C0E1C",
+            "target": "Recompiled.RandoPatch.func_801C0E1C"
+        },
+        {
+            "comment": "Free Gravity Boots for NimbleLite!",
+            "overlay": "dra",
+            "function": "HandleGravityBootsMP",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
+        },
+        {
+            "comment": "Bounty Hunter Relic Drops",
+            "overlay": "dra",
+            "function": "func_800FF494",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.func_800FF494"
+        },
+        {
+            "comment": "Reverse LBC 1 of 3",
+            "overlay": "dra",
+            "function": "func_8010E42C",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_8010E42C_Pre"
+        },
+        {
+            "comment": "Reverse LBC 2 of 3",
+            "overlay": "dra",
+            "function": "func_800F16D0",
+            "mode": "post",
+            "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F16D0_Post"
+        },
+        {
+            "comment": "Reverse LBC 3 of 3",
+            "overlay": "dra",
+            "function": "func_800F223C",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
+        },
+        {
+            "comment": "Target Confirmed Active",
+            "overlay": "dra",
+            "function": "EntityAlucard",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.TargetConfirmedActive"
+        },
+        {
+            "comment": "Death Cutscene Removal",
+            "overlay": "no3",
+            "function": "NO3_EntityCutscene",
+            "mode": "pre",
+            "target": "Recompiled.RandoPatch.NO3_EntityCutscene_Pre"
+        },
+        {
+            "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
+            "overlay": "dra",
+            "function": "func_800F16D0",
+            "mode": "pre",
+            "target": "Recompiled.Randomizer.ApplyInternalRandomizer"
+        },
+        {
+            "overlay": "dra",
+            "function": "RenderEntities",
+            "mode": "pre",
+            "target": "Recompiled.QualityOfLife.Apply"
+        },
+        {
+            "overlay": "dra",
+            "function": "CheckSoulStealInput",
+            "mode": "pre",
+            "target": "Recompiled.QualityOfLife.EasySpellInput"
+        },
+        {
+            "overlay": "dra",
+            "function": "CheckWingSmashInput",
+            "mode": "pre",
+            "target": "Recompiled.QualityOfLife.EasyWingInput"
+        },
+        {
+            "overlay": "dra",
+            "function": "CheckGravityBootsInput",
+            "mode": "pre",
+            "target": "Recompiled.QualityOfLife.EasyGravInput"
+        },
+        {
+            "overlay": "dra",
+            "function": "func_8010E168",
+            "mode": "pre",
+            "target": "Recompiled.QualityOfLife.EasyIFrames"
+        },
+        {
+            "overlay": "bo3",
+            "function": "func_801A1BE8",
+            "mode": "pre",
+            "target": "Recompiled.FunctionFixes.ScyllaDoorFix"
+        },
+        {
+            "overlay": "bo0",
+            "function": "func_801B551C",
+            "mode": "pre",
+            "target": "Recompiled.FunctionFixes.OlroxExploFix"
+        },
+        {
+            "overlay": "nz1",
+            "function": "EntitySecretAreaDoor",
+            "mode": "pre",
+            "target": "Recompiled.FunctionFixes.ClockCollisionFix"
+        },
+        {
+            "overlay": "dra",
+            "function": "func_80118C28",
+            "mode": "pre",
+            "target": "Recompiled.QualityOfLife.RemoveFlashes"
+        }
+    ]
 }
