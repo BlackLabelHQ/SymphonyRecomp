@@ -10,4 +10,4 @@ interface.ini
 .vs/
 debug_dump/
 disc/
-mods/
+mods/.cache
