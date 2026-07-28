@@ -8,7 +8,7 @@ public static class QualityOfLifeMenu
     public static void Register()
     {
         PanelManager.Register(new QualityOfLifePanel());
-        MenuRegistry.Register("Quality Of Life", DrawItems);
+        MenuRegistry.Register("Quality Of Life", DrawItems, "Misc");
     }
 
     static void DrawItems()
