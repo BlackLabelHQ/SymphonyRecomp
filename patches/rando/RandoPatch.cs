@@ -16,12 +16,15 @@ using SixLabors.ImageSharp;
 
 namespace Recompiled;
 
-public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, Unknown, Integrated }
+public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, Unknown, Integrated }
 
 public static partial class RandoPatch
 {
     static bool _initialized;
     static byte LastPresetStringLength = 0;
+
+    const UInt32 PresetMemoryOffset = 0x8000C000;   // 1 byte
+    const UInt32 RLBCMemoryOffset = 0x8000C001;     // 1 byte
 
     static void EnsureInitialized()
     {
@@ -51,7 +54,7 @@ public static partial class RandoPatch
 
         if (m.ReadU32(0x801A78B4) == 0x75706E49)     // Detect Original game via the String ( Input "RICHTER" to play )
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.None);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.None);
             return false;
         }
 
@@ -94,7 +97,7 @@ public static partial class RandoPatch
 
     public static bool PreHandleGravityBootsMP(CpuContext c, IMemory m)
     {
-        byte CUR_PRESET = m.ReadU8(0x8000C000);
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
 
         if (CUR_PRESET == (byte)PresetId.NimbleLite)    // Gravity Boots free to use in this preset
         {
@@ -108,7 +111,7 @@ public static partial class RandoPatch
     // Handles various presets discounted transformation MP costs
     public static void PreHandleTransformationMP(CpuContext c, IMemory m)
     {
-        byte CUR_PRESET = m.ReadU8(0x8000C000);
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
         UInt32 g_GameTimer = m.ReadU32(0x8003c8c4);
         UInt32 CUR_MP = m.ReadU32(0x80097BB0);
 
@@ -143,7 +146,7 @@ public static partial class RandoPatch
     {
         byte CUR_PRESET;
 
-        CUR_PRESET = m.ReadU8(0x8000C000);
+        CUR_PRESET = m.ReadU8(PresetMemoryOffset);
 
         if (CUR_PRESET == (byte)PresetId.Lycanthrope)
         {
@@ -162,7 +165,7 @@ public static partial class RandoPatch
             m.WriteU8(0x80097BC0, 0x99);    // 99 INT
             m.WriteU8(0x80097BC4, 0x01);    // 1 LCK
         }
-        if (CUR_PRESET == (byte)PresetId.BountyHunter)
+        if (CUR_PRESET == (byte)PresetId.BountyHunter || CUR_PRESET == (byte)PresetId.TargetConfirmed)
         {
             m.WriteU8(0x80097964 + 0xF, 0x03);
             m.WriteU8(0x80097BC4, 0x63);    // 99 LCK
@@ -182,7 +185,7 @@ public static partial class RandoPatch
     // Detects randomizer preset by reading game memory and sets an identifier in game memory to be used by other functions.
     public static void DetectPreset(CpuContext c, IMemory m)
     {
-        byte CUR_PRESET = m.ReadU8(0x8000C000);
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
 
         if (CUR_PRESET != 0)
             return;
@@ -190,43 +193,48 @@ public static partial class RandoPatch
         // Lycanthrope
         if (PresetNameIs(c, m, "lycanthrope"))
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.Lycanthrope);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Lycanthrope);
         }
         // Nimble
         if (PresetNameIs(c, m, "nimble"))
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.Nimble);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Nimble);
         }
         // Nimble-Lite
         if (PresetNameIs(c, m, "nimble-lite") && LastPresetStringLength > 7)
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.NimbleLite);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.NimbleLite);
         }
         // Warlock
         if (PresetNameIs(c, m, "warlock"))
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.Warlock);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Warlock);
         }
         // Expedition
         if (PresetNameIs(c, m, "expedition"))
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.Expedition);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Expedition);
         }
         // Bounty Hunter
         if (PresetNameIs(c, m, "bounty-hunter"))
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.BountyHunter);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.BountyHunter);
         }
         // Hitman
         if (PresetNameIs(c, m, "hitman"))
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.Hitman);
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Hitman);
+        }
+        // Target Confirmed
+        if (PresetNameIs(c, m, "target-confirmed"))
+        {
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.TargetConfirmed);
         }
 
         // If no Preset matched yet and we don't see vanilla ( Input "RICHTER" to play ) string
-        if (m.ReadU8(0x8000C000) == 0 && m.ReadU32(0x801A78B4) != 0x75706E49)
+        if (m.ReadU8(PresetMemoryOffset) == 0 && m.ReadU32(0x801A78B4) != 0x75706E49)
         {
-            m.WriteU8(0x8000C000, (byte)PresetId.Unknown);      // We do this so we know some unsupported preset is being used. 
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Unknown);      // We do this so we know some unsupported preset is being used. 
         }
     }
 
@@ -6575,7 +6583,7 @@ public static partial class RandoPatch
         }
         c.A0 = 0u | 0x0002u;
         // Added for Integrated to required gold + silver and not gold+gold and silver+silver
-        if (m.ReadU32(0x80097C14) == m.ReadU32(0x80097C18) && m.ReadU8(0x8000C000) == (byte)PresetId.Integrated)
+        if (m.ReadU32(0x80097C14) == m.ReadU32(0x80097C18) && m.ReadU8(PresetMemoryOffset) == (byte)PresetId.Integrated)
         {
             goto L801CD730;
         }
@@ -11097,9 +11105,9 @@ public static partial class RandoPatch
 
     public static bool func_800FF494(CpuContext c, IMemory m)
     {
-        byte CUR_PRESET = m.ReadU8(0x8000C000);
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
 
-        if (CUR_PRESET != (byte)PresetId.BountyHunter && CUR_PRESET != (byte)PresetId.Hitman)
+        if (CUR_PRESET != (byte)PresetId.BountyHunter && CUR_PRESET != (byte)PresetId.Hitman && CUR_PRESET != (byte)PresetId.TargetConfirmed)
             return true;    // Execute original function
 
         Int32 rnd;
@@ -11244,7 +11252,7 @@ public static partial class RandoPatch
     // Attach to func_8010E42C
     public static void ReverseLibraryCard_func_8010E42C_Pre(CpuContext c, IMemory m)
     {
-        byte CUR_PRESET = m.ReadU8(0x8000C000);
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
 
         // Check for the Down Arrow at the end of the Library Card name.
         if (m.ReadU8(0x800DD20C) != 0xE6)
@@ -11256,13 +11264,13 @@ public static partial class RandoPatch
         // Regular Library Card Behavior
         if (SavedRichter == 0 || PlayerInput == 0)
         {
-            m.WriteU8(0x8000C001, 0);
+            m.WriteU8(RLBCMemoryOffset, 0);
             m.WriteU16(0x800A3C98, 0x7C0E);
             return;
         }
 
         // Reverse Library Card
-        m.WriteU8(0x8000C001, 1);
+        m.WriteU8(RLBCMemoryOffset, 1);
         m.WriteU16(0x800A3C98, 0x88BE);
     }
 
@@ -11270,7 +11278,7 @@ public static partial class RandoPatch
     // func_800F16D0 post
     public static void ReverseLibraryCard_func_800F16D0_Post(CpuContext c, IMemory m)
     {
-        if (m.ReadU8(0x80097C98) == 0x06 && m.ReadU8(0x8000C001) == 1)   // RLBC Mode
+        if (m.ReadU8(0x80097C98) == 0x06 && m.ReadU8(RLBCMemoryOffset) == 1)   // RLBC Mode
         {
             if (c.V0 == 0x02)
             {
@@ -11301,6 +11309,41 @@ public static partial class RandoPatch
     {
         if (m.ReadU32(0x801BEFB0) != 0x14400006)
             m.WriteU8(0x8003BE21, 1);
+    }
+
+    // Target Confirmed Active
+    // Hook onto EntityAlucard
+    public static void TargetConfirmedActive(CpuContext c, IMemory m)
+    {
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+
+        if (CUR_PRESET != (byte)PresetId.TargetConfirmed)
+            return;
+
+        UInt32 g_GameTimer = m.ReadU32(0x8003c8c4);
+        UInt32 EnemyDefPtr = 0x800A89F0;
+        UInt16 DropId;
+        UInt32 CardOffset;
+
+        if ((g_GameTimer & 0x3F) == 0)
+        {
+            while(true)
+            {
+                DropId = m.ReadU16(EnemyDefPtr + 0x1A);
+                if(DropId >=0xB6 && DropId < 0xBB)
+                {
+                    CardOffset = 0x8009797A - (UInt32)(DropId - 0xB6);
+
+                    if (m.ReadU8(CardOffset ) > 0 && m.ReadU8(EnemyDefPtr + 0x25) != 0x24)
+                    {
+                        m.WriteU8(EnemyDefPtr + 0x25, 0x24);
+                    }
+                }
+                EnemyDefPtr += 0x28;
+                if (EnemyDefPtr >= 0x800AC708)
+                    break;
+            }
+        }
     }
 
 }

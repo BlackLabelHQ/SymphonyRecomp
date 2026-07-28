@@ -1937,6 +1937,13 @@
       "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
     },
     {
+      "comment": "Target Confirmed Active",
+      "overlay": "dra",
+      "function": "EntityAlucard",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.TargetConfirmedActive"
+    },
+    {
       "comment": "Death Cutscene Removal",
       "overlay": "no3",
       "function": "NO3_EntityCutscene",
