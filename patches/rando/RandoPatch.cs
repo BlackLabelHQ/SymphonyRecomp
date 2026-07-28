@@ -11140,12 +11140,12 @@ public static partial class RandoPatch
         SoTN.rand(c, m);
         rnd -= (Int32)((c.V0 & 0x1F) + (total_lck)) / 20;
 
-        if(RingOfArcanaCount != 0)
+        if (RingOfArcanaCount != 0)
         {
             rnd -= (Int32)rareItemDropRate * (Int32)RingOfArcanaCount;
         }
 
-        if (rnd < rareItemDropRate || (m.ReadU8(0x80097490)&1) == 1)
+        if (rnd < rareItemDropRate || (m.ReadU8(0x80097490) & 1) == 1)
         {
             if (rareItemId >= 0x9D && rareItemId < 0xBB)  // If ItemID for Drop is Oranges to Green Tea
             {
@@ -11206,7 +11206,7 @@ public static partial class RandoPatch
 
         while (true)    // Find Entity Slot to Use.
         {
-            if (m.ReadU16( EntityListBase + (EntitySlot*0xBC) + 0x26) == 0)
+            if (m.ReadU16(EntityListBase + (EntitySlot * 0xBC) + 0x26) == 0)
                 break;
             EntitySlot++;
             if (EntitySlot > 255)
@@ -11254,7 +11254,7 @@ public static partial class RandoPatch
         UInt32 SavedRichter = m.ReadU32(0x8003CA60);
 
         // Regular Library Card Behavior
-        if(SavedRichter == 0 || PlayerInput == 0)
+        if (SavedRichter == 0 || PlayerInput == 0)
         {
             m.WriteU8(0x8000C001, 0);
             m.WriteU16(0x800A3C98, 0x7C0E);
@@ -11262,7 +11262,7 @@ public static partial class RandoPatch
         }
 
         // Reverse Library Card
-        m.WriteU8(0x8000C001,1);
+        m.WriteU8(0x8000C001, 1);
         m.WriteU16(0x800A3C98, 0x88BE);
     }
 
@@ -11276,9 +11276,9 @@ public static partial class RandoPatch
             {
                 c.V0 = 0x22;
             }
-                
+
         }
-        if( m.ReadU8(0x80097C98) == 0x05)   // Teleporting to Keep
+        if (m.ReadU8(0x80097C98) == 0x05)   // Teleporting to Keep
         {
             m.WriteU16(0x800A3C98, 0x7C0E);
         }
@@ -11290,10 +11290,17 @@ public static partial class RandoPatch
     {
         byte StageId = m.ReadU8(0x800974a0);
 
-        if(StageId == 0x22 && m.ReadU8(0x8000C001) == 1)
+        if (StageId == 0x22 && m.ReadU8(0x8000C001) == 1)
         {
             m.WriteU8(0x800974a0, 0x02);
         }
+    }
+
+    // Detect Death Cutscene Removal Patch from sotn.io Rando.
+    public static void NO3_EntityCutscene_Pre(CpuContext c, IMemory m)
+    {
+        if (m.ReadU32(0x801BEFB0) != 0x14400006)
+            m.WriteU8(0x8003BE21, 1);
     }
 
 }
