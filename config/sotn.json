@@ -1537,527 +1537,533 @@
     ],
     "stubs": [],
     "ignored": [],
-    "patches": [
-        {
-            "overlay": "dra",
-            "function": "SetStageDisplayBuffer",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetMenuDisplayBuffer",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreMenuDisplayBuffer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetCgiDisplayBuffer",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreCgiDisplayBuffer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetTitleDisplayBuffer",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
-        },
-        {
-            "overlay": "sel",
-            "function": "func_801B19F4",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
-        },
-        {
-            "overlay": "sel",
-            "function": "SetTitleDisplayBuffer",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
-        },
-        {
-            "overlay": "sel",
-            "function": "SetTitleDisplayBuffer256",
-            "mode": "pre",
-            "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
-        },
-        {
-            "overlay": "dra",
-            "function": "func_800E34DC",
-            "target": "Recompiled.WidescreenPatch.ConfigStageClip"
-        },
-        {
-            "overlay": "dra",
-            "function": "RenderTilemap",
-            "target": "Recompiled.WidescreenPatch.RenderTilemapWide"
-        },
-        {
-            "overlay": "sel",
-            "function": "func_801B195C",
-            "target": "Recompiled.WidescreenPatch.ConfigStageClip"
-        },
-        {
-            "overlay": "sel",
-            "function": "SetTitleDisplayBuffer",
-            "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer"
-        },
-        {
-            "overlay": "sel",
-            "function": "SetTitleDisplayBuffer256",
-            "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer256"
-        },
-        {
-            "overlay": "dra",
-            "function": "InitFade",
-            "target": "Recompiled.WidescreenPatch.InitFade"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetFadeWidth",
-            "target": "Recompiled.WidescreenPatch.SetFadeWidth"
-        },
-        {
-            "overlay": "st0",
-            "function": "EntityBackgroundVortex",
-            "target": "Recompiled.WidescreenPatch.VortexWide"
-        },
-        {
-            "overlay": "st0",
-            "function": "EntityClouds",
-            "target": "Recompiled.WidescreenPatch.CloudsWide"
-        },
-        {
-            "overlay": "st0",
-            "function": "EntityStageTitleFadeout",
-            "target": "Recompiled.WidescreenPatch.TitleFadeoutWide"
-        },
-        {
-            "overlay": "no3",
-            "function": "EntityTransparentWater",
-            "target": "Recompiled.WidescreenPatch.TransparentWaterWide_no3"
-        },
-        {
-            "overlay": "np3",
-            "function": "EntityTransparentWater",
-            "target": "Recompiled.WidescreenPatch.TransparentWaterWide_np3"
-        },
-        {
-            "overlay": "no4",
-            "function": "func_us_801C12B0",
-            "target": "Recompiled.WidescreenPatch.WaterSurface801C12B0Wide_no4"
-        },
-        {
-            "overlay": "cat",
-            "function": "EntityLavaGlow",
-            "target": "Recompiled.WidescreenPatch.LavaGlowWide_cat"
-        },
-        {
-            "overlay": "dra",
-            "function": "func_800F0CD8",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.PostCamCol"
-        },
-        {
-            "overlay": "st0",
-            "function": "func_801AA218",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.MarkCameraPan"
-        },
-        {
-            "overlay": "dra",
-            "function": "LoadRoomLayer",
-            "mode": "pre",
-            "target": "Recompiled.LevelEventHooks.PreLoadRoomLayer"
-        },
-        {
-            "overlay": "dra",
-            "function": "LoadRoomLayer",
-            "mode": "post",
-            "target": "Recompiled.LevelEventHooks.PostLoadRoomLayer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetRoomForegroundLayer",
-            "mode": "pre",
-            "target": "Recompiled.LevelEventHooks.PreForegroundLayer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetRoomForegroundLayer",
-            "mode": "post",
-            "target": "Recompiled.LevelEventHooks.PostForegroundLayer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetRoomBackgroundLayer",
-            "mode": "pre",
-            "target": "Recompiled.LevelEventHooks.PreBackgroundLayer"
-        },
-        {
-            "overlay": "dra",
-            "function": "SetRoomBackgroundLayer",
-            "mode": "post",
-            "target": "Recompiled.LevelEventHooks.PostBackgroundLayer"
-        },
-        {
-            "overlay": "dra",
-            "function": "HandleGameOver",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.PostHandleGameOver"
-        },
-        {
-            "overlay": "dra",
-            "function": "DrawHud",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.PostDrawHud"
-        },
-        {
-            "overlay": "dra",
-            "function": "DrawHudSubweapon",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.PostDrawHudSubweapon"
-        },
-        {
-            "overlay": "dra",
-            "function": "DrawRichterHud",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.PostDrawRichterHud"
-        },
-        {
-            "overlay": "dra",
-            "function": "DrawRichterHudSubweapon",
-            "mode": "post",
-            "target": "Recompiled.WidescreenPatch.PostDrawRichterHudSubweapon"
-        },
-        {
-            "overlay": "dra",
-            "function": "CheckStageCollision",
-            "mode": "pre",
-            "target": "Recompiled.MovementCheat.PrePhysics"
-        },
-        {
-            "overlay": "ric",
-            "function": "CheckStageCollision",
-            "mode": "pre",
-            "target": "Recompiled.MovementCheat.PrePhysics"
-        },
-        {
-            "overlay": "dra",
-            "function": "func_800F0CD8",
-            "mode": "pre",
-            "target": "Recompiled.MovementCheat.PreCamera"
-        },
-        {
-            "overlay": "dra",
-            "function": "CheckStageCollision",
-            "mode": "post",
-            "target": "Recompiled.MovementCheat.PostPhysics"
-        },
-        {
-            "overlay": "ric",
-            "function": "CheckStageCollision",
-            "mode": "post",
-            "target": "Recompiled.MovementCheat.PostPhysics"
-        },
-        {
-            "comment": "Start of Randomizer Compatibility Entries.",
-            "overlay": "sel",
-            "function": "MainMenuFadeIn",
-            "mode": "post",
-            "target": "Recompiled.RandoPatch.DetectPreset"
-        },
-        {
-            "comment": "JP Familiar Cards in Menu 1 of 2",
-            "overlay": "dra",
-            "function": "DrawRelicsMenu",
-            "target": "Recompiled.RandoPatch.DrawRelicsMenu"
-        },
-        {
-            "comment": "JP Familiar Cards in Menu 2 of 2",
-            "overlay": "dra",
-            "function": "MenuHandle",
-            "target": "Recompiled.RandoPatch.MenuHandle"
-        },
-        {
-            "comment": "For presets that change Transformation MP costs.",
-            "overlay": "dra",
-            "function": "HandleTransformationMP",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.PreHandleTransformationMP"
-        },
-        {
-            "comment": "For handling new starting gear and starting relics.",
-            "overlay": "dra",
-            "function": "InitStatsAndGear",
-            "target": "Recompiled.RandoPatch.InitStatsAndGear"
-        },
-        {
-            "comment": "Darkwing Bat post-death Relic.",
-            "overlay": "rnz1",
-            "function": "func_801AC7CC",
-            "target": "Recompiled.RandoPatch.func_801AC7CC_rnz1"
-        },
-        {
-            "comment": "Darkwing Bat Relic spawn in.",
-            "overlay": "rnz1",
-            "function": "func_801BE578",
-            "target": "Recompiled.RandoPatch.func_801BE578"
-        },
-        {
-            "comment": "Heart of Vlad Boss Room Controller",
-            "overlay": "rbo3",
-            "function": "func_us_80192B38",
-            "target": "Recompiled.RandoPatch.func_us_80192B38"
-        },
-        {
-            "comment": "Tooth of Vlad Boss Room Controller",
-            "overlay": "rbo4",
-            "function": "func_8019879C",
-            "target": "Recompiled.RandoPatch.func_8019879C"
-        },
-        {
-            "comment": "Rib of Vlad Boss Room Controller",
-            "overlay": "rbo7",
-            "function": "func_80193E88",
-            "target": "Recompiled.RandoPatch.func_80193E88"
-        },
-        {
-            "comment": "Eye of Vlad Boss Room Controller",
-            "overlay": "rbo2",
-            "function": "func_8019F4AC",
-            "target": "Recompiled.RandoPatch.func_8019F4AC"
-        },
-        {
-            "comment": "Holy Glasses Item event.",
-            "overlay": "cen",
-            "function": "EntityPlatform",
-            "target": "Recompiled.RandoPatch.EntityPlatform"
-        },
-        {
-            "comment": "Jewel of Open Purchase Limit",
-            "overlay": "lib",
-            "function": "func_us_801B29C4",
-            "target": "Recompiled.RandoPatch.func_us_801B29C4"
-        },
-        {
-            "comment": "Gold Ring drop entity.",
-            "overlay": "no4",
-            "function": "func_us_801C8248",
-            "target": "Recompiled.RandoPatch.func_us_801C8248"
-        },
-        {
-            "comment": "Pot roast drop from Block.",
-            "overlay": "no3",
-            "function": "EntityMermanRockLeftSide",
-            "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_no3"
-        },
-        {
-            "comment": "Pot roast drop from Block.",
-            "overlay": "np3",
-            "function": "EntityMermanRockLeftSide",
-            "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_np3"
-        },
-        {
-            "comment": "Turkey drop from Block.",
-            "overlay": "no3",
-            "function": "EntityStairwayPiece",
-            "target": "Recompiled.RandoPatch.EntityStairwayPiece_no3"
-        },
-        {
-            "comment": "Turkey drop from Block.",
-            "overlay": "np3",
-            "function": "EntityStairwayPiece",
-            "target": "Recompiled.RandoPatch.EntityStairwayPiece_np3"
-        },
-        {
-            "comment": "Bone Scimitar Fixed Drops",
-            "overlay": "no3",
-            "function": "EntityBoneScimitar",
-            "target": "Recompiled.RandoPatch.EntityBoneScimitar_no3"
-        },
-        {
-            "comment": "Trio Relic Drop",
-            "overlay": "rbo0",
-            "function": "RBO0_EntityBoss",
-            "target": "Recompiled.RandoPatch.RBO0_EntityBoss"
-        },
-        {
-            "comment": "AntiFreeze Support",
-            "overlay": "dra",
-            "function": "EntityLevelUpAnimation",
-            "mode": "post",
-            "target": "Recompiled.RandoPatch.AntiFreeze"
-        },
-        {
-            "comment": "Fast Warps Support",
-            "overlay": "wrp",
-            "function": "EntityWarpRoom",
-            "mode": "post",
-            "target": "Recompiled.RandoPatch.FastWarps"
-        },
-        {
-            "comment": "Fast Warps Support",
-            "overlay": "rwrp",
-            "function": "EntityRWarpRoom",
-            "mode": "post",
-            "target": "Recompiled.RandoPatch.FastWarps"
-        },
-        {
-            "comment": "Clock Statue Always Open",
-            "overlay": "no0",
-            "function": "EntityClockRoomController",
-            "target": "Recompiled.RandoPatch.EntityClockRoomController_no0"
-        },
-        {
-            "comment": "Clock Statue Always Open",
-            "overlay": "rno0",
-            "function": "func_801C0E1C",
-            "target": "Recompiled.RandoPatch.func_801C0E1C"
-        },
-        {
-            "comment": "Free Gravity Boots for NimbleLite!",
-            "overlay": "dra",
-            "function": "HandleGravityBootsMP",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
-        },
-        {
-            "comment": "Bounty Hunter Relic Drops",
-            "overlay": "dra",
-            "function": "func_800FF494",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.func_800FF494"
-        },
-        {
-            "comment": "Reverse LBC 1 of 3",
-            "overlay": "dra",
-            "function": "func_8010E42C",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_8010E42C_Pre"
-        },
-        {
-            "comment": "Reverse LBC 2 of 3",
-            "overlay": "dra",
-            "function": "func_800F16D0",
-            "mode": "post",
-            "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F16D0_Post"
-        },
-        {
-            "comment": "Reverse LBC 3 of 3",
-            "overlay": "dra",
-            "function": "func_800F223C",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
-        },
-        {
-            "comment": "Target Confirmed Active",
-            "overlay": "dra",
-            "function": "EntityAlucard",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.TargetConfirmedActive"
-        },
-        {
-            "comment": "Death Cutscene Removal",
-            "overlay": "no3",
-            "function": "NO3_EntityCutscene",
-            "mode": "pre",
-            "target": "Recompiled.RandoPatch.NO3_EntityCutscene_Pre"
-        },
-        {
-            "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
-            "overlay": "dra",
-            "function": "func_800F16D0",
-            "mode": "pre",
-            "target": "Recompiled.Randomizer.ApplyInternalRandomizer"
-        },
-        {
-            "overlay": "dra",
-            "function": "RenderEntities",
-            "mode": "pre",
-            "target": "Recompiled.QualityOfLife.Apply"
-        },
-        {
-            "overlay": "dra",
-            "function": "CheckSoulStealInput",
-            "mode": "pre",
-            "target": "Recompiled.QualityOfLife.EasySpellInput"
-        },
-        {
-            "overlay": "dra",
-            "function": "CheckWingSmashInput",
-            "mode": "pre",
-            "target": "Recompiled.QualityOfLife.EasyWingInput"
-        },
-        {
-            "overlay": "dra",
-            "function": "CheckGravityBootsInput",
-            "mode": "pre",
-            "target": "Recompiled.QualityOfLife.EasyGravInput"
-        },
-        {
-            "overlay": "dra",
-            "function": "func_8010E168",
-            "mode": "pre",
-            "target": "Recompiled.QualityOfLife.EasyIFrames"
-        },
-        {
-            "overlay": "bo3",
-            "function": "func_801A1BE8",
-            "mode": "pre",
-            "target": "Recompiled.FunctionFixes.ScyllaDoorFix"
-        },
-        {
-            "overlay": "bo0",
-            "function": "func_801B551C",
-            "mode": "pre",
-            "target": "Recompiled.FunctionFixes.OlroxExploFix"
-        },
-        {
-            "overlay": "nz1",
-            "function": "EntitySecretAreaDoor",
-            "mode": "pre",
-            "target": "Recompiled.FunctionFixes.ClockCollisionFix"
-        },
-        {
-            "overlay": "dra",
-            "function": "func_80118C28",
-            "mode": "pre",
-            "target": "Recompiled.QualityOfLife.RemoveFlashes"
-        },
-        {
-            "overlay": "dra",
-            "function": "func_800F2860",
-            "mode": "pre",
-            "target": "Recompiled.FairySongPatch.RestoreNocturne"
-        },
-        {
-            "overlay": "dra",
-            "function": "InitStatsAndGear",
-            "mode": "post",
-            "target": "Recompiled.GameHooks.OnInitStatsAndGear"
-        },
-        {
-            "overlay": "dra",
-            "function": "ApplySaveData",
-            "mode": "post",
-            "target": "Recompiled.GameHooks.OnApplySaveData"
-        },
-        {
-            "overlay": "stsel",
-            "function": "ApplySaveData",
-            "mode": "post",
-            "target": "Recompiled.GameHooks.OnApplySaveData"
-        },
-        {
-            "overlay": "dra",
-            "function": "StoreSaveData",
-            "mode": "post",
-            "target": "Recompiled.GameHooks.OnStoreSaveData"
-        },
-        {
-            "overlay": "stsel",
-            "function": "StoreSaveData",
-            "mode": "post",
-            "target": "Recompiled.GameHooks.OnStoreSaveData"
-        }
-    ]
+  "patches": [
+    {
+      "overlay": "dra",
+      "function": "SetStageDisplayBuffer",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetMenuDisplayBuffer",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreMenuDisplayBuffer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetCgiDisplayBuffer",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreCgiDisplayBuffer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetTitleDisplayBuffer",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
+    },
+    {
+      "overlay": "sel",
+      "function": "func_801B19F4",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreStageDisplayBuffer"
+    },
+    {
+      "overlay": "sel",
+      "function": "SetTitleDisplayBuffer",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
+    },
+    {
+      "overlay": "sel",
+      "function": "SetTitleDisplayBuffer256",
+      "mode": "pre",
+      "target": "Recompiled.DisplayModeHooks.PreTitleDisplayBuffer"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_800E34DC",
+      "target": "Recompiled.WidescreenPatch.ConfigStageClip"
+    },
+    {
+      "overlay": "dra",
+      "function": "RenderTilemap",
+      "target": "Recompiled.WidescreenPatch.RenderTilemapWide"
+    },
+    {
+      "overlay": "sel",
+      "function": "func_801B195C",
+      "target": "Recompiled.WidescreenPatch.ConfigStageClip"
+    },
+    {
+      "overlay": "sel",
+      "function": "SetTitleDisplayBuffer",
+      "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer"
+    },
+    {
+      "overlay": "sel",
+      "function": "SetTitleDisplayBuffer256",
+      "target": "Recompiled.WidescreenPatch.SetTitleDisplayBuffer256"
+    },
+    {
+      "overlay": "dra",
+      "function": "InitFade",
+      "target": "Recompiled.WidescreenPatch.InitFade"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetFadeWidth",
+      "target": "Recompiled.WidescreenPatch.SetFadeWidth"
+    },
+    {
+      "overlay": "st0",
+      "function": "EntityBackgroundVortex",
+      "target": "Recompiled.WidescreenPatch.VortexWide"
+    },
+    {
+      "overlay": "st0",
+      "function": "EntityClouds",
+      "target": "Recompiled.WidescreenPatch.CloudsWide"
+    },
+    {
+      "overlay": "st0",
+      "function": "EntityStageTitleFadeout",
+      "target": "Recompiled.WidescreenPatch.TitleFadeoutWide"
+    },
+    {
+      "overlay": "no3",
+      "function": "EntityTransparentWater",
+      "target": "Recompiled.WidescreenPatch.TransparentWaterWide_no3"
+    },
+    {
+      "overlay": "np3",
+      "function": "EntityTransparentWater",
+      "target": "Recompiled.WidescreenPatch.TransparentWaterWide_np3"
+    },
+    {
+      "overlay": "no4",
+      "function": "func_us_801C12B0",
+      "target": "Recompiled.WidescreenPatch.WaterSurface801C12B0Wide_no4"
+    },
+    {
+      "overlay": "cat",
+      "function": "EntityLavaGlow",
+      "target": "Recompiled.WidescreenPatch.LavaGlowWide_cat"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_800F0CD8",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.PostCamCol"
+    },
+    {
+      "overlay": "st0",
+      "function": "func_801AA218",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.MarkCameraPan"
+    },
+    {
+      "overlay": "dra",
+      "function": "LoadRoomLayer",
+      "mode": "pre",
+      "target": "Recompiled.LevelEventHooks.PreLoadRoomLayer"
+    },
+    {
+      "overlay": "dra",
+      "function": "LoadRoomLayer",
+      "mode": "post",
+      "target": "Recompiled.LevelEventHooks.PostLoadRoomLayer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetRoomForegroundLayer",
+      "mode": "pre",
+      "target": "Recompiled.LevelEventHooks.PreForegroundLayer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetRoomForegroundLayer",
+      "mode": "post",
+      "target": "Recompiled.LevelEventHooks.PostForegroundLayer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetRoomBackgroundLayer",
+      "mode": "pre",
+      "target": "Recompiled.LevelEventHooks.PreBackgroundLayer"
+    },
+    {
+      "overlay": "dra",
+      "function": "SetRoomBackgroundLayer",
+      "mode": "post",
+      "target": "Recompiled.LevelEventHooks.PostBackgroundLayer"
+    },
+    {
+      "overlay": "dra",
+      "function": "HandleGameOver",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.PostHandleGameOver"
+    },
+    {
+      "overlay": "dra",
+      "function": "DrawHud",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.PostDrawHud"
+    },
+    {
+      "overlay": "dra",
+      "function": "DrawHudSubweapon",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.PostDrawHudSubweapon"
+    },
+    {
+      "overlay": "dra",
+      "function": "DrawRichterHud",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.PostDrawRichterHud"
+    },
+    {
+      "overlay": "dra",
+      "function": "DrawRichterHudSubweapon",
+      "mode": "post",
+      "target": "Recompiled.WidescreenPatch.PostDrawRichterHudSubweapon"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckStageCollision",
+      "mode": "pre",
+      "target": "Recompiled.MovementCheat.PrePhysics"
+    },
+    {
+      "overlay": "ric",
+      "function": "CheckStageCollision",
+      "mode": "pre",
+      "target": "Recompiled.MovementCheat.PrePhysics"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_800F0CD8",
+      "mode": "pre",
+      "target": "Recompiled.MovementCheat.PreCamera"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckStageCollision",
+      "mode": "post",
+      "target": "Recompiled.MovementCheat.PostPhysics"
+    },
+    {
+      "overlay": "ric",
+      "function": "CheckStageCollision",
+      "mode": "post",
+      "target": "Recompiled.MovementCheat.PostPhysics"
+    },
+    {
+      "comment": "Start of Randomizer Compatibility Entries.",
+      "overlay": "sel",
+      "function": "MainMenuFadeIn",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.DetectPreset"
+    },
+    {
+      "comment": "JP Familiar Cards in Menu 1 of 2",
+      "overlay": "dra",
+      "function": "DrawRelicsMenu",
+      "target": "Recompiled.RandoPatch.DrawRelicsMenu"
+    },
+    {
+      "comment": "JP Familiar Cards in Menu 2 of 2",
+      "overlay": "dra",
+      "function": "MenuHandle",
+      "target": "Recompiled.RandoPatch.MenuHandle"
+    },
+    {
+      "comment": "For presets that change Transformation MP costs.",
+      "overlay": "dra",
+      "function": "HandleTransformationMP",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.PreHandleTransformationMP"
+    },
+    {
+      "comment": "For handling new starting gear and starting relics.",
+      "overlay": "dra",
+      "function": "InitStatsAndGear",
+      "target": "Recompiled.RandoPatch.InitStatsAndGear"
+    },
+    {
+      "comment": "Darkwing Bat post-death Relic.",
+      "overlay": "rnz1",
+      "function": "func_801AC7CC",
+      "target": "Recompiled.RandoPatch.func_801AC7CC_rnz1"
+    },
+    {
+      "comment": "Darkwing Bat Relic spawn in.",
+      "overlay": "rnz1",
+      "function": "func_801BE578",
+      "target": "Recompiled.RandoPatch.func_801BE578"
+    },
+    {
+      "comment": "Heart of Vlad Boss Room Controller",
+      "overlay": "rbo3",
+      "function": "func_us_80192B38",
+      "target": "Recompiled.RandoPatch.func_us_80192B38"
+    },
+    {
+      "comment": "Tooth of Vlad Boss Room Controller",
+      "overlay": "rbo4",
+      "function": "func_8019879C",
+      "target": "Recompiled.RandoPatch.func_8019879C"
+    },
+    {
+      "comment": "Rib of Vlad Boss Room Controller",
+      "overlay": "rbo7",
+      "function": "func_80193E88",
+      "target": "Recompiled.RandoPatch.func_80193E88"
+    },
+    {
+      "comment": "Eye of Vlad Boss Room Controller",
+      "overlay": "rbo2",
+      "function": "func_8019F4AC",
+      "target": "Recompiled.RandoPatch.func_8019F4AC"
+    },
+    {
+      "comment": "Holy Glasses Item event.",
+      "overlay": "cen",
+      "function": "EntityPlatform",
+      "target": "Recompiled.RandoPatch.EntityPlatform"
+    },
+    {
+      "comment": "Jewel of Open Purchase Limit",
+      "overlay": "lib",
+      "function": "func_us_801B29C4",
+      "target": "Recompiled.RandoPatch.func_us_801B29C4"
+    },
+    {
+      "comment": "Gold Ring drop entity.",
+      "overlay": "no4",
+      "function": "func_us_801C8248",
+      "target": "Recompiled.RandoPatch.func_us_801C8248"
+    },
+    {
+      "comment": "Pot roast drop from Block.",
+      "overlay": "no3",
+      "function": "EntityMermanRockLeftSide",
+      "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_no3"
+    },
+    {
+      "comment": "Pot roast drop from Block.",
+      "overlay": "np3",
+      "function": "EntityMermanRockLeftSide",
+      "target": "Recompiled.RandoPatch.EntityMermanRockLeftSide_np3"
+    },
+    {
+      "comment": "Turkey drop from Block.",
+      "overlay": "no3",
+      "function": "EntityStairwayPiece",
+      "target": "Recompiled.RandoPatch.EntityStairwayPiece_no3"
+    },
+    {
+      "comment": "Turkey drop from Block.",
+      "overlay": "np3",
+      "function": "EntityStairwayPiece",
+      "target": "Recompiled.RandoPatch.EntityStairwayPiece_np3"
+    },
+    {
+      "comment": "Bone Scimitar Fixed Drops",
+      "overlay": "no3",
+      "function": "EntityBoneScimitar",
+      "target": "Recompiled.RandoPatch.EntityBoneScimitar_no3"
+    },
+    {
+      "comment": "Trio Relic Drop",
+      "overlay": "rbo0",
+      "function": "RBO0_EntityBoss",
+      "target": "Recompiled.RandoPatch.RBO0_EntityBoss"
+    },
+    {
+      "comment": "AntiFreeze Support",
+      "overlay": "dra",
+      "function": "EntityLevelUpAnimation",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.AntiFreeze"
+    },
+    {
+      "comment": "Fast Warps Support",
+      "overlay": "wrp",
+      "function": "EntityWarpRoom",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.FastWarps"
+    },
+    {
+      "comment": "Fast Warps Support",
+      "overlay": "rwrp",
+      "function": "EntityRWarpRoom",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.FastWarps"
+    },
+    {
+      "comment": "Clock Statue Always Open",
+      "overlay": "no0",
+      "function": "EntityClockRoomController",
+      "target": "Recompiled.RandoPatch.EntityClockRoomController_no0"
+    },
+    {
+      "comment": "Clock Statue Always Open",
+      "overlay": "rno0",
+      "function": "func_801C0E1C",
+      "target": "Recompiled.RandoPatch.func_801C0E1C"
+    },
+    {
+      "comment": "Free Gravity Boots for NimbleLite!",
+      "overlay": "dra",
+      "function": "HandleGravityBootsMP",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.PreHandleGravityBootsMP"
+    },
+    {
+      "comment": "Bounty Hunter Relic Drops & Guaranteed Drops",
+      "overlay": "dra",
+      "function": "func_800FF494",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.func_800FF494"
+    },
+    {
+      "comment": "Reverse LBC 1 of 3",
+      "overlay": "dra",
+      "function": "func_8010E42C",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_8010E42C_Pre"
+    },
+    {
+      "comment": "Reverse LBC 2 of 3",
+      "overlay": "dra",
+      "function": "func_800F16D0",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F16D0_Post"
+    },
+    {
+      "comment": "Reverse LBC 3 of 3",
+      "overlay": "dra",
+      "function": "func_800F223C",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
+    },
+    {
+      "comment": "Target Confirmed Active",
+      "overlay": "dra",
+      "function": "EntityAlucard",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.TargetConfirmedActive"
+    },
+    {
+      "comment": "Death Cutscene Removal",
+      "overlay": "no3",
+      "function": "NO3_EntityCutscene",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.NO3_EntityCutscene_Pre"
+    },
+    {
+      "comment": "Always Drop Item Option",
+      "overlay": "dra",
+      "function": "func_800FF460",
+      "target": "Recompiled.RandoPatch.func_800FF460"
+    },
+    {
+      "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
+      "overlay": "dra",
+      "function": "func_800F16D0",
+      "mode": "pre",
+      "target": "Recompiled.Randomizer.ApplyInternalRandomizer"
+    },
+    {
+      "overlay": "dra",
+      "function": "RenderEntities",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.Apply"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckSoulStealInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasySpellInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckWingSmashInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyWingInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "CheckGravityBootsInput",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyGravInput"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_8010E168",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.EasyIFrames"
+    },
+    {
+      "overlay": "bo3",
+      "function": "func_801A1BE8",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.ScyllaDoorFix"
+    },
+    {
+      "overlay": "bo0",
+      "function": "func_801B551C",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.OlroxExploFix"
+    },
+    {
+      "overlay": "nz1",
+      "function": "EntitySecretAreaDoor",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.ClockCollisionFix"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_80118C28",
+      "mode": "pre",
+      "target": "Recompiled.QualityOfLife.RemoveFlashes"
+    },
+    {
+      "overlay": "dra",
+      "function": "func_800F2860",
+      "mode": "pre",
+      "target": "Recompiled.FairySongPatch.RestoreNocturne"
+    },
+    {
+      "overlay": "dra",
+      "function": "InitStatsAndGear",
+      "mode": "post",
+      "target": "Recompiled.GameHooks.OnInitStatsAndGear"
+    },
+    {
+      "overlay": "dra",
+      "function": "ApplySaveData",
+      "mode": "post",
+      "target": "Recompiled.GameHooks.OnApplySaveData"
+    },
+    {
+      "overlay": "stsel",
+      "function": "ApplySaveData",
+      "mode": "post",
+      "target": "Recompiled.GameHooks.OnApplySaveData"
+    },
+    {
+      "overlay": "dra",
+      "function": "StoreSaveData",
+      "mode": "post",
+      "target": "Recompiled.GameHooks.OnStoreSaveData"
+    },
+    {
+      "overlay": "stsel",
+      "function": "StoreSaveData",
+      "mode": "post",
+      "target": "Recompiled.GameHooks.OnStoreSaveData"
+    }
+  ]
 }
