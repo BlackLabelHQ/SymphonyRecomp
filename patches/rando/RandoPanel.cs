@@ -15,6 +15,7 @@ public sealed class RandoPanel : IPanel
 
         bool AlreadyRandomized = false;
         byte CurrentPreset = 0;
+        byte StageId;
 
         ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
@@ -35,10 +36,19 @@ public sealed class RandoPanel : IPanel
         }
 
         CurrentPreset = m.ReadU8(0x8000C000);
+        StageId = m.ReadU8(0x800974A0);
 
         if (CurrentPreset != (byte)PresetId.None && CurrentPreset != (byte)PresetId.Integrated)
         {
             ImGui.TextDisabled("Built in randomizer cannot be combined\nwith externally randomized seeds.");
+            IsOpen = open;
+            ImGui.End();
+            return;
+        }
+
+        if (StageId != 0x45 && CurrentPreset == (byte)PresetId.None)
+        {
+            ImGui.TextDisabled("Return to the title screen\nto use the randomizer.");
             IsOpen = open;
             ImGui.End();
             return;
