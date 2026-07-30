@@ -62,15 +62,15 @@ public sealed class RandoPanel : IPanel
 
         ImGui.SeparatorText("Toggles");
         ImGui.Checkbox("Randomize Items", ref Randomizer.RandomizeItems);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize items in stages, including the shop,\n and prologue rewards.");
         ImGui.Checkbox("Randomize Drops", ref Randomizer.RandomizeDrops);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize items dropped from enemies.");
         ImGui.Checkbox("Randomize Relics", ref Randomizer.RandomizeRelics);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize where relics appear.\nEach layout can be completed.");
         ImGui.Checkbox("Randomize Starting Gear", ref Randomizer.RandomizeStartingGear);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize equipment that\nAlucard starts the game with.");
         ImGui.Checkbox("Remove Death at Entrance", ref Randomizer.RemoveDeathFromEntrance);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Prevents Death from taking your\nstarting equipment in the first area.");
         ImGui.SeparatorText("");
 
 
