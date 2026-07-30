@@ -75,7 +75,7 @@ public sealed class RandoPanel : IPanel
 
 
         ImGui.InputInt("Seed Number", ref Randomizer.SeedNumber);
-        if (ImGui.Button("Generate Random Seed Number"))
+        if (ImGui.Button("Generate New Random Seed Number"))
             Randomizer.RandomizeSeedNumber();
 
         ImGui.SeparatorText("");
