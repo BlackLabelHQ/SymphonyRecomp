@@ -11388,5 +11388,19 @@ public static partial class RandoPatch
     L800FF48C:;
         return;
     }
+    public static void MagicMaxUp_Pre(CpuContext c, IMemory m)
+    {
+        // check if the instruction has been changed by the rando
+        if (m.ReadU32(0x800fe0f4) == 0x10400003)
+        {
+            // if it was changed, add 3 to max MP and restore MP
+            UInt32 mp_amount;
+            UInt32 mp_total = 0x80097bb0;
+            UInt32 mp_current = 0x80097bb4;
 
+            mp_amount = m.ReadU32(mp_total) + 0x03;
+            m.WriteU32(mp_total,mp_amount);
+            m.WriteU32(mp_current, mp_amount);
+        }
+    }
 }
