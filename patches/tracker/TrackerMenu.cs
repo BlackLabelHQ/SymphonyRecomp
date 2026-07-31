@@ -9,7 +9,7 @@ public static class TrackerMenu
     {
         PanelManager.Register(new TrackerOverlayPanel());
         PanelManager.Register(new MapOverlayPanel());
-        MenuRegistry.Register("Fun", DrawItems, "Misc");
+        MenuRegistry.Register("Overlays", DrawItems, "Misc");
     }
 
     static void DrawItems()

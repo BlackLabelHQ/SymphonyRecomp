@@ -1,0 +1,32 @@
+namespace Sotn;
+
+public enum TimeAttackEvent
+{
+    DraculaDefeat = 0,
+    OlroxDefeat = 1,
+    Doppleganger10Defeat = 2,
+    GranfaloonDefeat = 3,
+    MinotaurWerewolfDefeat = 4,
+    ScyllaDefeat = 5,
+    SlograGaibonDefeat = 6,
+    HippogryphDefeat = 7,
+    BeelzebubDefeat = 8,
+    SuccubusDefeat = 9,
+    KarasumanDefeat = 10,
+    TrioDefeat = 11,
+    DeathDefeat = 12,
+    CerberusDefeat = 13,
+    SaveRichter = 14,
+    MedusaDefeat = 15,
+    CreatureDefeat = 16,
+    LesserDemonDefeat = 17,
+    Doppleganger40Defeat = 18,
+    AkmodanDefeat = 19,
+    DarkwingBatDefeat = 20,
+    GalamothDefeat = 21,
+    FinalSavepoint = 22,
+    MeetDeath = 23,
+    GetHolyGlasses = 24,
+    MeetMasterLibrarian = 25,
+    FirstMariaMeet = 26,
+}
