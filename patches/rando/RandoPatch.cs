@@ -11101,11 +11101,26 @@ public static partial class RandoPatch
     // Bounty Hunter
     // Relic Drop
     // Pre-emp
+    // Also handles Guaranteed Drops
     static readonly UInt32[] RelicTable = { 0x801CA4CC, 0x801C6E24, 0x801C769C, 0x801C3B24, 0x801BE7F8, 0x801A3F58, 0x801CC06C, 0x801BF1A0, 0, 0x801D06D4, 0x801BE7B8, 0x801B3714, 0x801BF5B8, 0x801B27E8, 0, 0x801C6E24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x801BD408, 0x801AF0D0, 0x801A8C44, 0x801BA034, 0x801BCDD4, 0x801A0CD8, 0x801BA710, 0x801B9F94, 0, 0x801D02C8, 0x801ACC24, 0x801A85D8, 0x801B2CE8, 0x801B2F84, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x801C7930 };
 
     public static bool func_800FF494(CpuContext c, IMemory m)
     {
         byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+
+        // Detect Guaranteed Drops Patch
+        if (m.ReadU32(0x800FF4C0) == 0x3C068009 && m.ReadU32(0x800FF4C4) == 0x34C67BF4)
+        {
+            if ((m.ReadU8(0x80097BF4) & 1) == 1)
+            {
+                c.V0 = 0x20;
+            }
+            else
+            {
+                c.V0 = 0x40;
+            }
+            return false;   // Don't execute original function, all done.
+        }
 
         if (CUR_PRESET != (byte)PresetId.BountyHunter && CUR_PRESET != (byte)PresetId.Hitman && CUR_PRESET != (byte)PresetId.TargetConfirmed)
             return true;    // Execute original function
@@ -11346,4 +11361,46 @@ public static partial class RandoPatch
         }
     }
 
+    // Always Drop Patch
+    public static void func_800FF460(CpuContext c, IMemory m)
+    {
+        // Detect Patch
+        if(m.ReadU32(0x800FF460) == 0x34020100)
+        {
+            c.V0 = 0x100;
+            return;
+        }
+        // Normal Execution otherwise
+
+        if (c.A0 == 0u)
+        {
+            goto L800FF488;
+        }
+        c.V0 = 0x80090000u;
+        c.V0 = m.ReadU32((c.V0 + 0x7BE4u));
+        { var _r = (long)(int)c.A0 * (int)c.V0; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }
+        c.V0 = c.LO;
+        c.V0 = c.V0 >> 7;
+        c.V0 = c.A0 + c.V0;
+        goto L800FF48C;
+    L800FF488:;
+        c.V0 = 0u + 0u;
+    L800FF48C:;
+        return;
+    }
+    public static void MagicMaxUp_Pre(CpuContext c, IMemory m)
+    {
+        // check if the instruction has been changed by the rando
+        if (m.ReadU32(0x800fe0f4) == 0x10400003)
+        {
+            // if it was changed, add 3 to max MP and restore MP
+            UInt32 mp_amount;
+            UInt32 mp_total = 0x80097bb0;
+            UInt32 mp_current = 0x80097bb4;
+
+            mp_amount = m.ReadU32(mp_total) + 0x03;
+            m.WriteU32(mp_total,mp_amount);
+            m.WriteU32(mp_current, mp_amount);
+        }
+    }
 }

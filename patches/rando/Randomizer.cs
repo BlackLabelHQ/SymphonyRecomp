@@ -554,11 +554,21 @@ public static partial class Randomizer
             return;
         _seedLoaded = true;
         SeedNumber = RecompOne.Runtime.Runtime.View.GetInt("Rando.SeedNumber", SeedNumber);
+        RandomizeItems = RecompOne.Runtime.Runtime.View.GetBool("Rando.RandomizeItems", RandomizeItems);
+        RandomizeDrops = RecompOne.Runtime.Runtime.View.GetBool("Rando.RandomizeDrops", RandomizeDrops);
+        RandomizeRelics = RecompOne.Runtime.Runtime.View.GetBool("Rando.RandomizeRelics", RandomizeRelics);
+        RandomizeStartingGear = RecompOne.Runtime.Runtime.View.GetBool("Rando.RandomizeStartingGear", RandomizeStartingGear);
+        RemoveDeathFromEntrance = RecompOne.Runtime.Runtime.View.GetBool("Rando.RemoveDeathFromEntrance", RemoveDeathFromEntrance);
     }
 
     static void SaveSeed()
     {
         RecompOne.Runtime.Runtime.View.SetInt("Rando.SeedNumber", SeedNumber);
+        RecompOne.Runtime.Runtime.View.SetBool("Rando.RandomizeItems", RandomizeItems);
+        RecompOne.Runtime.Runtime.View.SetBool("Rando.RandomizeDrops", RandomizeDrops);
+        RecompOne.Runtime.Runtime.View.SetBool("Rando.RandomizeRelics", RandomizeRelics);
+        RecompOne.Runtime.Runtime.View.SetBool("Rando.RandomizeStartingGear", RandomizeStartingGear);
+        RecompOne.Runtime.Runtime.View.SetBool("Rando.RemoveDeathFromEntrance", RemoveDeathFromEntrance);
         RecompOne.Runtime.Runtime.SaveView();
     }
 

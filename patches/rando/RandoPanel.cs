@@ -15,6 +15,7 @@ public sealed class RandoPanel : IPanel
 
         bool AlreadyRandomized = false;
         byte CurrentPreset = 0;
+        byte StageId;
 
         ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
@@ -35,10 +36,19 @@ public sealed class RandoPanel : IPanel
         }
 
         CurrentPreset = m.ReadU8(0x8000C000);
+        StageId = m.ReadU8(0x800974A0);
 
         if (CurrentPreset != (byte)PresetId.None && CurrentPreset != (byte)PresetId.Integrated)
         {
             ImGui.TextDisabled("Built in randomizer cannot be combined\nwith externally randomized seeds.");
+            IsOpen = open;
+            ImGui.End();
+            return;
+        }
+
+        if (StageId != 0x45 && CurrentPreset == (byte)PresetId.None)
+        {
+            ImGui.TextDisabled("Return to the title screen\nto use the randomizer.");
             IsOpen = open;
             ImGui.End();
             return;
@@ -52,20 +62,20 @@ public sealed class RandoPanel : IPanel
 
         ImGui.SeparatorText("Toggles");
         ImGui.Checkbox("Randomize Items", ref Randomizer.RandomizeItems);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize items in stages, including the shop,\n and prologue rewards.");
         ImGui.Checkbox("Randomize Drops", ref Randomizer.RandomizeDrops);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize items dropped from enemies.");
         ImGui.Checkbox("Randomize Relics", ref Randomizer.RandomizeRelics);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize where relics appear.\nEach layout can be completed.");
         ImGui.Checkbox("Randomize Starting Gear", ref Randomizer.RandomizeStartingGear);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Randomize equipment that\nAlucard starts the game with.");
         ImGui.Checkbox("Remove Death at Entrance", ref Randomizer.RemoveDeathFromEntrance);
-        ImGui.SetItemTooltip("Clever tooltip here.");
+        ImGui.SetItemTooltip("Prevents Death from taking your\nstarting equipment in the first area.");
         ImGui.SeparatorText("");
 
 
         ImGui.InputInt("Seed Number", ref Randomizer.SeedNumber);
-        if (ImGui.Button("Generate Random Seed Number"))
+        if (ImGui.Button("Generate New Random Seed Number"))
             Randomizer.RandomizeSeedNumber();
 
         ImGui.SeparatorText("");
