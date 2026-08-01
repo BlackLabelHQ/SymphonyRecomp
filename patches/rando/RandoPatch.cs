@@ -16,7 +16,7 @@ using SixLabors.ImageSharp;
 
 namespace Recompiled;
 
-public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, Unknown, Integrated };
+public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, MagicMirror, Unknown, Integrated };
 
 public static partial class RandoPatch
 {
@@ -181,6 +181,14 @@ public static partial class RandoPatch
             m.WriteU8(0x80097964 + 0x16, 0x01);
             m.WriteU8(0x80097BC4, 0x63);    // 99 LCK
         }
+        if (CUR_PRESET == (byte)PresetId.MagicMirror)
+        {
+            m.WriteU8(0x8003BE1E, 0x01);    // Entrance TP Gate
+            m.WriteU8(0x8003BEBC, 0x05);    // Warps
+            c.A0 = 0x19;
+            c.A1 = 0x01;
+            SoTN.AddToInventory(c, m);      // Give Axelord Armor
+        }
     }
 
     // Detects randomizer preset by reading game memory and sets an identifier in game memory to be used by other functions.
@@ -230,6 +238,11 @@ public static partial class RandoPatch
         if (PresetNameIs(c, m, "target-confirmed"))
         {
             m.WriteU8(PresetMemoryOffset, (byte)PresetId.TargetConfirmed);
+        }
+        // Magic Mirror
+        if (PresetNameIs(c, m, "magic-mirror"))
+        {
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.MagicMirror);
         }
 
         // If no Preset matched yet and we don't see vanilla ( Input "RICHTER" to play ) string
@@ -11546,6 +11559,14 @@ public static partial class RandoPatch
     {
         if (m.ReadU32(0x800DF4F0) != 0x4947412D)
             return;
+
+        // Sync Unlocked Teleporters between Castles
+        byte TP_Unlocked1, TP_Unlocked2;
+        TP_Unlocked1 = m.ReadU8(0x8003BEBC);
+        TP_Unlocked2 = m.ReadU8(0x8003BEBD);
+        TP_Unlocked1 |= TP_Unlocked2;
+        m.WriteU8(0x8003BEBC, TP_Unlocked1);
+        m.WriteU8(0x8003BEBD, TP_Unlocked1);
 
         byte TeleportRestore = m.ReadU8(RestoreLBCOffset);
 
