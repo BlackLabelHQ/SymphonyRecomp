@@ -1985,7 +1985,7 @@
       "overlay": "dra",
       "function": "func_800FE044",
       "mode": "pre",
-      "target": "Recompiled.RandoPatch.func_800FE044"
+      "target": "Recompiled.RandoPatch.MagicMaxUp_Pre"
     },
     {
       "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
