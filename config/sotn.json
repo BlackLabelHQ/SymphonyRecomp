@@ -1949,11 +1949,24 @@
       "target": "Recompiled.RandoPatch.ReverseLibraryCard_func_800F223C_Pre"
     },
     {
+      "comment": "Teleport Func Change Id",
+      "overlay": "dra",
+      "function": "func_800F16D0",
+      "target": "Recompiled.RandoPatch.func_800F16D0"
+    },
+    {
       "comment": "Target Confirmed Active",
       "overlay": "dra",
       "function": "EntityAlucard",
       "mode": "pre",
       "target": "Recompiled.RandoPatch.TargetConfirmedActive"
+    },
+    {
+      "comment": "Magic Mirror FrameUpdate",
+      "overlay": "dra",
+      "function": "EntityAlucard",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.MagicMirrorFrameUpdate"
     },
     {
       "comment": "Death Cutscene Removal",

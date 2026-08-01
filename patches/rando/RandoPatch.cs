@@ -16,7 +16,7 @@ using SixLabors.ImageSharp;
 
 namespace Recompiled;
 
-public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, Unknown, Integrated }
+public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, Unknown, Integrated };
 
 public static partial class RandoPatch
 {
@@ -25,6 +25,7 @@ public static partial class RandoPatch
 
     const UInt32 PresetMemoryOffset = 0x8000C000;   // 1 byte
     const UInt32 RLBCMemoryOffset = 0x8000C001;     // 1 byte
+    const UInt32 RestoreLBCOffset = 0x8000C002;     // 1 byte
 
     static void EnsureInitialized()
     {
@@ -11319,6 +11320,71 @@ public static partial class RandoPatch
         }
     }
 
+    // Allow Changing StageId
+    public static void func_800F16D0(CpuContext c, IMemory m)
+    {
+        c.V0 = 0x80040000u;
+        c.V0 = m.ReadU32((c.V0 - 0x38D0u));
+        if (c.V0 == 0u)
+        {
+            c.V0 = 0u | 0x0004u;
+            goto L800F16F4;
+        }
+        c.V0 = 0u | 0x0004u;
+        c.V0 = 0x80090000u;
+        c.V0 = m.ReadU32((c.V0 + 0x74A0u));
+        goto L800F1768;
+    L800F16F4:;
+        c.V1 = 0x80090000u;
+        c.V1 = m.ReadU32((c.V1 + 0x7C98u));
+        if (c.V1 != c.V0)
+        {
+            c.V0 = 0u | 0x0005u;
+            goto L800F1710;
+        }
+        c.V0 = 0u | 0x0005u;
+        c.V0 = 0u | 0x002Bu;
+        goto L800F1768;
+    L800F1710:;
+        if (c.V1 != c.V0)
+        {
+            c.V0 = 0u | 0x0006u;
+            goto L800F1720;
+        }
+        c.V0 = 0u | 0x0006u;
+        c.V0 = 0u | 0x000Bu;
+        goto L800F1768;
+    L800F1720:;
+        if (c.V1 == c.V0)
+        {
+            //c.V0 = 0u | 0x0002u;
+            c.V0 = m.ReadU8(0x800F1724);    // Allow Changed StageId
+            goto L800F1768;
+        }
+        c.V0 = 0u | 0x0002u;
+        c.V0 = 0x80070000u;
+        c.V0 = m.ReadU32((c.V0 - 0x3C8Cu));
+        c.V1 = c.V0 << 2;
+        c.V1 = c.V1 + c.V0;
+        c.V1 = c.V1 << 1;
+        c.V0 = 0x80090000u;
+        c.V0 = m.ReadU32((c.V0 + 0x74A0u));
+        c.At = 0x800A0000u;
+        c.At = c.At + c.V1;
+        c.V1 = m.ReadU16((c.At + 0x2464u));
+        c.V0 = c.V0 & 0x0020u;
+        if (c.V0 == 0u)
+        {
+            c.V0 = c.V1 + 0u;
+            goto L800F1768;
+        }
+        c.V0 = c.V1 + 0u;
+        c.V1 = c.V1 ^ 0x0020u;
+        c.V0 = c.V1 + 0u;
+    L800F1768:;
+        return;
+    }
+
     // Detect Death Cutscene Removal Patch from sotn.io Rando.
     public static void NO3_EntityCutscene_Pre(CpuContext c, IMemory m)
     {
@@ -11403,4 +11469,132 @@ public static partial class RandoPatch
             m.WriteU32(mp_current, mp_amount);
         }
     }
+
+    public static void UpdateDestLBC(CpuContext c, IMemory m,byte StageId, UInt16 RoomId, UInt16 XPos, UInt16 YPos, UInt16 TsLba)
+    {
+        m.WriteU8(0x800F1724, StageId);
+        m.WriteU16(0x800A25E6, RoomId);
+        m.WriteU16(0x800A25E2, XPos);
+        m.WriteU16(0x800A25E4, YPos);
+        m.WriteU16(0x800A3C98, TsLba);
+    }
+
+    static readonly UInt16[] StageRoomTableBase = { 0x27E4, 0x348C, 0x2EC4, 0x2AF4, 0x32A4, 0x1960, 0x235C, 0x3A80, 0x0000, 0x30F4, 0x2E60, 0x1B7C, 0x2730, 0x2340, 0x11B0, 0x348C, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x3440, 0x1E9C, 0x19A4, 0x2488, 0x2394, 0x183C, 0x1B08, 0x2B24, 0x0000, 0x2C04, 0x1C5C, 0x1534, 0x1FAC, 0x24C8, 0x11B0, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 };
+    static readonly UInt32[] MM_Filter = { 0x00, 0x1F, 0x1B, 0x00, 0x20, 0x1B, 0x00, 0x21, 0x1B, 0x01, 0x39, 0x17, 0x05, 0x1E, 0x28, 0x06, 0x17, 0x0D, 0x04, 0x10, 0x10, 0x04, 0x13, 0x10, 0x0A, 0x13, 0x16, 0x07, 0x0E, 0x29, 0x07, 0x02, 0x26, 0x03, 0x29, 0x32, 0x06, 0x0A, 0x0F, 0x23, 0x14, 0x0D, 0x26, 0x31, 0x30, 0xFF, 0xFF, 0xFF };
+
+
+    public static bool MagicMirrorRoomFilter(CpuContext c, IMemory m)
+    {
+        UInt32 CastleX = m.ReadU32(0x800730B0);
+        UInt32 CastleY = m.ReadU32(0x800730B4);
+        byte StageId = m.ReadU8(0x800974A0);
+
+        UInt32 FilterX, FilterY, FilterStage;
+
+        int Index = 0;
+
+        while(true)
+        {
+            FilterStage = MM_Filter[(Index * 3) + 0];
+            FilterX = MM_Filter[(Index * 3) + 1];
+            FilterY = MM_Filter[(Index * 3) + 2];
+
+            if (StageId == FilterStage && CastleX == FilterX && CastleY == FilterY)
+                return true;
+            Index++;
+            if (MM_Filter[(Index * 3) + 0] == 0xFF)
+                break;
+        }
+        return false;
+    }
+
+    public static void UseMagicMirror(CpuContext c, IMemory m)
+    {
+        m.WriteU16(0x800A3C98, 0x7C0E); // Restore Library TsLba
+        byte StageId = m.ReadU8(0x800974A0);
+        UInt16 XPos = m.ReadU16(0x800973F0);
+        UInt16 YPos = m.ReadU16(0x800973F4);
+        UInt16 RoomWidth = m.ReadU16(0x800730C8);
+        UInt16 RoomHeight = m.ReadU16(0x800730CC);
+        UInt16 RoomId = m.ReadU16(0x801375BC);
+        RoomId = (UInt16)(RoomId - StageRoomTableBase[StageId]);
+
+        if (StageRoomTableBase[StageId] == 0 || MagicMirrorRoomFilter(c, m))
+        {
+            c.A0 = 0x6F2;
+            SoTN.PlaySfx(c, m);
+            return;
+        }
+
+        StageId ^= 0x20;
+        UInt16 TsLba = m.ReadU16(0x800A3C40 + (UInt32)(StageId * 0x2C));
+
+        if ( (byte)(StageId & 0x20) == 0x00)
+        {
+            XPos = (UInt16)(RoomWidth - XPos);
+            YPos = (UInt16)(RoomHeight - YPos);
+        }
+
+        UpdateDestLBC(c, m, StageId, RoomId, XPos, YPos, TsLba);
+        m.WriteU8(0x80097C98, 6);
+        m.WriteU8(RestoreLBCOffset, 4);
+    }
+
+    // Magic Mirror Frame Update
+    // Hook onto EntityAlucard
+    public static void MagicMirrorFrameUpdate(CpuContext c, IMemory m)
+    {
+        if (m.ReadU32(0x800DF4F0) != 0x4947412D)
+            return;
+
+        byte TeleportRestore = m.ReadU8(RestoreLBCOffset);
+
+        if(TeleportRestore > 0)
+        {
+            TeleportRestore--;
+            if(TeleportRestore == 0)
+            {
+                UpdateDestLBC(c, m, 0x02, 0x28, 0x10, 0x84, 0x7C0E);
+            }
+            m.WriteU8(RestoreLBCOffset, TeleportRestore);
+        }
+
+        UInt32 HeadEquip = m.ReadU32(0x80097C08);
+        byte MirrorCount = m.ReadU8(0x80097A55);
+        if (HeadEquip == 0x22)
+            MirrorCount++;
+
+        // Disallow various States
+        UInt16 PState = m.ReadU16(0x80073404);
+
+        if (PState == 0x10 || PState == 0x0A || PState == 0x0D || PState == 0x05 || PState == 0x18 || PState == 0x07)
+            MirrorCount = 0;
+
+        if( MirrorCount > 0 && (UInt16)(m.ReadU16(0x80097490) & 0x50) == 0x50)  // Has Mirror and X+Triangle held
+        {
+            if( (UInt16)(m.ReadU16(0x80097494) & 0x10) == 0x10) // Triangle was just Hit this frame.
+            {
+                UseMagicMirror(c, m);
+            }
+        }
+
+        int Cards = 0;
+
+        for(UInt32 i=0;i<7;i++)
+        {
+            if (m.ReadU8(0x80097976 + i) > 0)
+                Cards++;
+        }
+
+        if(Cards == 7)
+        {
+            for(UInt32 i=0;i<7;i++)
+            {
+                m.WriteU32(0x80097C44 + (i * 8), 0x63);
+                m.WriteU32(0x80097C48 + (i * 8), 0x26AB);
+            }
+        }
+
+    }
+
 }
