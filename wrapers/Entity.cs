@@ -107,6 +107,25 @@ public sealed class Entity
     public ushort HitEffect { get => M.ReadU16(Addr + 0x6A); set => M.WriteU16(Addr + 0x6A, value); }
     public byte Opacity { get => M.ReadU8(Addr + 0x6C); set => M.WriteU8(Addr + 0x6C, value); }
 
+    public int PaletteId
+    {
+        get => Palette & 0x7FFF;
+        set => Palette = (ushort)((value & 0x7FFF) | (Palette & 0x8000));
+    }
+
+    public bool PaletteFlagSet //decomp doesnt document it very well, but this means if the palette is absoluted or offseted (if this even makes sense)
+    {
+        get => (Palette & 0x8000) != 0;
+        set => Palette = (ushort)(value ? Palette | 0x8000 : Palette & 0x7FFF);
+    }
+
+    public ushort ClutId => Sotn.Palette.ClutOf(PaletteId);
+
+    public void SetPalette(int id) => Palette = (ushort)((id & 0x7FFF) | 0x8000);
+    public ushort[] ReadPalette() => Sotn.Palette.Read(PaletteId);
+    public void WritePalette(ReadOnlySpan<ushort> colors) => Sotn.Palette.Write(PaletteId, colors);
+    public void TintPalette(float r, float g, float b) => Sotn.Palette.Tint(PaletteId, r, g, b);
+
     public EntityFlags FlagBits { get => (EntityFlags)M.ReadU32(Addr + 0x34); set => M.WriteU32(Addr + 0x34, (uint)value); }
     public bool HasFlag(EntityFlags flag) => (FlagBits & flag) != 0;
     public void SetFlag(EntityFlags flag, bool on) => FlagBits = on ? FlagBits | flag : FlagBits & ~flag;

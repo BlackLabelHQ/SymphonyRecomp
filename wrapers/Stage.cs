@@ -1,3 +1,5 @@
+using System;
+
 namespace Sotn;
 
 public enum Stage
@@ -80,4 +82,26 @@ public enum Stage
     EuWarning = 0x70,
     Ending = 0xFE,
     MemoryCard = 0xFF,
+}
+
+public static class Stages
+{
+    public const int TilesetPalette = 0x000;
+    public const int SharedPalette = 0x100;
+    public const int EntityPalette = 0x200;
+    public const int PaletteCount = 0x100;
+
+    public static Stage Current => Game.StageId;
+    public static bool SecondCastle => Game.SecondCastle;
+    public static int Area => Game.Area;
+    public static int Room => Game.Room;
+
+    public static ushort[] ReadPalette(int index) => Palette.Read(TilesetPalette + index);
+    public static void WritePalette(int index, ReadOnlySpan<ushort> colors) => Palette.Write(TilesetPalette + index, colors);
+    public static void TintPalette(int index, float r, float g, float b) => Palette.Tint(TilesetPalette + index, r, g, b);
+
+    public static void Tint(float r, float g, float b)
+    {
+        for (int i = 0; i < PaletteCount; i++) Palette.Tint(TilesetPalette + i, r, g, b);
+    }
 }

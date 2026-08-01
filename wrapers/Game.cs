@@ -109,9 +109,8 @@ public static class Game
 
     public static bool InGame => State == GameState.Play;
     public static bool InMainMenu => State == GameState.MainMenu;
-    public static bool IsLoading => M.ReadU8(LoadingAddr) == 0x88;
-    public static bool InTransition => EngineStep != PlayStep.Default;
-    public static bool CanMenu => !InTransition && !IsLoading;
+    public static bool IsLoading => State == GameState.NowLoading || M.ReadU8(LoadingAddr) == 0x88;
+    public static bool CanMenu => InGame && !IsLoading;
 
     public static bool MenuOpen => M.ReadU8(MenuOpenAddr) != 0;
     public static bool MapOpen => M.ReadU8(MapOpenAddr) != 0;

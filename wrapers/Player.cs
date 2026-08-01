@@ -1,3 +1,4 @@
+using System;
 using RecompOne.Runtime.Memory;
 
 namespace Sotn;
@@ -86,6 +87,12 @@ public static class Player
     public static ushort ContactDamage { get => M.ReadU16(ContactDamageAddr); set => M.WriteU16(ContactDamageAddr, value); }
     public static ushort DamageTaken => M.ReadU16(DamageTakenAddr);
     public static ushort DamagePalette { get => M.ReadU16(DamagePaletteAddr); set => M.WriteU16(DamagePaletteAddr, value); }
+
+    public static int PaletteId { get => Entity.PaletteId; set { var e = Entity; e.PaletteId = value; } }
+    public static void SetPalette(int id) { var e = Entity; e.SetPalette(id); }
+    public static ushort[] ReadPalette() => Entity.ReadPalette();
+    public static void WritePalette(ReadOnlySpan<ushort> colors) => Entity.WritePalette(colors);
+    public static void TintPalette(float r, float g, float b) => Entity.TintPalette(r, g, b);
 
     public static short GetTimer(AluTimer timer) => (short)M.ReadU16(TimersAddr + (uint)((int)timer * 2));
     public static void SetTimer(AluTimer timer, short value) => M.WriteU16(TimersAddr + (uint)((int)timer * 2), (ushort)value);
