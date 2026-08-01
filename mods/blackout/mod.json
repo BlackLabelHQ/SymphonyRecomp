@@ -1,8 +1,9 @@
 {
-    "id": "dark-castle-mod",
-    "name": "Dark Castle / Blackout",
+    "id": "blackout",
+    "name": "Blackout",
     "firstPartyMod": true,
-    "version": "1.0.0",
-    "author": "Wecoc, Derp Princess",
+    "version": "Prerelease",
+    "author": "Derp Princess",
+    "description": "Made with heavy inspiration from Wecoc's `Dark Castle` mod.\n\nWho forgot to pay the power bill?!",
     "dependencies": []
 }

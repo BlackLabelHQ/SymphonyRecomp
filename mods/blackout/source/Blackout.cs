@@ -19,7 +19,7 @@ public class BlackoutMod : IMod
     public bool forceLightsOn = false;
 
     /* Internal State Core */
-    public bool inStage = false; // False - In CD Room or in Main Menu // True - In Stage
+    public bool blackoutEntities = true;
 
     /* Internal State Primary */
     public byte currentFamiliar = 0xFF;
@@ -35,15 +35,26 @@ public class BlackoutMod : IMod
         Event.AddListener<VSyncEvent>(OnVSyncEvent);
     }
 
+    public void OnUnload()
+    {
+        Event.RemoveListener<PlayerLoadedEvent>(Init);
+        Event.RemoveListener<VSyncEvent>(OnVSyncEvent);
+
+        Stages.Restore();
+        Stages.RestoreEntities();
+    }
+
     public void Init(PlayerLoadedEvent ple)
     {
         if (giveBlackoutStartingRelics) GiveBlackoutRelics();
         if (giveMoreStartingMP) GivePlayerHigherStartingMP();
     }
 
+
     public void OnVSyncEvent(VSyncEvent vse)
     {
         if (!forceLightsOn && Game.InGame && !Game.IsLoading) BlackoutMap();
+        if (!forceLightsOn && Game.InGame && !Game.IsLoading && blackoutEntities) BlackoutEntities();
     }
 
     /* Sets All Class Variables to False, basically */
@@ -58,6 +69,11 @@ public class BlackoutMod : IMod
         Stages.Shade(0, 0, 0);
     }
 
+    private void BlackoutEntities()
+    {
+        Stages.ShadeEntities(0, 0, 0);
+    }
+
     /* Gives Soul of Bat, Echo of Bat, Spirit Orb, and Faerie Scroll */
     private void GiveBlackoutRelics()
     {
@@ -69,7 +85,7 @@ public class BlackoutMod : IMod
 
     private void GivePlayerHigherStartingMP()
     {
-        Player.MpMax = 200;
+        Player.MpMax += 200;
     }
 
     private uint GetEchoOfBatTimer()
