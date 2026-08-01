@@ -11467,19 +11467,353 @@ public static partial class RandoPatch
     L800FF48C:;
         return;
     }
-    public static void MagicMaxUp_Pre(CpuContext c, IMemory m)
+
+    public static bool func_800FE044(CpuContext c, IMemory m)
     {
         // check if the instruction has been changed by the rando
         if (m.ReadU32(0x800fe0f4) == 0x10400003)
         {
-            // if it was changed, add 3 to max MP and restore MP
+            c.V0 = 0u | 0x8000u;                                    /* 0x800FE044  ori         $v0, $zero, 0x8000 */
+            if (c.A1 != c.V0)
+            {                                                       /* 0x800FE048  bne         $a1, $v0, . + 4 + (0x24 << 2) */
+                c.SP = c.SP - 0x10u;                                /* 0x800FE04C  addiu       $sp, $sp, -0x10 */
+                goto L800FE0DC;                                     /* 0x800FE048  bne         $a1, $v0, . + 4 + (0x24 << 2) */
+            }                                                       /* 0x800FE048  bne         $a1, $v0, . + 4 + (0x24 << 2) */
+            c.SP = c.SP - 0x10u;                                    /* 0x800FE04C  addiu       $sp, $sp, -0x10 */
+            c.V1 = 0x80090000u;                                     /* 0x800FE050  lui         $v1, 0x8009 */
+            c.V1 = c.V1 + 0x7BA4u;                                  /* 0x800FE054  addiu       $v1, $v1, 0x7BA4 */
+            c.V0 = m.ReadU32(c.V1);                                 /* 0x800FE058  lw          $v0, 0x0($v1) */
+            c.A1 = 0u | 0x270Fu;                                    /* 0x800FE05C  ori         $a1, $zero, 0x270F */
+            if (c.V0 == c.A1)
+            {                                                       /* 0x800FE060  beq         $v0, $a1, . + 4 + (0x2C << 2) */
+                c.V0 = c.A0 + c.V0;                                 /* 0x800FE064  addu        $v0, $a0, $v0 */
+                goto L800FE114;                                     /* 0x800FE060  beq         $v0, $a1, . + 4 + (0x2C << 2) */
+            }                                                       /* 0x800FE060  beq         $v0, $a1, . + 4 + (0x2C << 2) */
+            c.V0 = c.A0 + c.V0;                                     /* 0x800FE064  addu        $v0, $a0, $v0 */
+            m.WriteU32(c.V1, c.V0);                                 /* 0x800FE068  sw          $v0, 0x0($v1) */
+            c.V0 = (int)c.V0 < 10000 ? 1u : 0u;                     /* 0x800FE06C  slti        $v0, $v0, 0x2710 */
+            if (c.V0 != 0u)
+            {                                                       /* 0x800FE070  bnez        $v0, . + 4 + (0x2 << 2) */
+                goto L800FE07C;                                     /* 0x800FE070  bnez        $v0, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE070  bnez        $v0, . + 4 + (0x2 << 2) */
+            m.WriteU32(c.V1, c.A1);                                 /* 0x800FE078  sw          $a1, 0x0($v1) */
+        L800FE07C:;
+            c.V0 = 0x80040000u;                                     /* 0x800FE07C  lui         $v0, 0x8004 */
+            c.V0 = m.ReadU32((c.V0 - 0x3660u));                     /* 0x800FE080  lw          $v0, -0x3660($v0) */
+            if (c.V0 == 0u)
+            {                                                       /* 0x800FE088  beqz        $v0, . + 4 + (0x9 << 2) */
+                goto L800FE0B0;                                     /* 0x800FE088  beqz        $v0, . + 4 + (0x9 << 2) */
+            }                                                       /* 0x800FE088  beqz        $v0, . + 4 + (0x9 << 2) */
+            c.V0 = m.ReadU32(c.V1);                                 /* 0x800FE090  lw          $v0, 0x0($v1) */
+            c.V0 = c.A0 + c.V0;                                     /* 0x800FE098  addu        $v0, $a0, $v0 */
+            m.WriteU32(c.V1, c.V0);                                 /* 0x800FE09C  sw          $v0, 0x0($v1) */
+            c.V0 = (int)c.V0 < 10000 ? 1u : 0u;                     /* 0x800FE0A0  slti        $v0, $v0, 0x2710 */
+            if (c.V0 != 0u)
+            {                                                       /* 0x800FE0A4  bnez        $v0, . + 4 + (0x2 << 2) */
+                goto L800FE0B0;                                     /* 0x800FE0A4  bnez        $v0, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE0A4  bnez        $v0, . + 4 + (0x2 << 2) */
+            m.WriteU32(c.V1, c.A1);                                 /* 0x800FE0AC  sw          $a1, 0x0($v1) */
+        L800FE0B0:;
+            c.V1 = 0x80130000u;                                     /* 0x800FE0B0  lui         $v1, 0x8013 */
+            c.V1 = m.ReadU32((c.V1 + 0x7960u));                     /* 0x800FE0B4  lw          $v1, 0x7960($v1) */
+            c.A0 = 0x80090000u;                                     /* 0x800FE0B8  lui         $a0, 0x8009 */
+            c.A0 = m.ReadU32((c.A0 + 0x7BA4u));                     /* 0x800FE0BC  lw          $a0, 0x7BA4($a0) */
+            c.V1 = c.V1 + 0x1u;                                     /* 0x800FE0C0  addiu       $v1, $v1, 0x1 */
+            c.At = 0x80090000u;                                     /* 0x800FE0C4  lui         $at, 0x8009 */
+            m.WriteU32((c.At + 0x7BA0u), c.A0);                     /* 0x800FE0C8  sw          $a0, 0x7BA0($at) */
+            c.At = 0x80130000u;                                     /* 0x800FE0CC  lui         $at, 0x8013 */
+            m.WriteU32((c.At + 0x7960u), c.V1);                     /* 0x800FE0D0  sw          $v1, 0x7960($at) */
+            c.V0 = 0u + 0u;                                         /* 0x800FE0D8  addu        $v0, $zero, $zero */
+            goto L800FE39C;                                         /* 0x800FE0D4  j           func_800FE39C */
+        L800FE0DC:;
+            c.V0 = 0u | 0x4000u;                                    /* 0x800FE0DC  ori         $v0, $zero, 0x4000 */
+            if (c.A1 != c.V0)
+            {                                                       /* 0x800FE0E0  bne         $a1, $v0, . + 4 + (0x21 << 2) */
+                c.V0 = 0u | 0x2000u;                                /* 0x800FE0E4  ori         $v0, $zero, 0x2000 */
+                goto L800FE168;                                     /* 0x800FE0E0  bne         $a1, $v0, . + 4 + (0x21 << 2) */
+            }                                                       /* 0x800FE0E0  bne         $a1, $v0, . + 4 + (0x21 << 2) */
+            c.V0 = 0u | 0x2000u;                                    /* 0x800FE0E4  ori         $v0, $zero, 0x2000 */
+
+            // if code was changed, add 3 to max MP and restore MP
             UInt32 mp_amount;
-            UInt32 mp_total = 0x80097bb0;
-            UInt32 mp_current = 0x80097bb4;
+            UInt32 mp_total = 0x80097bb4;
+            UInt32 mp_current = 0x80097bb0;
 
             mp_amount = m.ReadU32(mp_total) + 0x03;
-            m.WriteU32(mp_total,mp_amount);
+            m.WriteU32(mp_total, mp_amount);
             m.WriteU32(mp_current, mp_amount);
+            // end magic max changes
+
+            c.V0 = 0x80040000u;                                     /* 0x800FE0E8  lui         $v0, 0x8004 */
+            c.V0 = m.ReadU32((c.V0 - 0x3660u));                     /* 0x800FE0EC  lw          $v0, -0x3660($v0) */
+            if (c.V0 != 0u)
+            {                                                       /* 0x800FE0F4  bnez        $v0, . + 4 + (0x7 << 2) */
+                c.A2 = 0u | 0x270Fu;                                /* 0x800FE0F8  ori         $a2, $zero, 0x270F */
+                goto L800FE114;                                     /* 0x800FE0F4  bnez        $v0, . + 4 + (0x7 << 2) */
+            }                                                       /* 0x800FE0F4  bnez        $v0, . + 4 + (0x7 << 2) */
+            c.A2 = 0u | 0x270Fu;                                    /* 0x800FE0F8  ori         $a2, $zero, 0x270F */
+            c.V1 = 0x80090000u;                                     /* 0x800FE0FC  lui         $v1, 0x8009 */
+            c.V1 = c.V1 + 0x7BACu;                                  /* 0x800FE100  addiu       $v1, $v1, 0x7BAC */
+            c.A1 = m.ReadU32(c.V1);                                 /* 0x800FE104  lw          $a1, 0x0($v1) */
+            if (c.A1 != c.A2)
+            {                                                       /* 0x800FE10C  bne         $a1, $a2, . + 4 + (0x3 << 2) */
+                c.V0 = c.A0 + c.A1;                                 /* 0x800FE110  addu        $v0, $a0, $a1 */
+                goto L800FE11C;                                     /* 0x800FE10C  bne         $a1, $a2, . + 4 + (0x3 << 2) */
+            }                                                       /* 0x800FE10C  bne         $a1, $a2, . + 4 + (0x3 << 2) */
+            c.V0 = c.A0 + c.A1;                                     /* 0x800FE110  addu        $v0, $a0, $a1 */
+        L800FE114:;
+            c.V0 = 0u | 0x0001u;                                    /* 0x800FE118  ori         $v0, $zero, 0x1 */
+            goto L800FE39C;                                         /* 0x800FE114  j           func_800FE39C */
+        L800FE11C:;
+            m.WriteU32(c.V1, c.V0);                                 /* 0x800FE11C  sw          $v0, 0x0($v1) */
+            c.V0 = (int)c.V0 < 10000 ? 1u : 0u;                     /* 0x800FE120  slti        $v0, $v0, 0x2710 */
+            if (c.V0 != 0u)
+            {                                                       /* 0x800FE124  bnez        $v0, . + 4 + (0x2 << 2) */
+                goto L800FE130;                                     /* 0x800FE124  bnez        $v0, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE124  bnez        $v0, . + 4 + (0x2 << 2) */
+            m.WriteU32(c.V1, c.A2);                                 /* 0x800FE12C  sw          $a2, 0x0($v1) */
+        L800FE130:;
+            c.V1 = m.ReadU32(c.V1);                                 /* 0x800FE130  lw          $v1, 0x0($v1) */
+            c.A0 = 0x80130000u;                                     /* 0x800FE134  lui         $a0, 0x8013 */
+            c.A0 = m.ReadU32((c.A0 + 0x7964u));                     /* 0x800FE138  lw          $a0, 0x7964($a0) */
+            c.V1 = c.V1 - c.A1;                                     /* 0x800FE13C  subu        $v1, $v1, $a1 */
+            c.A1 = 0x80090000u;                                     /* 0x800FE140  lui         $a1, 0x8009 */
+            c.A1 = m.ReadU32((c.A1 + 0x7BA8u));                     /* 0x800FE144  lw          $a1, 0x7BA8($a1) */
+            c.A0 = c.A0 + 0x1u;                                     /* 0x800FE148  addiu       $a0, $a0, 0x1 */
+            c.At = 0x80130000u;                                     /* 0x800FE14C  lui         $at, 0x8013 */
+            m.WriteU32((c.At + 0x7964u), c.A0);                     /* 0x800FE150  sw          $a0, 0x7964($at) */
+            c.V1 = c.V1 + c.A1;                                     /* 0x800FE154  addu        $v1, $v1, $a1 */
+            c.At = 0x80090000u;                                     /* 0x800FE158  lui         $at, 0x8009 */
+            m.WriteU32((c.At + 0x7BA8u), c.V1);                     /* 0x800FE15C  sw          $v1, 0x7BA8($at) */
+            c.V0 = 0u + 0u;                                         /* 0x800FE164  addu        $v0, $zero, $zero */
+            goto L800FE39C;                                         /* 0x800FE160  j           func_800FE39C */
+        L800FE168:;
+            if (c.A1 != c.V0)
+            {                                                       /* 0x800FE168  bne         $a1, $v0, . + 4 + (0x16 << 2) */
+                c.V0 = 0u | 0x0003u;                                /* 0x800FE16C  ori         $v0, $zero, 0x3 */
+                goto L800FE1C4;                                     /* 0x800FE168  bne         $a1, $v0, . + 4 + (0x16 << 2) */
+            }                                                       /* 0x800FE168  bne         $a1, $v0, . + 4 + (0x16 << 2) */
+            c.V0 = 0u | 0x0003u;                                    /* 0x800FE16C  ori         $v0, $zero, 0x3 */
+            c.At = 0x80090000u;                                     /* 0x800FE170  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE174  addu        $at, $at, $a0 */
+            m.WriteU8((c.At + 0x7964u), (byte)c.V0);                /* 0x800FE178  sb          $v0, 0x7964($at) */
+            c.V0 = c.A0 << 4;                                       /* 0x800FE17C  sll         $v0, $a0, 4 */
+            c.At = 0x800B0000u;                                     /* 0x800FE180  lui         $at, 0x800B */
+            c.At = c.At + c.V0;                                     /* 0x800FE184  addu        $at, $at, $v0 */
+            c.V0 = m.ReadU32((c.At - 0x78D4u));                     /* 0x800FE188  lw          $v0, -0x78D4($at) */
+            if (c.V0 == 0u)
+            {                                                       /* 0x800FE190  beqz        $v0, . + 4 + (0x4 << 2) */
+                c.V0 = 0u | 0x0001u;                                /* 0x800FE194  ori         $v0, $zero, 0x1 */
+                goto L800FE1A4;                                     /* 0x800FE190  beqz        $v0, . + 4 + (0x4 << 2) */
+            }                                                       /* 0x800FE190  beqz        $v0, . + 4 + (0x4 << 2) */
+            c.V0 = 0u | 0x0001u;                                    /* 0x800FE194  ori         $v0, $zero, 0x1 */
+            c.At = 0x80090000u;                                     /* 0x800FE198  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE19C  addu        $at, $at, $a0 */
+            m.WriteU8((c.At + 0x7964u), (byte)c.V0);                /* 0x800FE1A0  sb          $v0, 0x7964($at) */
+        L800FE1A4:;
+            c.V1 = 0x80130000u;                                     /* 0x800FE1A4  lui         $v1, 0x8013 */
+            c.V1 = m.ReadU32((c.V1 + 0x7968u));                     /* 0x800FE1A8  lw          $v1, 0x7968($v1) */
+            c.V1 = c.V1 + 0x1u;                                     /* 0x800FE1B0  addiu       $v1, $v1, 0x1 */
+            c.At = 0x80130000u;                                     /* 0x800FE1B4  lui         $at, 0x8013 */
+            m.WriteU32((c.At + 0x7968u), c.V1);                     /* 0x800FE1B8  sw          $v1, 0x7968($at) */
+            c.V0 = 0u + 0u;                                         /* 0x800FE1C0  addu        $v0, $zero, $zero */
+            goto L800FE39C;                                         /* 0x800FE1BC  j           func_800FE39C */
+        L800FE1C4:;
+            if (c.A0 == 0u)
+            {                                       /* 0x800FE1C4  beqz        $a0, . + 4 + (0x75 << 2) */
+                goto L800FE39C;                                     /* 0x800FE1C4  beqz        $a0, . + 4 + (0x75 << 2) */
+            }                                                       /* 0x800FE1C4  beqz        $a0, . + 4 + (0x75 << 2) */
+            c.V1 = 0x80090000u;                                     /* 0x800FE1CC  lui         $v1, 0x8009 */
+            c.V1 = m.ReadU32((c.V1 + 0x7BE8u));                     /* 0x800FE1D0  lw          $v1, 0x7BE8($v1) */
+            c.V0 = 0u | 0x0063u;                                    /* 0x800FE1D4  ori         $v0, $zero, 0x63 */
+            if (c.V1 == c.V0)
+            {                                     /* 0x800FE1D8  beq         $v1, $v0, . + 4 + (0x70 << 2) */
+                goto L800FE39C;                                     /* 0x800FE1D8  beq         $v1, $v0, . + 4 + (0x70 << 2) */
+            }                                                       /* 0x800FE1D8  beq         $v1, $v0, . + 4 + (0x70 << 2) */
+            c.V0 = (int)c.A1 < (int)c.V1 ? 1u : 0u;                 /* 0x800FE1E0  slt         $v0, $a1, $v1 */
+            if (c.V0 == 0u)
+            {                                       /* 0x800FE1E4  beqz        $v0, . + 4 + (0x13 << 2) */
+                c.A2 = c.A0 + 0u;                                   /* 0x800FE1E8  addu        $a2, $a0, $zero */
+                goto L800FE234;                                     /* 0x800FE1E4  beqz        $v0, . + 4 + (0x13 << 2) */
+            }                                                       /* 0x800FE1E4  beqz        $v0, . + 4 + (0x13 << 2) */
+            c.A2 = c.A0 + 0u;                                       /* 0x800FE1E8  addu        $a2, $a0, $zero */
+            c.A3 = c.V1 - c.A1;                                     /* 0x800FE1EC  subu        $a3, $v1, $a1 */
+            if ((int)c.A3 <= 0)
+            {                                   /* 0x800FE1F0  blez        $a3, . + 4 + (0xB << 2) */
+                c.V1 = 0u + 0u;                                     /* 0x800FE1F4  addu        $v1, $zero, $zero */
+                goto L800FE220;                                     /* 0x800FE1F0  blez        $a3, . + 4 + (0xB << 2) */
+            }                                                       /* 0x800FE1F0  blez        $a3, . + 4 + (0xB << 2) */
+            c.V1 = 0u + 0u;                                         /* 0x800FE1F4  addu        $v1, $zero, $zero */
+            c.T0 = 0xAAAA0000u;                                     /* 0x800FE1F8  lui         $t0, 0xAAAA */
+            c.T0 = c.T0 | 0xAAABu;                                  /* 0x800FE1FC  ori         $t0, $t0, 0xAAAB */
+            c.V0 = c.A2 << 1;                                       /* 0x800FE200  sll         $v0, $a2, 1 */
+        L800FE204:;
+            { var _r = (ulong)c.V0 * c.T0; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }  /* 0x800FE204  multu       $v0, $t0 */
+            c.V1 = c.V1 + 0x1u;                                     /* 0x800FE208  addiu       $v1, $v1, 0x1 */
+            c.V0 = c.HI;                                            /* 0x800FE20C  mfhi        $v0 */
+            c.A2 = c.V0 >> 1;                                       /* 0x800FE210  srl         $a2, $v0, 1 */
+            c.V0 = (int)c.V1 < (int)c.A3 ? 1u : 0u;                 /* 0x800FE214  slt         $v0, $v1, $a3 */
+            if (c.V0 != 0u)
+            {                                       /* 0x800FE218  bnez        $v0, . + 4 + (-0x6 << 2) */
+                c.V0 = c.A2 << 1;                                   /* 0x800FE21C  sll         $v0, $a2, 1 */
+                goto L800FE204;                                     /* 0x800FE218  bnez        $v0, . + 4 + (-0x6 << 2) */
+            }                                                       /* 0x800FE218  bnez        $v0, . + 4 + (-0x6 << 2) */
+            c.V0 = c.A2 << 1;                                       /* 0x800FE21C  sll         $v0, $a2, 1 */
+        L800FE220:;
+            if (c.A2 != 0u)
+            {                                       /* 0x800FE220  bnez        $a2, . + 4 + (0x2 << 2) */
+                goto L800FE22C;                                     /* 0x800FE220  bnez        $a2, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE220  bnez        $a2, . + 4 + (0x2 << 2) */
+            c.A2 = 0u | 0x0001u;                                    /* 0x800FE228  ori         $a2, $zero, 0x1 */
+        L800FE22C:;
+            c.V1 = 0x80090000u;                                     /* 0x800FE22C  lui         $v1, 0x8009 */
+            c.V1 = m.ReadU32((c.V1 + 0x7BE8u));                     /* 0x800FE230  lw          $v1, 0x7BE8($v1) */
+        L800FE234:;
+            c.V0 = (int)c.V1 < (int)c.A1 ? 1u : 0u;                 /* 0x800FE238  slt         $v0, $v1, $a1 */
+            if (c.V0 == 0u)
+            {                                       /* 0x800FE23C  beqz        $v0, . + 4 + (0xD << 2) */
+                goto L800FE274;                                     /* 0x800FE23C  beqz        $v0, . + 4 + (0xD << 2) */
+            }                                                       /* 0x800FE23C  beqz        $v0, . + 4 + (0xD << 2) */
+            c.A3 = c.A1 - c.V1;                                     /* 0x800FE244  subu        $a3, $a1, $v1 */
+            c.V0 = (int)c.A3 < 6 ? 1u : 0u;                         /* 0x800FE248  slti        $v0, $a3, 0x6 */
+            if (c.V0 != 0u)
+            {                                       /* 0x800FE24C  bnez        $v0, . + 4 + (0x2 << 2) */
+                c.V1 = 0u + 0u;                                     /* 0x800FE250  addu        $v1, $zero, $zero */
+                goto L800FE258;                                     /* 0x800FE24C  bnez        $v0, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE24C  bnez        $v0, . + 4 + (0x2 << 2) */
+            c.V1 = 0u + 0u;                                         /* 0x800FE250  addu        $v1, $zero, $zero */
+            c.A3 = 0u | 0x0005u;                                    /* 0x800FE254  ori         $a3, $zero, 0x5 */
+        L800FE258:;
+            if ((int)c.A3 <= 0)
+            {                                   /* 0x800FE258  blez        $a3, . + 4 + (0x6 << 2) */
+                c.V0 = c.A2 >> 2;                                   /* 0x800FE25C  srl         $v0, $a2, 2 */
+                goto L800FE274;                                     /* 0x800FE258  blez        $a3, . + 4 + (0x6 << 2) */
+            }                                                       /* 0x800FE258  blez        $a3, . + 4 + (0x6 << 2) */
+            c.V0 = c.A2 >> 2;                                       /* 0x800FE25C  srl         $v0, $a2, 2 */
+        L800FE260:;
+            c.A2 = c.A2 + c.V0;                                     /* 0x800FE260  addu        $a2, $a2, $v0 */
+            c.V1 = c.V1 + 0x1u;                                     /* 0x800FE264  addiu       $v1, $v1, 0x1 */
+            c.V0 = (int)c.V1 < (int)c.A3 ? 1u : 0u;                 /* 0x800FE268  slt         $v0, $v1, $a3 */
+            if (c.V0 != 0u)
+            {                                       /* 0x800FE26C  bnez        $v0, . + 4 + (-0x4 << 2) */
+                c.V0 = c.A2 >> 2;                                   /* 0x800FE270  srl         $v0, $a2, 2 */
+                goto L800FE260;                                     /* 0x800FE26C  bnez        $v0, . + 4 + (-0x4 << 2) */
+            }                                                       /* 0x800FE26C  bnez        $v0, . + 4 + (-0x4 << 2) */
+            c.V0 = c.A2 >> 2;                                       /* 0x800FE270  srl         $v0, $a2, 2 */
+        L800FE274:;
+            c.V1 = 0x80090000u;                                     /* 0x800FE274  lui         $v1, 0x8009 */
+            c.V1 = c.V1 + 0x7BECu;                                  /* 0x800FE278  addiu       $v1, $v1, 0x7BEC */
+            c.V0 = m.ReadU32(c.V1);                                 /* 0x800FE27C  lw          $v0, 0x0($v1) */
+            c.A1 = 0x800B0000u;                                     /* 0x800FE280  lui         $a1, 0x800B */
+            c.A1 = m.ReadU32((c.A1 - 0x36F4u));                     /* 0x800FE284  lw          $a1, -0x36F4($a1) */
+            c.V0 = c.A2 + c.V0;                                     /* 0x800FE288  addu        $v0, $a2, $v0 */
+            m.WriteU32(c.V1, c.V0);                                 /* 0x800FE28C  sw          $v0, 0x0($v1) */
+            c.V0 = c.V0 < c.A1 ? 1u : 0u;                           /* 0x800FE290  sltu        $v0, $v0, $a1 */
+            if (c.V0 != 0u)
+            {                                       /* 0x800FE294  bnez        $v0, . + 4 + (0x2 << 2) */
+                goto L800FE2A0;                                     /* 0x800FE294  bnez        $v0, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE294  bnez        $v0, . + 4 + (0x2 << 2) */
+            m.WriteU32(c.V1, c.A1);                                 /* 0x800FE29C  sw          $a1, 0x0($v1) */
+        L800FE2A0:;
+            c.V0 = 0x80070000u;                                     /* 0x800FE2A0  lui         $v0, 0x8007 */
+            c.V0 = m.ReadU32((c.V0 - 0x343Cu));                     /* 0x800FE2A4  lw          $v0, -0x343C($v0) */
+            if (c.V0 == 0u)
+            {                                       /* 0x800FE2AC  beqz        $v0, . + 4 + (0x3B << 2) */
+                c.A1 = c.V0 - 0x1u;                                 /* 0x800FE2B0  addiu       $a1, $v0, -0x1 */
+                goto L800FE39C;                                     /* 0x800FE2AC  beqz        $v0, . + 4 + (0x3B << 2) */
+            }                                                       /* 0x800FE2AC  beqz        $v0, . + 4 + (0x3B << 2) */
+            c.A1 = c.V0 - 0x1u;                                     /* 0x800FE2B0  addiu       $a1, $v0, -0x1 */
+            c.V0 = c.A1 << 1;                                       /* 0x800FE2B4  sll         $v0, $a1, 1 */
+            c.V0 = c.V0 + c.A1;                                     /* 0x800FE2B8  addu        $v0, $v0, $a1 */
+            c.V0 = c.V0 << 2;                                       /* 0x800FE2BC  sll         $v0, $v0, 2 */
+            c.At = 0x80090000u;                                     /* 0x800FE2C0  lui         $at, 0x8009 */
+            c.At = c.At + c.V0;                                     /* 0x800FE2C4  addu        $at, $at, $v0 */
+            c.V0 = m.ReadU32((c.At + 0x7C44u));                     /* 0x800FE2C8  lw          $v0, 0x7C44($at) */
+            if (c.V0 != 0u) { if ((int)c.A0 == int.MinValue && (int)c.V0 == -1) { c.LO = 0x80000000u; c.HI = 0u; } else { c.LO = (uint)((int)c.A0 / (int)c.V0); c.HI = (uint)((int)c.A0 % (int)c.V0); } }  /* 0x800FE2D0  div         $zero, $a0, $v0 */
+            if (c.V0 != 0u)
+            {                                       /* 0x800FE2D4  bnez        $v0, . + 4 + (0x2 << 2) */
+                goto L800FE2E0;                                     /* 0x800FE2D4  bnez        $v0, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE2D4  bnez        $v0, . + 4 + (0x2 << 2) */
+            Bios.Break(c, m);                                       /* 0x800FE2DC  break       7 */
+        L800FE2E0:;
+            c.At = 0xFFFFFFFFu;                                     /* 0x800FE2E0  addiu       $at, $zero, -0x1 */
+            if (c.V0 != c.At)
+            {                                     /* 0x800FE2E4  bne         $v0, $at, . + 4 + (0x4 << 2) */
+                c.At = 0x80000000u;                                 /* 0x800FE2E8  lui         $at, 0x8000 */
+                goto L800FE2F8;                                     /* 0x800FE2E4  bne         $v0, $at, . + 4 + (0x4 << 2) */
+            }                                                       /* 0x800FE2E4  bne         $v0, $at, . + 4 + (0x4 << 2) */
+            c.At = 0x80000000u;                                     /* 0x800FE2E8  lui         $at, 0x8000 */
+            if (c.A0 != c.At)
+            {                                     /* 0x800FE2EC  bne         $a0, $at, . + 4 + (0x2 << 2) */
+                goto L800FE2F8;                                     /* 0x800FE2EC  bne         $a0, $at, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE2EC  bne         $a0, $at, . + 4 + (0x2 << 2) */
+            Bios.Break(c, m);                                       /* 0x800FE2F4  break       6 */
+        L800FE2F8:;
+            c.A2 = c.LO;                                            /* 0x800FE2F8  mflo        $a2 */
+            if (c.A2 == 0u)
+            {                                       /* 0x800FE300  beqz        $a2, . + 4 + (0x4 << 2) */
+                c.V1 = 0u + 0u;                                     /* 0x800FE304  addu        $v1, $zero, $zero */
+                goto L800FE314;                                     /* 0x800FE300  beqz        $a2, . + 4 + (0x4 << 2) */
+            }                                                       /* 0x800FE300  beqz        $a2, . + 4 + (0x4 << 2) */
+            c.V1 = 0u + 0u;                                         /* 0x800FE304  addu        $v1, $zero, $zero */
+        L800FE308:;
+            c.A2 = c.A2 >> 1;                                       /* 0x800FE308  srl         $a2, $a2, 1 */
+            if (c.A2 != 0u)
+            {                                       /* 0x800FE30C  bnez        $a2, . + 4 + (-0x2 << 2) */
+                c.V1 = c.V1 + 0x1u;                                 /* 0x800FE310  addiu       $v1, $v1, 0x1 */
+                goto L800FE308;                                     /* 0x800FE30C  bnez        $a2, . + 4 + (-0x2 << 2) */
+            }                                                       /* 0x800FE30C  bnez        $a2, . + 4 + (-0x2 << 2) */
+            c.V1 = c.V1 + 0x1u;                                     /* 0x800FE310  addiu       $v1, $v1, 0x1 */
+        L800FE314:;
+            if ((int)c.V1 > 0)
+            {                                    /* 0x800FE314  bgtz        $v1, . + 4 + (0x2 << 2) */
+                c.V0 = c.A1 << 1;                                   /* 0x800FE318  sll         $v0, $a1, 1 */
+                goto L800FE320;                                     /* 0x800FE314  bgtz        $v1, . + 4 + (0x2 << 2) */
+            }                                                       /* 0x800FE314  bgtz        $v1, . + 4 + (0x2 << 2) */
+            c.V0 = c.A1 << 1;                                       /* 0x800FE318  sll         $v0, $a1, 1 */
+            c.V1 = 0u | 0x0001u;                                    /* 0x800FE31C  ori         $v1, $zero, 0x1 */
+        L800FE320:;
+            c.V0 = c.V0 + c.A1;                                     /* 0x800FE320  addu        $v0, $v0, $a1 */
+            c.A0 = c.V0 << 2;                                       /* 0x800FE324  sll         $a0, $v0, 2 */
+            c.At = 0x80090000u;                                     /* 0x800FE328  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE32C  addu        $at, $at, $a0 */
+            c.V0 = m.ReadU32((c.At + 0x7C48u));                     /* 0x800FE330  lw          $v0, 0x7C48($at) */
+            c.V0 = c.V1 + c.V0;                                     /* 0x800FE338  addu        $v0, $v1, $v0 */
+            c.At = 0x80090000u;                                     /* 0x800FE33C  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE340  addu        $at, $at, $a0 */
+            m.WriteU32((c.At + 0x7C48u), c.V0);                     /* 0x800FE344  sw          $v0, 0x7C48($at) */
+            c.V0 = (int)c.V0 < 9900 ? 1u : 0u;                      /* 0x800FE348  slti        $v0, $v0, 0x26AC */
+            if (c.V0 != 0u)
+            {                                       /* 0x800FE34C  bnez        $v0, . + 4 + (0x6 << 2) */
+                c.V0 = 0x51EB0000u;                                 /* 0x800FE350  lui         $v0, 0x51EB */
+                goto L800FE368;                                     /* 0x800FE34C  bnez        $v0, . + 4 + (0x6 << 2) */
+            }                                                       /* 0x800FE34C  bnez        $v0, . + 4 + (0x6 << 2) */
+            c.V0 = 0x51EB0000u;                                     /* 0x800FE350  lui         $v0, 0x51EB */
+            c.V0 = 0u | 0x26ABu;                                    /* 0x800FE354  ori         $v0, $zero, 0x26AB */
+            c.At = 0x80090000u;                                     /* 0x800FE358  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE35C  addu        $at, $at, $a0 */
+            m.WriteU32((c.At + 0x7C48u), c.V0);                     /* 0x800FE360  sw          $v0, 0x7C48($at) */
+            c.V0 = 0x51EB0000u;                                     /* 0x800FE364  lui         $v0, 0x51EB */
+        L800FE368:;
+            c.At = 0x80090000u;                                     /* 0x800FE368  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE36C  addu        $at, $at, $a0 */
+            c.V1 = m.ReadU32((c.At + 0x7C48u));                     /* 0x800FE370  lw          $v1, 0x7C48($at) */
+            c.V0 = c.V0 | 0x851Fu;                                  /* 0x800FE374  ori         $v0, $v0, 0x851F */
+            { var _r = (long)(int)c.V1 * (int)c.V0; c.LO = (uint)_r; c.HI = (uint)(_r >> 32); }  /* 0x800FE378  mult        $v1, $v0 */
+            c.V1 = (uint)((int)c.V1 >> 31);                         /* 0x800FE37C  sra         $v1, $v1, 31 */
+            c.V0 = c.HI;                                            /* 0x800FE380  mfhi        $v0 */
+            c.V0 = (uint)((int)c.V0 >> 5);                          /* 0x800FE384  sra         $v0, $v0, 5 */
+            c.V0 = c.V0 - c.V1;                                     /* 0x800FE388  subu        $v0, $v0, $v1 */
+            c.V0 = c.V0 + 0x1u;                                     /* 0x800FE38C  addiu       $v0, $v0, 0x1 */
+            c.At = 0x80090000u;                                     /* 0x800FE390  lui         $at, 0x8009 */
+            c.At = c.At + c.A0;                                     /* 0x800FE394  addu        $at, $at, $a0 */
+            m.WriteU32((c.At + 0x7C44u), c.V0);                     /* 0x800FE398  sw          $v0, 0x7C44($at) */
+        L800FE39C:;
+            c.SP = c.SP + 0x10u;                                    /* 0x800FE39C  addiu       $sp, $sp, 0x10 */
+            return false;                                            /* 0x800FE3A0  jr          $ra */
+        } else
+        {
+            return true;
         }
     }
 
