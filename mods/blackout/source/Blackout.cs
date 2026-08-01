@@ -15,7 +15,19 @@ using RecompOne.Runtime.Events;
 
 public class BlackoutMod : IMod
 {
-    public bool giveMoreStartingMP = false;
+    /* Debug */
+    public bool forceLightsOn = false;
+
+    /* Internal State Core */
+    public bool inStage = false; // False - In CD Room or in Main Menu // True - In Stage
+
+    /* Internal State Primary */
+    public byte currentFamiliar = 0xFF;
+    public byte batEchoTimer = 100;
+
+    /* Customizable Options */
+    public bool giveBlackoutStartingRelics = true;
+    public bool giveMoreStartingMP = true;
 
     public void OnLoad()
     {
@@ -23,16 +35,27 @@ public class BlackoutMod : IMod
         Event.AddListener<VSyncEvent>(OnVSyncEvent);
     }
 
-    public void OnVSyncEvent(VSyncEvent vse)
-    {
-        
-    }
-
     public void Init(PlayerLoadedEvent ple)
     {
-        GiveBlackoutRelics();
+        if (giveBlackoutStartingRelics) GiveBlackoutRelics();
         if (giveMoreStartingMP) GivePlayerHigherStartingMP();
-        
+    }
+
+    public void OnVSyncEvent(VSyncEvent vse)
+    {
+        if (!forceLightsOn && Game.InGame && !Game.IsLoading) BlackoutMap();
+    }
+
+    /* Sets All Class Variables to False, basically */
+    private void ClearFlags()
+    {
+        giveBlackoutStartingRelics = false;
+        giveMoreStartingMP = false;
+    }
+
+    private void BlackoutMap()
+    {
+        Stages.Shade(0, 0, 0);
     }
 
     /* Gives Soul of Bat, Echo of Bat, Spirit Orb, and Faerie Scroll */
