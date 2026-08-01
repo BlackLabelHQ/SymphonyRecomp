@@ -1988,6 +1988,21 @@
       "target": "Recompiled.RandoPatch.MagicMaxUp_Pre"
     },
     {
+      "overlay": "w0_045",
+      "function": "func_ptr_8017000C",
+      "target": "Recompiled.RandoPatch.func_ptr_8017000C_w0_045"
+    },
+    {
+      "overlay": "w0_045",
+      "function": "func_ptr_80170004",
+      "target": "Recompiled.RandoPatch.func_ptr_80170004_w0_045"
+    },
+    {
+      "overlay": "w0_045",
+      "function": "func_ptr_80170008",
+      "target": "Recompiled.RandoPatch.func_ptr_80170008_w0_045"
+    },
+    {
       "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
       "overlay": "dra",
       "function": "func_800F16D0",
