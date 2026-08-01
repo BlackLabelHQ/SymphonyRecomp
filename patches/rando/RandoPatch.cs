@@ -149,6 +149,9 @@ public static partial class RandoPatch
 
         CUR_PRESET = m.ReadU8(PresetMemoryOffset);
 
+        // Save Registers for Use of Add Item.
+        var snap = c.Snapshot();
+
         if (CUR_PRESET == (byte)PresetId.Lycanthrope)
         {
             m.WriteU32(0x80097964 + 4, 0x00030303); // Soul of Wolf, Power of Wolf, Skill of Wolf
@@ -189,6 +192,10 @@ public static partial class RandoPatch
             c.A1 = 0x01;
             SoTN.AddToInventory(c, m);      // Give Axelord Armor
         }
+
+        // Restore Registers
+        c.Restore(snap);
+
     }
 
     // Detects randomizer preset by reading game memory and sets an identifier in game memory to be used by other functions.
