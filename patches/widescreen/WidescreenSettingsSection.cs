@@ -24,29 +24,33 @@ public static class WidescreenSettings
         ImGui.Spacing();
 
         float aspect = RecompOne.Runtime.Runtime.View.GetFloat("WidescreenAspect", 16f / 9f);
+        bool original = WidescreenPatch.OriginalAspect;
         int selected = MatchPreset(aspect);
+        string label = original ? "Original" : selected >= 0 ? _presets[selected].Label : "Custom";
 
-        ImGui.TextUnformatted("Widescreen Aspect Ratio");
-        if (ImGui.BeginCombo("##aspect-preset", selected >= 0 ? _presets[selected].Label : "Custom"))
+        ImGui.TextUnformatted("Aspect Ratio");
+        if (ImGui.BeginCombo("##aspect-preset", label))
         {
+            if (ImGui.Selectable("Original", original)) ApplyOriginal(true);
             for (int i = 0; i < _presets.Length; i++)
             {
-                if (ImGui.Selectable(_presets[i].Label, selected == i))
+                if (ImGui.Selectable(_presets[i].Label, !original && selected == i))
                     Apply(_presets[i].Value);
             }
-            if (ImGui.Selectable("Custom", selected < 0))
-            {
-            }
+            if (ImGui.Selectable("Custom", !original && selected < 0))
+                Apply(aspect);
             ImGui.EndCombo();
         }
 
+        if (original) ImGui.BeginDisabled();
         float custom = aspect;
         if (ImGui.SliderFloat("##aspect-custom", ref custom, 1.0f, 2.5f, "%.3f : 1"))
             Apply(custom);
+        if (original) ImGui.EndDisabled();
 
         ImGui.Spacing();
         ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled]);
-        ImGui.TextWrapped("Controls the widescreen rendering ratio. 4:3 keeps the original framing.");
+        //ImGui.TextWrapped("");
         ImGui.PopStyleColor();
 
         ImGui.Spacing();
@@ -55,8 +59,25 @@ public static class WidescreenSettings
             ApplyPillarBoxing(pillarBoxing);
 
         ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled]);
-        ImGui.TextWrapped("Keeps the original top/bottom black bars in the stage view. Turn off to use the full vertical resolution.");
+        ImGui.TextWrapped("Keeps the original top/bottom black bars in the stage view. Turn off to use the full vertical resolution. (will show some void on some areas)");
         ImGui.PopStyleColor();
+
+        ImGui.Spacing();
+        bool unstretch = WidescreenPatch.Unstretch;
+        if (ImGui.Checkbox("unstretch", ref unstretch))
+            ApplyUnstretch(unstretch);
+
+        ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled]);
+        ImGui.TextWrapped("Renders the stage with square pixels instead of stretching it to fit 4:3");
+        ImGui.PopStyleColor();
+    }
+
+    static void ApplyUnstretch(bool unstretch)
+    {
+        WidescreenPatch.Unstretch = unstretch;
+        RecompOne.Runtime.Runtime.View.SetBool("WidescreenUnstretch", unstretch);
+        WidescreenPatch.Refresh();
+        RecompOne.Runtime.Runtime.SaveView();
     }
 
     static void ApplyPillarBoxing(bool pillarBoxing)
@@ -73,21 +94,29 @@ public static class WidescreenSettings
         return -1;
     }
 
-    const float FourThirds = 4f / 3f;
+
+    static void ApplyOriginal(bool original)
+    {
+        WidescreenPatch.OriginalAspect = original;
+        RecompOne.Runtime.Runtime.View.SetBool("WidescreenOriginalAspect", original);
+        WidescreenPatch.Refresh();
+        RecompOne.Runtime.Runtime.SaveView();
+    }
 
     static void Apply(float aspect)
     {
         aspect = Math.Clamp(aspect, 1.0f, 3.0f);
-        bool wasFourThirds = MathF.Abs(WidescreenPatch.StageAspect - FourThirds) < 0.001f;
-        bool nowFourThirds = MathF.Abs(aspect - FourThirds) < 0.001f;
-        
-        if (wasFourThirds && !nowFourThirds) //fourthirdslolfunnyname
-            RecompOne.Runtime.Runtime.ShowNotice("Different Aspect Ratios are not fully supported yet, this WILL cause problems, use it at your own risk");
-        
+
+        if (WidescreenPatch.OriginalAspect)
+            RecompOne.Runtime.Runtime.ShowNotice("Anything other than the original aspect ratio is not fully supported yet, this WILL cause problems, use it at your own risk");
+
+        WidescreenPatch.OriginalAspect = false;
+        RecompOne.Runtime.Runtime.View.SetBool("WidescreenOriginalAspect", false);
+
         RecompOne.Runtime.Runtime.View.SetFloat("WidescreenAspect", aspect);
         Display.TargetAspect = aspect;
-        if (Display.WideAspect > 0f) Display.WideAspect = aspect;
         WidescreenPatch.StageAspect = aspect;
+        WidescreenPatch.Refresh();
         RecompOne.Runtime.Runtime.SaveView();
     }
 }

@@ -8,6 +8,12 @@ namespace Recompiled;
 public static partial class WidescreenPatch
 {
     public static bool PillarBoxing = true;
+    public static bool Unstretch = true;
+    public static bool OriginalAspect = true;
+    public const int StageWidth = 256;
+    public const int StageHeight = 240;
+
+    public static float SourceAspect => Unstretch ? (float)StageWidth / StageHeight : 4f / 3f;
     public static short StageViewTop => PillarBoxing ? (short)0x14 : (short)0;
     public static short StageViewHeight => PillarBoxing ? (short)0xCF : (short)240;
     public static float StageAspect = 16f / 9f;
@@ -58,16 +64,24 @@ public static partial class WidescreenPatch
         Display.TargetAspect = aspect;
         StageAspect = aspect;
         PillarBoxing = RecompOne.Runtime.Runtime.View.GetBool("WidescreenPillarBoxing", true);
+        Unstretch = RecompOne.Runtime.Runtime.View.GetBool("WidescreenUnstretch", true);
+        OriginalAspect = RecompOne.Runtime.Runtime.View.GetBool("WidescreenOriginalAspect", true);
     }
 
     public static void Register() => Event.AddListener<DisplayModeEvent>(OnDisplayMode);
 
-    static void OnDisplayMode(DisplayModeEvent e)
+    static void OnDisplayMode(DisplayModeEvent e) => ApplyDisplay(e.Mode);
+
+    public static void Refresh() => ApplyDisplay(DisplayModeHooks.Current);
+
+    static void ApplyDisplay(DisplayMode mode)
     {
         EnsureInitialized();
         StageAspect = Display.TargetAspect;
-        Display.WideAspect = e.Mode == DisplayMode.Stage ? StageAspect : 0f;
+        bool stage = mode == DisplayMode.Stage;
+        Display.SourceAspect = stage ? SourceAspect : 4f / 3f;
         Display.OutputAspect = 4f / 3f;
+        Display.WideAspect = stage && !OriginalAspect ? StageAspect : 0f;
     }
 
     public static void ConfigStageClip(CpuContext c, IMemory m)
@@ -153,12 +167,7 @@ public static partial class WidescreenPatch
         m.WriteU8(env + 0x13, 0);
     }
 
-    static int StageMargin()
-    {
-        if (StageAspect <= 0f) return 0;
-        int wide = (int)MathF.Ceiling(256f * StageAspect / (4f / 3f));
-        return Math.Max(0, (wide - 256 + 1) / 2);
-    }
+    static int StageMargin() => Display.WideMargin(256);
 
     static void LayoutFadePrims(IMemory m, uint fadePrim, int width)
     {

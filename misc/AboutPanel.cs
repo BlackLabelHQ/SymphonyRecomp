@@ -11,10 +11,10 @@ public sealed class AboutPanel : IFloatingPanel
     static readonly string[] Credits =
     [
         "Flaffy",
-        "DerpPrincessZoe",
+        "DerpPrincess",
         "Wojinxy",
         "Mottzila",
-        "Eldrich",
+        "Eldri7ch",
     ];
 
     public string Name => "About";

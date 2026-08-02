@@ -105,21 +105,18 @@ public static class Stages
         for (int i = 0; i < PaletteCount; i++) Palette.Tint(TilesetPalette + i, r, g, b);
     }
 
-    public static void ShadePalette(int index, float r, float g, float b) => Palette.Shade(TilesetPalette + index, r, g, b);
+    public static void Shade(float r, float g, float b) => Palette.ShadeBlock(TilesetPalette, r, g, b);
 
-    public static void Shade(float r, float g, float b)
-    {
-        for (int i = 0; i < PaletteCount; i++) Palette.Shade(TilesetPalette + i, r, g, b);
-    }
+    public static void ShadePalette(int index, float r, float g, float b) => Palette.Shade(TilesetPalette + index, r, g, b);
 
     public static void Restore() //shold rename this to shadeLevel RestoreLevel?
     {
-        for (int i = 0; i < PaletteCount; i++) Palette.Restore(TilesetPalette + i);
+        Palette.RestoreBlock(TilesetPalette);
     }
 
     public static void WriteAllPalettes(ushort color, bool keepTransparent = true)
     {
-        for (int i = 0; i < PaletteCount; i++) Palette.Fill(TilesetPalette + i, color, keepTransparent);
+        Palette.FillBlock(TilesetPalette, color, keepTransparent);
     }
 
     public static void WriteAllPalettes(int r, int g, int b, bool keepTransparent = true) => WriteAllPalettes(Palette.Rgb(r, g, b), keepTransparent);
@@ -135,20 +132,21 @@ public static class Stages
         for (int i = 0; i < PaletteCount; i++) Palette.Tint(EntityPalette + i, r, g, b);
     }
 
-    public static void ShadeEntities(float r, float g, float b)
-    {
-        for (int i = 0; i < PaletteCount; i++) Palette.Shade(EntityPalette + i, r, g, b);
-    }
+    public static void ShadeEntities(float r, float g, float b) => Palette.ShadeBlock(EntityPalette, r, g, b);
 
     public static void RestoreEntities()
     {
-        for (int i = 0; i < PaletteCount; i++) Palette.Restore(EntityPalette + i);
+        Palette.RestoreBlock(EntityPalette);
     }
 
     public static void WriteAllEntityPalettes(ushort color, bool keepTransparent = true)
     {
-        for (int i = 0; i < PaletteCount; i++) Palette.Fill(EntityPalette + i, color, keepTransparent);
+        Palette.FillBlock(EntityPalette, color, keepTransparent);
     }
 
     public static void WriteAllEntityPalettes(int r, int g, int b, bool keepTransparent = true) =>WriteAllEntityPalettes(Palette.Rgb(r, g, b), keepTransparent);
+
+    public static void Hide() => WriteAllPalettes(0x0000, false);
+
+    public static void HideEntities() => WriteAllEntityPalettes(0x0000, false);
 }

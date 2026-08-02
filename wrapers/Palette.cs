@@ -13,6 +13,8 @@ public static class Palette
 
     static IMemory M => RecompOne.Runtime.Runtime.Mem!;
 
+    public static bool SyncRam { get; set; }
+
     static readonly Dictionary<int, ushort[]> _original = [];
     static readonly ushort[] _scratch = new ushort[Colors];
     static Stage _cachedStage = (Stage)0xFF;
@@ -44,9 +46,12 @@ public static class Palette
         ushort clut = ClutOf(id);
         if (clut == 0) return;
 
-        uint ram = ClutRamAddr + (uint)(id * Colors * 2);
         int n = Math.Min(colors.Length, Colors);
-        for (int i = 0; i < n; i++) M.WriteU16(ram + (uint)(i * 2), colors[i]);
+        if (SyncRam)
+        {
+            uint ram = ClutRamAddr + (uint)(id * Colors * 2);
+            for (int i = 0; i < n; i++) M.WriteU16(ram + (uint)(i * 2), colors[i]);
+        }
 
         int x = (clut & 0x3F) << 4, y = clut >> 6;
         var gpu = RecompOne.Runtime.Runtime.Gpu;
@@ -122,7 +127,111 @@ public static class Palette
 
     public static void Forget(int id) => _original.Remove(id);
 
-    public static void ForgetAll() => _original.Clear();
+    public static void ForgetAll() { _original.Clear(); _blocks.Clear(); _written.Clear(); }
+
+    public const int BlockWidth = 256;
+    public const int BlockHeight = 16;
+    public const int BlockColors = BlockWidth * BlockHeight;
+
+    static readonly Dictionary<int, ushort[]> _blocks = [];
+    static readonly Dictionary<int, ushort[]> _written = [];
+    static readonly ushort[] _blockScratch = new ushort[BlockColors];
+
+    static bool Same(ushort[] a, ushort[] b)
+    {
+        if (a.Length != b.Length) return false;
+        for (int i = 0; i < a.Length; i++)
+            if (a[i] != b[i]) return false;
+        return true;
+    }
+
+    static bool BlockRect(int baseId, out int x, out int y)
+    {
+        ushort clut = ClutOf(baseId);
+        x = (clut & 0x3F) << 4;
+        y = clut >> 6;
+        return clut != 0;
+    }
+
+    public static ushort[]? OriginalBlock(int baseId)
+    {
+        var stage = Game.StageId;
+        if (stage != _cachedStage)
+        {
+            _cachedStage = stage;
+            _original.Clear();
+            _blocks.Clear();
+        }
+
+        if (_blocks.TryGetValue(baseId, out var cached)) return cached;
+        if (!BlockRect(baseId, out int x, out int y)) return null;
+
+        var colors = new ushort[BlockColors];
+        var backend = GpuHle.Backend;
+        if (GpuHle.Active && backend is { Ready: true }) backend.ReadVram(x, y, BlockWidth, BlockHeight, colors);
+        else
+        {
+            var gpu = RecompOne.Runtime.Runtime.Gpu;
+            if (gpu == null) return null;
+            for (int row = 0; row < BlockHeight; row++)
+                for (int i = 0; i < BlockWidth; i++)
+                    colors[row * BlockWidth + i] = gpu.Shadow[x + i, y + row];
+        }
+
+        if (IsEmpty(colors)) return null;
+        if (_written.TryGetValue(baseId, out var written) && Same(colors, written)) return null;
+
+        _blocks[baseId] = colors;
+        return colors;
+    }
+
+    static void WriteBlock(int baseId, ushort[] colors) //better for performance
+    {
+        if (!BlockRect(baseId, out int x, out int y)) return;
+
+        if (SyncRam)
+        {
+            uint ram = ClutRamAddr + (uint)(baseId * Colors * 2);
+            for (int i = 0; i < BlockColors; i++) M.WriteU16(ram + (uint)(i * 2), colors[i]);
+        }
+
+        var gpu = RecompOne.Runtime.Runtime.Gpu;
+        if (gpu != null)
+            for (int row = 0; row < BlockHeight; row++)
+                for (int i = 0; i < BlockWidth; i++)
+                    gpu.Shadow[x + i, y + row] = colors[row * BlockWidth + i];
+
+        var backend = GpuHle.Backend;
+        if (GpuHle.Active && backend is { Ready: true })
+            backend.WriteVram(x, y, BlockWidth, BlockHeight, colors);
+
+        if (!_written.TryGetValue(baseId, out var last) || last.Length != BlockColors) _written[baseId] = last = new ushort[BlockColors];
+        Array.Copy(colors, last, BlockColors);
+    }
+
+    public static void ShadeBlock(int baseId, float r, float g, float b)
+    {
+        var src = OriginalBlock(baseId);
+        if (src == null) return;
+        for (int i = 0; i < BlockColors; i++) _blockScratch[i] = ShadeColor(src[i], r, g, b);
+        WriteBlock(baseId, _blockScratch);
+    }
+
+    public static void FillBlock(int baseId, ushort color, bool keepTransparent = true)
+    {
+        var src = OriginalBlock(baseId);
+        if (src == null) return;
+        for (int i = 0; i < BlockColors; i++)
+            _blockScratch[i] = keepTransparent && src[i] == 0 ? (ushort)0 : color;
+        WriteBlock(baseId, _blockScratch);
+    }
+
+    public static void RestoreBlock(int baseId)
+    {
+        var src = OriginalBlock(baseId);
+        if (src == null) return;
+        WriteBlock(baseId, src);
+    }
 
     public static ushort ShadeColor(ushort color, float r, float g, float b)
     {
