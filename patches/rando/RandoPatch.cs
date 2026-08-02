@@ -13,10 +13,11 @@ using RecompOne.Runtime.Hle;
 using RecompOne.Runtime.Memory;
 using Silk.NET.Vulkan;
 using SixLabors.ImageSharp;
+using Sotn;
 
 namespace Recompiled;
 
-public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, MagicMirror, Mobility, Unknown, Integrated };
+public enum PresetId : byte { None, Lycanthrope, Nimble, NimbleLite, Expedition, Warlock, BountyHunter, Hitman, TargetConfirmed, MagicMirror, Mobility, Recycler, Unknown, Integrated };
 
 public static partial class RandoPatch
 {
@@ -26,6 +27,8 @@ public static partial class RandoPatch
     const UInt32 PresetMemoryOffset = 0x8000C000;   // 1 byte
     const UInt32 RLBCMemoryOffset = 0x8000C001;     // 1 byte
     const UInt32 RestoreLBCOffset = 0x8000C002;     // 1 byte
+    const UInt32 SecondStartOffset = 0x8000C003;    // 1 byte
+    const UInt32 ExtraJumpsOffset = 0x8000C004;     // 1 byte
 
     static void EnsureInitialized()
     {
@@ -106,6 +109,20 @@ public static partial class RandoPatch
             return false;   // Do not Execute HandleGravityBootsMP
         }
 
+        // Recycler, 2X Gravity Boots
+        if(m.ReadU32(0x800A8880) == 0x800E03FC) // Checks String Ptr
+        {
+            byte GravBootsA = m.ReadU8(0x80097964 + 0xC);
+            byte GravBootsB = m.ReadU8(0x80097964 + 0x16);
+            GravBootsA &= GravBootsB;
+            GravBootsA &= 2;
+            if(GravBootsA > 0)
+            {
+                c.V0 = 0;
+                return false;
+            }
+        }
+
         return true;        // Execute HandleGravityBootsMP normally.
     }
 
@@ -140,6 +157,31 @@ public static partial class RandoPatch
                 }
             }
         }
+
+        if( CUR_PRESET == (byte)PresetId.Recycler)
+        {
+            byte MistA = m.ReadU8(0x80097964 + 0x7);
+            byte MistB = m.ReadU8(0x80097964 + 0x13);
+            MistA &= MistB;
+            MistA &= 2;
+            if(MistA > 0)   // If both Mist Relics Obtained then Mist is Free
+            {
+                if (m.ReadU8(0x8009796C) > 1 && c.A0 == 1 && c.A1 == 1 && g_GameTimer % 30 == 0)    // Power of Mist Active A0 == MIST, A1 = Reduce MP
+                {
+                    CUR_MP += 2;   // Offset MP about to be consumed
+                    m.WriteU32(0x80097BB0, CUR_MP);
+                }
+                else
+                {
+                    if (m.ReadU8(0x8009796C) < 2 && c.A0 == 1 && c.A1 == 1 && g_GameTimer % 8 == 0)    // Power of Mist not Active A0 == MIST, A1 = Reduce MP
+                    {
+                        CUR_MP += 10;   // Offset MP about to be consumed
+                        m.WriteU32(0x80097BB0, CUR_MP);
+                    }
+                }
+            }
+        }
+
     }
 
     // Gives starting relics for various presets.
@@ -202,6 +244,18 @@ public static partial class RandoPatch
             m.WriteU8(0x8003BEB3, 0x01); // Open Entrance Shortcut
             m.WriteU8(0x8003BEBC, 0x1F); // Open Warp Destinations
             m.WriteU8(0x8003BEBD, 0x1F); // Open Warp Destinations
+        }
+        if( CUR_PRESET == (byte)PresetId.Recycler)
+        {
+            // Give Stat Buff Potions
+            for(int i=0;i<5;i++)
+            {
+                c.A0 = (UInt32)(0x94 + i);
+                c.A1 = 0;
+                SoTN.AddToInventory(c, m);
+            }
+            // todo: Fix new Vlad Descriptions
+
         }
 
         // Restore Registers
@@ -266,6 +320,11 @@ public static partial class RandoPatch
         if (PresetNameIs(c, m, "mobility"))
         {
             m.WriteU8(PresetMemoryOffset, (byte)PresetId.Mobility);
+        }
+        // Recycler
+        if (PresetNameIs(c, m, "recycler"))
+        {
+            m.WriteU8(PresetMemoryOffset, (byte)PresetId.Recycler);
         }
 
         // If no Preset matched yet and we don't see vanilla ( Input "RICHTER" to play ) string
@@ -11642,6 +11701,78 @@ public static partial class RandoPatch
 
     }
 
+    // 2nd Castle Start
+    // Hook EntityTrapDoor_no3
+    public static void SecondCastleStart(CpuContext c, IMemory m)
+    {
+        if(m.ReadU32(0x801BA3A4) == 0x34040020)
+        {
+            m.WriteU32(0x800974A0, 0x20);
+            m.WriteU32(0x8013aed0, 0x00);
+            m.WriteU8(SecondStartOffset, 0x01);
+        }
+    }
+
+    // 2nd Castle Start IsRelicActive
+    // Recycler Overrides
+    public static bool OverrideIsRelicActive(CpuContext c, IMemory m)
+    {
+        byte StageId = m.ReadU8(0x800974A0);
+
+        // Recycler Duplicate Relics
+        // Leap Stone (Nosedevil)
+        if (c.A0 == 0xD && m.ReadU32(0x800A88A0) == 0x800E03D8)  // Check Relic ID, String Change, if either are active.
+        {
+            c.V0 = (UInt32)(m.ReadU8(0x80097964 + 0xD) | m.ReadU8(0x80097964 + 0x18));
+            c.V0 &= 2;
+            return false;
+        }
+        // Gravity Boots (Sword Card)
+        if (c.A0 == 0xC && m.ReadU32(0x800A8880) == 0x800E03FC)
+        {
+            c.V0 = (UInt32)(m.ReadU8(0x80097964 + 0xC) | m.ReadU8(0x80097964 + 0x16));
+            c.V0 &= 2;
+            return false;
+        }
+        // Soul of Bat (Bat Card)
+        if (c.A0 == 0x0 && m.ReadU32(0x800A8840) == 0x800E05C8)
+        {
+            c.V0 = (UInt32)(m.ReadU8(0x80097964 + 0x0) | m.ReadU8(0x80097964 + 0x12));
+            c.V0 &= 2;
+            return false;
+        }
+        // Form of Mist (Ghost Card)
+        if (c.A0 == 0x7 && m.ReadU32(0x800A8850) == 0x800E04C4)
+        {
+            c.V0 = (UInt32)(m.ReadU8(0x80097964 + 0x7) | m.ReadU8(0x80097964 + 0x13));
+            c.V0 &= 2;
+            return false;
+        }
+        // Soul of Wolf (Sprite Card)
+        if (c.A0 == 0x4 && m.ReadU32(0x800A8890) == 0x800E0534)
+        {
+            c.V0 = (UInt32)(m.ReadU8(0x80097964 + 0x4) | m.ReadU8(0x80097964 + 0x17));
+            c.V0 &= 2;
+            return false;
+        }
+
+
+        // 2nd Castle Start
+        byte MapByte1 = (byte)(m.ReadU8(0x8006BBFB) & 0x01);
+        byte MapByte2 = (byte)(m.ReadU8(0x8006BCC0) & 0x04);
+
+        if (m.ReadU8(SecondStartOffset) > 0 && (byte)(StageId & 0x20) == 0x20 && MapByte1 == 0 && MapByte2 == 0)  // 2nd Castle Start, in Second Castle, haven't returned to 1st yet.
+        {
+            if (c.A0 == 0xC || c.A0 == 0xD)
+            {
+                c.V0 = 1;
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // Magic Mirror Axearmor mods
     public static void func_ptr_8017000C_w0_045(CpuContext c, IMemory m)
     {
@@ -12242,6 +12373,257 @@ public static partial class RandoPatch
         c.RA = m.ReadU32((c.SP + 0x10u));                       /* 0x8017ADB8  lw          $ra, 0x10($sp) */
         c.SP = c.SP + 0x18u;                                    /* 0x8017ADBC  addiu       $sp, $sp, 0x18 */
         return;                                                 /* 0x8017ADC0  jr          $ra */
+    }   // End of Axe Armor Mods
+
+    // Recycler FrameUpdate
+    public static void RecyclerFrameUpdate(CpuContext c, IMemory m)
+    {
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+        
+        if (CUR_PRESET != (byte)PresetId.Recycler)
+            return;
+
+        // 2X Soul of Wolf, Grant other wolf relics.
+        if(Inventory.HasRelic(Relic.SoulOfWolf) && Inventory.HasRelic(Relic.Jp0) && (Inventory.HasRelic(Relic.PowerOfWolf) == false || Inventory.HasRelic(Relic.SkillOfWolf) == false) )
+        {
+            Inventory.GrantRelic(Relic.PowerOfWolf);
+            Inventory.GrantRelic(Relic.SkillOfWolf);
+        }
+
+        // 2X Soul of Bat
+        if(Inventory.IsRelicActive(Relic.SoulOfBat) && Inventory.IsRelicActive(Relic.BatCard))
+        {
+            m.WriteU8(0x800A84C4, 0);
+        }
+        else
+        {
+            m.WriteU8(0x800A84C4, 8);
+        }
+
+        // 2X Form of Mist
+        if (Inventory.IsRelicActive(Relic.FormOfMist) && Inventory.IsRelicActive(Relic.GhostCard))
+        {
+            m.WriteU16(0x800A8576, 0x1020);
+        }
+        else
+        {
+            m.WriteU16(0x800A8576, 0x80);
+        }
+
+        // Brain of Vlad
+        if(Inventory.IsRelicActive(Relic.ForceOfEcho))
+        {
+            m.WriteU8(0x800A841C, 5);
+            m.WriteU8(0x800A8438, 3);
+            m.WriteU8(0x800A8454, 8);
+            m.WriteU8(0x800A8470, 10);
+            m.WriteU8(0x800A848C, 5);
+            m.WriteU8(0x800A84A8, 25);
+
+            if (m.ReadU8(0x800A84C4) != 0)
+                m.WriteU8(0x800A84C4, 5);
+        }
+        else
+        {
+            m.WriteU8(0x800A841C, 10);
+            m.WriteU8(0x800A8438, 5);
+            m.WriteU8(0x800A8454, 15);
+            m.WriteU8(0x800A8470, 20);
+            m.WriteU8(0x800A848C, 10);
+            m.WriteU8(0x800A84A8, 50);
+
+            if (m.ReadU8(0x800A84C4) == 5)
+                m.WriteU8(0x800A84C4, 8);
+        }
+
+        // 2X Leap
+        if(Inventory.IsRelicActive(Relic.LeapStone) && Inventory.IsRelicActive(Relic.Jp1) && Inventory.IsRelicActive(Relic.GravityBoots) == false && Inventory.IsRelicActive(Relic.SwordCard) == false)
+        {
+            UInt16 PlayerStep = m.ReadU16(0x80073404);
+            byte JumpCount = m.ReadU8(ExtraJumpsOffset);
+            byte JumpState = m.ReadU8(0x80072F64);
+            byte InputState = m.ReadU8(0x80097491);
+
+            if(PlayerStep < 2)
+            {
+                JumpCount = 4;
+                m.WriteU8(ExtraJumpsOffset,JumpCount);
+            }
+
+            if(JumpCount > 0 && (byte)(JumpState & 1) == 1)
+            {
+                if((byte)(InputState & 0x10) == 0x10)
+                {
+                    JumpState &= 0xFE;
+                    m.WriteU8(0x80072F64, JumpState);
+                    JumpCount--;
+                    m.WriteU8(ExtraJumpsOffset, JumpCount);
+                }
+            }
+
+        }
+
+        // All Vlads Bonus
+        int VladCount = 0;
+        if (Inventory.HasRelic(Relic.ForceOfEcho))
+            VladCount++;
+        if (Inventory.HasRelic(Relic.SpiritOrb))
+            VladCount++;
+        if (Inventory.HasRelic(Relic.FaerieScroll))
+            VladCount++;
+        for (int i = 0; i < 5; i++)
+        {
+            if (Inventory.HasRelic(Relic.HeartOfVlad + i))
+                VladCount++;
+        }
+
+        if(VladCount == 8)
+        {
+            for(int i=0;i<5;i++)
+            {
+                m.WriteU32((UInt32)(0x80139828 + (i * 4)), 0x10);
+            }
+            m.WriteU16(0x80072F16, 0x10);
+        }
+
+        // Update Icons for 2nd Copy
+        if (Inventory.HasRelic(Relic.SoulOfBat) || Inventory.HasRelic(Relic.BatCard))
+        {
+            m.WriteU16(0x800A8720 + 0xA, 0x108);
+            m.WriteU16(0x800A8720 + 0x12A, 0x108);
+        }
+        else
+        {
+            m.WriteU16(0x800A8720 + 0xA, 0x100);
+            m.WriteU16(0x800A8720 + 0x12A, 0x100);
+        }
+        if (Inventory.HasRelic(Relic.GravityBoots) || Inventory.HasRelic(Relic.SwordCard))
+        {
+            m.WriteU16(0x800A8720 + 0xCA, 0x115);
+            m.WriteU16(0x800A8720 + 0x16A, 0x115);
+        }
+        else
+        {
+            m.WriteU16(0x800A8720 + 0xCA, 0x10C);
+            m.WriteU16(0x800A8720 + 0x16A, 0x10C);
+        }
+        if (Inventory.HasRelic(Relic.SoulOfWolf) || Inventory.HasRelic(Relic.Jp0))
+        {
+            m.WriteU16(0x800A8720 + 0x4A, 0x100);
+            m.WriteU16(0x800A8720 + 0x17A, 0x100);
+        }
+        else
+        {
+            m.WriteU16(0x800A8720 + 0x4A, 0x104);
+            m.WriteU16(0x800A8720 + 0x17A, 0x104);
+        }
+        if (Inventory.HasRelic(Relic.FormOfMist) || Inventory.HasRelic(Relic.GhostCard))
+        {
+            m.WriteU16(0x800A8720 + 0x7A, 0x102);
+            m.WriteU16(0x800A8720 + 0x13A, 0x102);
+        }
+        else
+        {
+            m.WriteU16(0x800A8720 + 0x7A, 0x107);
+            m.WriteU16(0x800A8720 + 0x13A, 0x107);
+        }
+        if (Inventory.HasRelic(Relic.LeapStone) || Inventory.HasRelic(Relic.Jp1))
+        {
+            m.WriteU16(0x800A8720 + 0xDA, 0x112);
+            m.WriteU16(0x800A8720 + 0x18A, 0x112);
+        }
+        else
+        {
+            m.WriteU16(0x800A8720 + 0xDA, 0x10D);
+            m.WriteU16(0x800A8720 + 0x18A, 0x10D);
+        }
+    }
+
+    public static bool RecyclerCheckEquipmentItemCount(CpuContext c, IMemory m)
+    {
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+
+        if (CUR_PRESET != (byte)PresetId.Recycler)
+            return true;
+
+        if (c.A0 == 0x53 && c.A1 == 4)
+        {
+            UInt32 TalismanCount = 0;
+
+            if (Inventory.IsRelicActive(Relic.SpiritOrb))
+            {
+                TalismanCount = 2;
+            }
+
+            if (m.ReadU32(0x80097C14) == 0x53)
+                TalismanCount++;
+            if (m.ReadU32(0x80097C18) == 0x53)
+                TalismanCount++;
+
+            c.V0 = TalismanCount;
+            return false;
+        }
+        if (c.A0 == 0x4B && c.A1 == 4)
+        {
+            UInt32 ArcanaCount = 0;
+
+            if (Inventory.IsRelicActive(Relic.SpiritOrb))
+            {
+                ArcanaCount = 1;
+            }
+
+            if (m.ReadU32(0x80097C14) == 0x4B)
+                ArcanaCount++;
+            if (m.ReadU32(0x80097C18) == 0x4B)
+                ArcanaCount++;
+
+            c.V0 = ArcanaCount;
+            return false;
+        }
+        if (c.A0 == 0x15 && c.A1 == 2)
+        {
+            UInt32 MojoCount = 0;
+
+            if (Inventory.IsRelicActive(Relic.FaerieScroll))
+            {
+                MojoCount = 1;
+            }
+
+            if (m.ReadU32(0x80097C0C) == 0x15)
+                MojoCount++;
+
+            c.V0 = MojoCount;
+            return false;
+        }
+        return true;
+    }
+
+    public static void NewFinalDoorGoals(CpuContext c, IMemory m)
+    {
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+        int PlayerX = m.ReadU16(0x800733DA);
+
+        if (CUR_PRESET == (byte)PresetId.Recycler)
+        {
+            int VladCount = 0;
+            if (Inventory.HasRelic(Relic.ForceOfEcho))
+                VladCount++;
+            if (Inventory.HasRelic(Relic.SpiritOrb))
+                VladCount++;
+            if (Inventory.HasRelic(Relic.FaerieScroll))
+                VladCount++;
+            for(int i=0;i<5;i++)
+            {
+                if (Inventory.HasRelic(Relic.HeartOfVlad + i))
+                    VladCount++;
+            }
+
+            if (VladCount < 6)
+                m.WriteU8(0x8007A984, 1);
+            if(PlayerX > 100 && PlayerX < 156 && VladCount >= 6 && m.ReadU8(0x8007A984) == 1)
+                m.WriteU8(0x8007A984, 2);
+
+        }
     }
 
 }

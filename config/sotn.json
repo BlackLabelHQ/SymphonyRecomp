@@ -1988,19 +1988,57 @@
       "target": "Recompiled.RandoPatch.MagicMaxUp_Pre"
     },
     {
+      "comment": "Axelord Armor for Magic Mirror",
       "overlay": "w0_045",
       "function": "func_ptr_8017000C",
       "target": "Recompiled.RandoPatch.func_ptr_8017000C_w0_045"
     },
     {
+      "comment": "Axelord Armor for Magic Mirror",
       "overlay": "w0_045",
       "function": "func_ptr_80170004",
       "target": "Recompiled.RandoPatch.func_ptr_80170004_w0_045"
     },
     {
+      "comment": "Axelord Armor for Magic Mirror",
       "overlay": "w0_045",
       "function": "func_ptr_80170008",
       "target": "Recompiled.RandoPatch.func_ptr_80170008_w0_045"
+    },
+    {
+      "comment": "2nd Castle Random Start",
+      "overlay": "no3",
+      "function": "EntityTrapDoor",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.SecondCastleStart"
+    },
+    {
+      "comment": "Relic Active Overrides",
+      "overlay": "dra",
+      "function": "IsRelicActive",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.OverrideIsRelicActive"
+    },
+    {
+      "comment": "Recycler CheckEquipmentCount",
+      "overlay": "dra",
+      "function": "CheckEquipmentItemCount",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.RecyclerCheckEquipmentItemCount"
+    },
+    {
+      "comment": "Recycler FrameUpdate",
+      "overlay": "dra",
+      "function": "EntityAlucard",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.RecyclerFrameUpdate"
+    },
+    {
+      "comment": "New Final Door Goals",
+      "overlay": "rno0",
+      "function": "func_801C0E1C",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.NewFinalDoorGoals"
     },
     {
       "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
