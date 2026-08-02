@@ -6,6 +6,7 @@ using RecompOne.Runtime.Hardware;
 using Sotn;
 using Recompiled;
 using RecompOne.Runtime.Events;
+using ImGuiNET;
 
 /*
 [PreHook("dra", "func_800FE044")]
@@ -19,9 +20,13 @@ public class BlackoutMod : IMod
     public bool forceLightsOn = false;
 
     /* Internal State Core */
-    public bool blackoutEntities = true;
+    public bool shouldUpdatePalette = true; 
 
     /* Internal State Primary */
+    public bool blackoutEntities = true;
+    public bool invisibleEntities = false;
+
+    /* Internal State Secondary */
     public byte currentFamiliar = 0xFF;
     public byte batEchoTimer = 100;
 
@@ -29,16 +34,28 @@ public class BlackoutMod : IMod
     public bool giveBlackoutStartingRelics = true;
     public bool giveMoreStartingMP = true;
 
+    public void DrawSettings()
+    {
+        //float v = DarkStage.Brightness;
+        //if (ImGui.SliderFloat("Brightness", ref v, 0f, 1f, "%.2f"))
+        //    DarkStage.Brightness = v;
+
+        if(ImGui.Checkbox("Completely Blackout Entities", ref blackoutEntities)) BlackoutEntities(); 
+        if(ImGui.Checkbox("Invisible Enemies", ref invisibleEntities)) BlackoutEntities(); 
+    }
+
     public void OnLoad()
     {
+        BlackoutEntities();
+
         Event.AddListener<PlayerLoadedEvent>(Init);
-        Event.AddListener<VSyncEvent>(OnVSyncEvent);
+        Event.AddListener<RoomLayerLoadEvent>(OnRoomLayerLoadEvent);
     }
 
     public void OnUnload()
     {
         Event.RemoveListener<PlayerLoadedEvent>(Init);
-        Event.RemoveListener<VSyncEvent>(OnVSyncEvent);
+        Event.RemoveListener<RoomLayerLoadEvent>(OnRoomLayerLoadEvent);
 
         Stages.Restore();
         Stages.RestoreEntities();
@@ -51,7 +68,7 @@ public class BlackoutMod : IMod
     }
 
 
-    public void OnVSyncEvent(VSyncEvent vse)
+    public void OnRoomLayerLoadEvent(RoomLayerLoadEvent rle)
     {
         if (!forceLightsOn && Game.InGame && !Game.IsLoading) BlackoutMap();
         if (!forceLightsOn && Game.InGame && !Game.IsLoading && blackoutEntities) BlackoutEntities();
@@ -66,12 +83,16 @@ public class BlackoutMod : IMod
 
     private void BlackoutMap()
     {
-        Stages.Shade(0, 0, 0);
+        // Stages.Shade(0, 0, 0);
+
+        Stages.WriteAllPalettes(0x8000);
     }
 
     private void BlackoutEntities()
     {
-        Stages.ShadeEntities(0, 0, 0);
+        // Stages.ShadeEntities(0, 0, 0);
+        if (blackoutEntities) Stages.WriteAllEntityPalettes(0x8000); else Stages.RestoreEntities();
+        if (invisibleEntities) Stages.ShadeEntities(0, 0, 0); else Stages.RestoreEntities();
     }
 
     /* Gives Soul of Bat, Echo of Bat, Spirit Orb, and Faerie Scroll */
