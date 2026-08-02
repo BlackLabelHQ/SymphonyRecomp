@@ -1,9 +1,0 @@
-{
-    "id": "blackout",
-    "name": "Blackout",
-    "firstPartyMod": true,
-    "version": "Prerelease",
-    "author": "Derp Princess",
-    "description": "Made with heavy inspiration from Wecoc's `Dark Castle` mod.\n\nWho forgot to pay the power bill?!",
-    "dependencies": []
-}
