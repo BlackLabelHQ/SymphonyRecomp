@@ -12620,7 +12620,7 @@ public static partial class RandoPatch
 
             if (VladCount < 6)
                 m.WriteU8(0x8007A984, 1);
-            if(PlayerX > 100 && PlayerX < 156 && VladCount >= 6 && m.ReadU8(0x8007A984) == 1)
+            if(PlayerX > 100 && PlayerX < 156 && VladCount >= 6 && m.ReadU8(0x8007A984) == 1 && m.ReadU8(0x8003BED0) == 0)
                 m.WriteU8(0x8007A984, 2);
 
         }
