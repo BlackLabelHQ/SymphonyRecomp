@@ -11719,6 +11719,19 @@ public static partial class RandoPatch
     {
         byte StageId = m.ReadU8(0x800974A0);
 
+        // 2nd Castle Start
+        byte MapByte1 = (byte)(m.ReadU8(0x8006BBFB) & 0x01);
+        byte MapByte2 = (byte)(m.ReadU8(0x8006BCC0) & 0x04);
+
+        if (m.ReadU8(SecondStartOffset) > 0 && (byte)(StageId & 0x20) == 0x20 && MapByte1 == 0 && MapByte2 == 0)  // 2nd Castle Start, in Second Castle, haven't returned to 1st yet.
+        {
+            if (c.A0 == 0xC || c.A0 == 0xD)
+            {
+                c.V0 = 1;
+                return false;
+            }
+        }
+
         // Recycler Duplicate Relics
         // Leap Stone (Nosedevil)
         if (c.A0 == 0xD && m.ReadU32(0x800A88A0) == 0x800E03D8)  // Check Relic ID, String Change, if either are active.
@@ -11755,21 +11768,6 @@ public static partial class RandoPatch
             c.V0 &= 2;
             return false;
         }
-
-
-        // 2nd Castle Start
-        byte MapByte1 = (byte)(m.ReadU8(0x8006BBFB) & 0x01);
-        byte MapByte2 = (byte)(m.ReadU8(0x8006BCC0) & 0x04);
-
-        if (m.ReadU8(SecondStartOffset) > 0 && (byte)(StageId & 0x20) == 0x20 && MapByte1 == 0 && MapByte2 == 0)  // 2nd Castle Start, in Second Castle, haven't returned to 1st yet.
-        {
-            if (c.A0 == 0xC || c.A0 == 0xD)
-            {
-                c.V0 = 1;
-                return false;
-            }
-        }
-
         return true;
     }
 
