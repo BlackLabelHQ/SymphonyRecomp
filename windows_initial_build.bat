@@ -190,6 +190,13 @@ echo ^> Generating Recompiled C# Code
 
 dotnet run --project %RECOMPILER% %SOTNJSON%
 
+if errorlevel 1 (
+    echo.
+    echo Failed to generate the code! Can't continue, sorry!
+    pause
+    exit /b 1
+)
+
 echo.
 REM ===================================================================================================
 

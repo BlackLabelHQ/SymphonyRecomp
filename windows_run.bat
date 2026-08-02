@@ -38,7 +38,7 @@ REM ========================================= Run SymphonyRecomp ===============
 echo.
 echo ^> Running SymphonyRecomp...
 
-if not exist "generated\" (
+if not exist "generated\*.cs" (
     echo Initial setup probably wasn't run, so we're running it for you... Aren't we nice?
     echo.
     echo Running windows_initial_build.bat...
