@@ -29,6 +29,9 @@ public static partial class RandoPatch
     const UInt32 RestoreLBCOffset = 0x8000C002;     // 1 byte
     const UInt32 SecondStartOffset = 0x8000C003;    // 1 byte
     const UInt32 ExtraJumpsOffset = 0x8000C004;     // 1 byte
+    const UInt32 BrainOfVladDescOffset = 0x8000D000;
+    const UInt32 EarOfVladDescOffset = 0x8000D030;
+    const UInt32 TongueOfVladDescOffset = 0x8000D060;
 
     static void EnsureInitialized()
     {
@@ -254,8 +257,6 @@ public static partial class RandoPatch
                 c.A1 = 0;
                 SoTN.AddToInventory(c, m);
             }
-            // todo: Fix new Vlad Descriptions
-
         }
 
         // Restore Registers
@@ -12373,6 +12374,28 @@ public static partial class RandoPatch
         return;                                                 /* 0x8017ADC0  jr          $ra */
     }   // End of Axe Armor Mods
 
+    // Recycler Vlad Description Fix
+    static readonly byte[] BrainDescString = {  0x82, 0x50, 0x20, 0x6F, 0x66, 0x20, 0x82, 0x57, 0x20, 0x54, 0x72, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x73, 0x81, 0x44, 0x20, 0x4C, 0x6F, 0x77, 0x20, 0x4D, 0x50, 0x20, 0x63, 0x6F, 0x73, 0x74, 0x81, 0x44, 0x00, 0x00 };
+    static readonly byte[] EarDescString = {  0x82, 0x50, 0x20, 0x6F, 0x66, 0x20, 0x82, 0x57, 0x20, 0x54, 0x72, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x73, 0x81, 0x44, 0x20, 0x4C, 0x75, 0x63, 0x6B, 0x79, 0x20, 0x65, 0x76, 0x65, 0x6E, 0x74, 0x73, 0x81, 0x44, 0x00, 0x00 };
+    static readonly byte[] TongueDescString = {  0x82, 0x50, 0x20, 0x6F, 0x66, 0x20, 0x82, 0x57, 0x20, 0x54, 0x72, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x73, 0x81, 0x44, 0x20, 0x53, 0x70, 0x65, 0x6C, 0x6C, 0x20, 0x64, 0x61, 0x6D, 0x61, 0x67, 0x65, 0x81, 0x44, 0x00, 0x00 };
+
+    public static void RecyclerFixNewVladDesc(CpuContext c, IMemory m)
+    {
+        if (m.ReadU32(0x800A8754) == BrainOfVladDescOffset)
+            return;
+
+        Console.WriteLine("Updated Desc Recycler");
+
+        // Copy Strings into Memory
+        for (int i = 0; i < BrainDescString.Length; i++) { m.WriteU8((UInt32)(BrainOfVladDescOffset + i), BrainDescString[i]); }
+        for (int i = 0; i < EarDescString.Length; i++) { m.WriteU8((UInt32)(EarOfVladDescOffset + i), EarDescString[i]); }
+        for (int i = 0; i < TongueDescString.Length; i++) { m.WriteU8((UInt32)(TongueOfVladDescOffset + i), TongueDescString[i]); }
+        // Update Pointers
+        m.WriteU32(0x800A8754, BrainOfVladDescOffset);
+        m.WriteU32(0x800A87D4, EarOfVladDescOffset);
+        m.WriteU32(0x800A8814, TongueOfVladDescOffset);
+    }
+
     // Recycler FrameUpdate
     public static void RecyclerFrameUpdate(CpuContext c, IMemory m)
     {
@@ -12380,6 +12403,11 @@ public static partial class RandoPatch
         
         if (CUR_PRESET != (byte)PresetId.Recycler)
             return;
+
+        // Flags
+        m.WriteU8(0x8003BE82, 1);   // Richter Keep Cutscene Completed.
+
+        RecyclerFixNewVladDesc(c, m);
 
         // 2X Soul of Wolf, Grant other wolf relics.
         if(Inventory.HasRelic(Relic.SoulOfWolf) && Inventory.HasRelic(Relic.Jp0) && (Inventory.HasRelic(Relic.PowerOfWolf) == false || Inventory.HasRelic(Relic.SkillOfWolf) == false) )
