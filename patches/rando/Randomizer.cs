@@ -611,7 +611,10 @@ public static partial class Randomizer
             DoRandomizeRelics();
 
         if (RandomizeStartingGear == true)
-            DoRandomizeStartingGear(c, m);   
+            DoRandomizeStartingGear(c, m);
+
+        // Turn on Bug Fixes when playing randomizer. No real reason not to have them on.
+        QualityOfLife.BugFixes = true;
     }
 
     public static void DoRandomizeDrops()

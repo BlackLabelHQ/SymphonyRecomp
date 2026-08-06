@@ -333,6 +333,10 @@ public static partial class RandoPatch
         {
             m.WriteU8(PresetMemoryOffset, (byte)PresetId.Unknown);      // We do this so we know some unsupported preset is being used. 
         }
+
+        CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+        if (CUR_PRESET > (byte)PresetId.None)
+            QualityOfLife.BugFixes = true;  // Turn on Bug Fixes for Randomizer. No reason to have them off.
     }
 
     public static void InitStatsAndGear(CpuContext c, IMemory m)
