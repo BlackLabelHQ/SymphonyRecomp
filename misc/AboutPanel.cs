@@ -1,5 +1,6 @@
 using System.Numerics;
 using ImGuiNET;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
@@ -22,7 +23,7 @@ public sealed class AboutPanel : IFloatingPanel
 
     public void Draw()
     {
-        ImGui.SetNextWindowSize(new Vector2(340, 0), ImGuiCond.Always);
+        ImGui.SetNextWindowSize(new Vector2(340 * HostWindow.DpiScale, 0), ImGuiCond.Always);
         ImGui.SetNextWindowPos(ImGui.GetMainViewport().GetCenter(), ImGuiCond.Always, new Vector2(0.5f, 0.5f));
 
         bool open = IsOpen;

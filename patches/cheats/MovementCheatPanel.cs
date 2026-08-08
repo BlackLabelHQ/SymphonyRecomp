@@ -1,5 +1,6 @@
 using System.Numerics;
 using ImGuiNET;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 using Sotn;
 
@@ -15,7 +16,7 @@ public sealed class MovementCheatPanel : IPanel
 
     public void Draw()
     {
-        ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSize(new Vector2(320, 420) * HostWindow.DpiScale, ImGuiCond.FirstUseEver);
         bool open = IsOpen;
         if (!ImGui.Begin(Name, ref open))
         {

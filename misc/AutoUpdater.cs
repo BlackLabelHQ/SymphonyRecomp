@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ImGuiNET;
 using RecompOne.Runtime.Config;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
@@ -309,8 +310,8 @@ public static class AutoUpdater //should be generic enough to use on other recom
 
         var vp = ImGui.GetMainViewport();
         ImGui.SetNextWindowPos(vp.GetCenter(), ImGuiCond.Appearing, new Vector2(0.5f, 0.5f));
-        ImGui.SetNextWindowSize(new Vector2(520, 430), ImGuiCond.Appearing);
-        ImGui.SetNextWindowSizeConstraints(new Vector2(420, 280), new Vector2(1000, 1000));
+        ImGui.SetNextWindowSize(new Vector2(520, 430) * HostWindow.DpiScale, ImGuiCond.Appearing);
+        ImGui.SetNextWindowSizeConstraints(new Vector2(420, 280) * HostWindow.DpiScale, new Vector2(1000, 1000) * HostWindow.DpiScale);
 
         bool open = true;
         bool visible = ImGui.Begin("Update", ref open,

@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using System.Text;
 using ImGuiNET;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 using Sotn;
 
@@ -30,7 +31,7 @@ public sealed class InventoryCheatPanel : IPanel
 
     public void Draw()
     {
-        ImGui.SetNextWindowSize(new Vector2(430, 560), ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSize(new Vector2(430, 560) * HostWindow.DpiScale, ImGuiCond.FirstUseEver);
         bool open = IsOpen;
         if (!ImGui.Begin(Name, ref open))
         {

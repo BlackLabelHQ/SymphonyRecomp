@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using ImGuiNET;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 using RecompOne.Runtime.Memory;
 
@@ -27,7 +28,7 @@ public sealed class TrackerOverlayPanel : IPanel
     {
         EnsureLoaded();
 
-        ImGui.SetNextWindowSize(new Vector2(300, 520), ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSize(new Vector2(300, 520) * HostWindow.DpiScale, ImGuiCond.FirstUseEver);
         bool open = IsOpen;
         if (!ImGui.Begin(Name, ref open, ImGuiWindowFlags.MenuBar))
         {
@@ -104,7 +105,7 @@ public sealed class TrackerOverlayPanel : IPanel
             if (ImGui.MenuItem("JP exclusives", null, ref _showJp)) Persist();
             if (ImGui.MenuItem("Hand Items", null, ref _showHand)) Persist();
             if (ImGui.MenuItem("Body Items", null, ref _showBody)) Persist();
-            ImGui.SetNextItemWidth(140f);
+            ImGui.SetNextItemWidth(140f * HostWindow.DpiScale);
             if (ImGui.SliderInt("Columns", ref _columns, 1, 12))
                 _columns = Math.Clamp(_columns, 1, 12);
             if (ImGui.IsItemDeactivatedAfterEdit()) Persist();
@@ -180,7 +181,7 @@ public sealed class TrackerOverlayPanel : IPanel
         bool active = Tracker.IsActive(m, e);
 
         float cell = ImGui.GetContentRegionAvail().X;
-        float dim = _fixedIconSize ? FixedIconDim : MathF.Max(8f, cell * (1f - IconPadding));
+        float dim = _fixedIconSize ? FixedIconDim * HostWindow.DpiScale : MathF.Max(8f, cell * (1f - IconPadding));
         var size = new Vector2(dim, dim);
 
         ImGui.BeginGroup();

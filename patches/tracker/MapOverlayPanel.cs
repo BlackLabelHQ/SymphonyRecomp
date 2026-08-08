@@ -61,7 +61,7 @@ public sealed class MapOverlayPanel : IPanel
     {
         EnsureLoaded();
 
-        ImGui.SetNextWindowSize(new Vector2(660, 560), ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSize(new Vector2(660, 560) * HostWindow.DpiScale, ImGuiCond.FirstUseEver);
         bool open = IsOpen;
         if (!ImGui.Begin(Name, ref open))
         {
@@ -98,7 +98,7 @@ public sealed class MapOverlayPanel : IPanel
     {
         ImGui.Text($"Castle {_curCastle}");
         ImGui.SameLine();
-        ImGui.SetNextItemWidth(140f);
+        ImGui.SetNextItemWidth(140f * HostWindow.DpiScale);
         if (ImGui.Combo("Checks", ref _checkSet, CheckSetNames, CheckSetNames.Length)) Persist();
         ImGui.SameLine();
         if (ImGui.SmallButton("Reset"))

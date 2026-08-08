@@ -2,6 +2,7 @@ using System.Numerics;
 using System.Text;
 using ImGuiNET;
 using RecompOne.Runtime.Cdrom;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 using RecompOne.Runtime.Memory;
 
@@ -102,7 +103,7 @@ public static class DiscCheck
 
         public void Draw()
         {
-            ImGui.SetNextWindowSize(new Vector2(420, 0), ImGuiCond.Always);
+            ImGui.SetNextWindowSize(new Vector2(420 * HostWindow.DpiScale, 0), ImGuiCond.Always);
             ImGui.SetNextWindowPos(ImGui.GetMainViewport().GetCenter(), ImGuiCond.Appearing, new Vector2(0.5f, 0.5f));
 
             bool open = true;

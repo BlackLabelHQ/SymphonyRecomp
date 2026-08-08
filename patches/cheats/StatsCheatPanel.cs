@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using ImGuiNET;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 using RecompOne.Runtime.Memory;
 using Sotn;
@@ -16,7 +17,7 @@ public sealed class StatsCheatPanel : IPanel
 
     public void Draw()
     {
-        ImGui.SetNextWindowSize(new Vector2(340, 500), ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSize(new Vector2(340, 500) * HostWindow.DpiScale, ImGuiCond.FirstUseEver);
         bool open = IsOpen;
         if (!ImGui.Begin(Name, ref open))
         {
@@ -84,14 +85,14 @@ public sealed class StatsCheatPanel : IPanel
     static void Slider(string label, Func<int> get, Action<int> set, int min, int max)
     {
         int v = get();
-        ImGui.SetNextItemWidth(190);
+        ImGui.SetNextItemWidth(190 * HostWindow.DpiScale);
         if (ImGui.SliderInt(label, ref v, min, max)) set(v);
     }
 
     static void Input(string label, Func<int> get, Action<int> set)
     {
         int v = get();
-        ImGui.SetNextItemWidth(130);
+        ImGui.SetNextItemWidth(130 * HostWindow.DpiScale);
         if (ImGui.InputInt(label, ref v)) set(Math.Max(0, v));
     }
 }

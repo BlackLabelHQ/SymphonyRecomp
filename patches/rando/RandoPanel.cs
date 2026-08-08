@@ -1,5 +1,6 @@
 using System.Numerics;
 using ImGuiNET;
+using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
@@ -17,7 +18,7 @@ public sealed class RandoPanel : IPanel
         byte CurrentPreset = 0;
         byte StageId;
 
-        ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
+        ImGui.SetNextWindowSize(new Vector2(320, 420) * HostWindow.DpiScale, ImGuiCond.FirstUseEver);
         bool open = IsOpen;
         if (!ImGui.Begin(Name, ref open))
         {
