@@ -34,6 +34,11 @@
     <EmbeddedResource Include="assets/icon/*.ico" />
   </ItemGroup>
 
+  <!-- Android App Icons -->
+  <ItemGroup>
+    <AndroidResource Include="Android\Resources\**\*.png" />
+  </ItemGroup>
+
   <!-- Assets to copy to the device at runtime -->
   <ItemGroup>
     <AndroidAsset Include="assets\**\*" />

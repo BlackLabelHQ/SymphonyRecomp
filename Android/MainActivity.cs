@@ -17,7 +17,7 @@ using Sotn;
 
 namespace RecompOne.SoTN.Android
 {
-    [Activity(Label = "SymphonyRecomp", MainLauncher = true, 
+    [Activity(Label = "SymphonyRecomp", Icon = "@mipmap/icon", MainLauncher = true, 
               Theme = "@android:style/Theme.NoTitleBar.Fullscreen", 
               ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.SmallestScreenSize | ConfigChanges.ScreenLayout | ConfigChanges.KeyboardHidden,
               ScreenOrientation = ScreenOrientation.Sensor)]
