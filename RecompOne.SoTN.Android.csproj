@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationId>com.blacklabelhq.sotn</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidGenerateAppBundle>false</AndroidGenerateAppBundle>
+    <UseFlagsAttributeForFlags>true</UseFlagsAttributeForFlags>
+    <RunAOTCompilation>false</RunAOTCompilation>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <RuntimeIdentifiers>android-arm64;android-x64</RuntimeIdentifiers>
+    <!-- Exclude desktop Program.cs and the RecompOne submodule folder -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**;Program.cs;jdk/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="RecompOne\RecompOne.Runtime\RecompOne.Runtime.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+  </ItemGroup>
+
+  <!-- Embed tracker, map, extension, and icon resources directly -->
+  <ItemGroup>
+    <EmbeddedResource Include="assets/tracker/*.png" />
+    <EmbeddedResource Include="assets/map/*.png" />
+    <EmbeddedResource Include="assets/extension/*.png" />
+    <EmbeddedResource Include="assets/icon/*.ico" />
+  </ItemGroup>
+
+  <!-- Assets to copy to the device at runtime -->
+  <ItemGroup>
+    <AndroidAsset Include="assets\**\*" />
+    <AndroidAsset Include="config\**\*" />
+    <AndroidAsset Include="disc\**\*" />
+  </ItemGroup>
+</Project>

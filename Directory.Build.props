@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <JavaSdkDirectory Condition="'$(JavaSdkDirectory)' == ''">$(MSBuildThisFileDirectory)jdk\jdk-17.0.10+7</JavaSdkDirectory>
+  </PropertyGroup>
+</Project>

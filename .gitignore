@@ -11,3 +11,5 @@ interface.ini
 debug_dump/
 disc/
 mods/.cache
+jdk/
+build/
