@@ -295,40 +295,43 @@ namespace RecompOne.SoTN.Android
                     _overlayLayout.AddView(bR1, pR1);
                     _overlayLayout.AddView(bR2, pR2);
 
-                    // 4. SELECT & START BUTTONS
-                    int sysW = (int)(72 * density);
-                    int sysH = (int)(34 * density);
+                    // 4. SYSTEM CONTROL BAR (SELECT, MENU, START)
+                    var sysBar = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+                    var sysBarParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent)
+                    {
+                        Gravity = GravityFlags.Bottom | GravityFlags.CenterHorizontal,
+                        BottomMargin = (int)(10 * density)
+                    };
 
-                    var bSel = CreateBtn("SELECT", Controller.Select, 72, 34);
-                    var bStart = CreateBtn("START", Controller.Start, 72, 34);
+                    var bSel = CreateBtn("SELECT", Controller.Select, 68, 34);
+                    var bStart = CreateBtn("START", Controller.Start, 68, 34);
 
-                    var pSel = new FrameLayout.LayoutParams(sysW, sysH) { Gravity = GravityFlags.Bottom | GravityFlags.CenterHorizontal, LeftMargin = -sysW - (int)(8 * density), BottomMargin = (int)(12 * density) };
-                    var pStart = new FrameLayout.LayoutParams(sysW, sysH) { Gravity = GravityFlags.Bottom | GravityFlags.CenterHorizontal, LeftMargin = sysW + (int)(8 * density), BottomMargin = (int)(12 * density) };
-
-                    _overlayLayout.AddView(bSel, pSel);
-                    _overlayLayout.AddView(bStart, pStart);
-
-                    // 5. MENU BUTTON
                     var bMenu = new global::Android.Widget.Button(this);
                     bMenu.Text = "⚙ MENU";
                     bMenu.SetTextColor(Color.Yellow);
-                    bMenu.TextSize = 13f;
+                    bMenu.TextSize = 12f;
+                    bMenu.SetPadding(0, 0, 0, 0);
                     var mShape = new global::Android.Graphics.Drawables.GradientDrawable();
                     mShape.SetShape(global::Android.Graphics.Drawables.ShapeType.Rectangle);
-                    mShape.SetCornerRadius(20f * density);
+                    mShape.SetCornerRadius(18f * density);
                     mShape.SetColor(Color.Argb(180, 20, 20, 20));
                     mShape.SetStroke((int)(1.5f * density), Color.Yellow);
                     bMenu.Background = mShape;
-
                     bMenu.Click += (s, e) => ShowMenuDialog();
 
-                    var pMenu = new FrameLayout.LayoutParams((int)(95 * density), (int)(36 * density))
-                    {
-                        Gravity = isPortrait ? (GravityFlags.Bottom | GravityFlags.CenterHorizontal) : (GravityFlags.Top | GravityFlags.CenterHorizontal),
-                        TopMargin = isPortrait ? 0 : (int)(8 * density),
-                        BottomMargin = isPortrait ? (int)(55 * density) : 0
-                    };
-                    _overlayLayout.AddView(bMenu, pMenu);
+                    int btnW = (int)(68 * density);
+                    int btnH = (int)(34 * density);
+                    int barPad = (int)(8 * density);
+
+                    var lpSel = new LinearLayout.LayoutParams(btnW, btnH) { RightMargin = barPad };
+                    var lpMenu = new LinearLayout.LayoutParams((int)(82 * density), btnH) { RightMargin = barPad };
+                    var lpStart = new LinearLayout.LayoutParams(btnW, btnH);
+
+                    sysBar.AddView(bSel, lpSel);
+                    sysBar.AddView(bMenu, lpMenu);
+                    sysBar.AddView(bStart, lpStart);
+
+                    _overlayLayout.AddView(sysBar, sysBarParams);
 
                     _overlayLayout.Visibility = _touchVisible ? ViewStates.Visible : ViewStates.Gone;
                     decorView.AddView(_overlayLayout);
