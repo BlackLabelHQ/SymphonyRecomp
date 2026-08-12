@@ -453,7 +453,7 @@ namespace RecompOne.SoTN.Android
                     {
                         int nextMode = mode == 0 ? 1 : 0;
                         ConfigManager.View.TouchControlMode = nextMode;
-                        ConfigManager.SaveView(null);
+                        try { ConfigManager.SaveView(); } catch { }
                         if (_touchView != null)
                         {
                             _touchView.ControlMode = (TouchControlMode)nextMode;
