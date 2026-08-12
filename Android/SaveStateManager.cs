@@ -101,7 +101,7 @@ namespace RecompOne.SoTN.Android
                 using var bw = new BinaryWriter(ms);
 
                 // Header magic and timestamp
-                bw.Write(Encoding.ASCII.GetBytes("SOTNSS01"));
+                bw.Write(Encoding.ASCII.GetBytes("SOTNSS02"));
                 bw.Write(DateTime.UtcNow.ToBinary());
 
                 // CPU Registers
@@ -117,6 +117,30 @@ namespace RecompOne.SoTN.Android
                 var ram = mem.RamBuffer;
                 bw.Write(ram.Length);
                 bw.Write(ram);
+
+                // Scratchpad Buffer (1KB)
+                var scratch = mem.ScratchpadBuffer;
+                bw.Write(scratch.Length);
+                bw.Write(scratch);
+
+                // Hardware Registers Buffer (8KB)
+                var hwregs = mem.HwRegsBuffer;
+                bw.Write(hwregs.Length);
+                bw.Write(hwregs);
+
+                // GPU State Snapshot
+                var gs = gpu.SnapshotState();
+                bw.Write(gs.DrawAreaLeft); bw.Write(gs.DrawAreaTop); bw.Write(gs.DrawAreaRight); bw.Write(gs.DrawAreaBottom);
+                bw.Write(gs.DrawOffsetX); bw.Write(gs.DrawOffsetY);
+                bw.Write(gs.TexPageX); bw.Write(gs.TexPageY); bw.Write(gs.TexDepth); bw.Write(gs.BlendMode);
+                bw.Write(gs.Dither); bw.Write(gs.TexDisable);
+                bw.Write(gs.TexWinMaskX); bw.Write(gs.TexWinMaskY); bw.Write(gs.TexWinOffX); bw.Write(gs.TexWinOffY);
+                bw.Write(gs.SetMask); bw.Write(gs.CheckMask);
+                bw.Write(gs.DispVramX); bw.Write(gs.DispVramY);
+                bw.Write(gs.HRange1); bw.Write(gs.HRange2); bw.Write(gs.VRange1); bw.Write(gs.VRange2);
+                bw.Write(gs.HRes);
+                bw.Write(gs.HRes368); bw.Write(gs.VRes480); bw.Write(gs.Pal); bw.Write(gs.Disp24); bw.Write(gs.Interlace); bw.Write(gs.DisplayDisabled);
+                bw.Write(gs.DmaDir);
 
                 // VRAM Pixels (1024x512 ushorts = 1MB)
                 var vram = gpu.Vram;
@@ -161,7 +185,8 @@ namespace RecompOne.SoTN.Android
 
                 // Magic check
                 byte[] magic = br.ReadBytes(8);
-                if (Encoding.ASCII.GetString(magic) != "SOTNSS01")
+                string magicStr = Encoding.ASCII.GetString(magic);
+                if (magicStr != "SOTNSS01" && magicStr != "SOTNSS02")
                 {
                     error = "Invalid savestate file format.";
                     return false;
@@ -183,13 +208,44 @@ namespace RecompOne.SoTN.Android
                 byte[] ramData = br.ReadBytes(ramLen);
                 Array.Copy(ramData, mem.RamBuffer, Math.Min(ramLen, mem.RamBuffer.Length));
 
+                if (magicStr == "SOTNSS02")
+                {
+                    // Scratchpad Restore
+                    int scratchLen = br.ReadInt32();
+                    byte[] scratchData = br.ReadBytes(scratchLen);
+                    Array.Copy(scratchData, mem.ScratchpadBuffer, Math.Min(scratchLen, mem.ScratchpadBuffer.Length));
+
+                    // Hardware Registers Restore
+                    int hwregsLen = br.ReadInt32();
+                    byte[] hwregsData = br.ReadBytes(hwregsLen);
+                    Array.Copy(hwregsData, mem.HwRegsBuffer, Math.Min(hwregsLen, mem.HwRegsBuffer.Length));
+
+                    // GPU State Restore
+                    var gs = new RecompOne.Runtime.Gpu.GpuStateSnapshot
+                    {
+                        DrawAreaLeft = br.ReadInt32(), DrawAreaTop = br.ReadInt32(), DrawAreaRight = br.ReadInt32(), DrawAreaBottom = br.ReadInt32(),
+                        DrawOffsetX = br.ReadInt32(), DrawOffsetY = br.ReadInt32(),
+                        TexPageX = br.ReadInt32(), TexPageY = br.ReadInt32(), TexDepth = br.ReadInt32(), BlendMode = br.ReadInt32(),
+                        Dither = br.ReadBoolean(), TexDisable = br.ReadBoolean(),
+                        TexWinMaskX = br.ReadInt32(), TexWinMaskY = br.ReadInt32(), TexWinOffX = br.ReadInt32(), TexWinOffY = br.ReadInt32(),
+                        SetMask = br.ReadBoolean(), CheckMask = br.ReadBoolean(),
+                        DispVramX = br.ReadInt32(), DispVramY = br.ReadInt32(),
+                        HRange1 = br.ReadInt32(), HRange2 = br.ReadInt32(), VRange1 = br.ReadInt32(), VRange2 = br.ReadInt32(),
+                        HRes = br.ReadInt32(),
+                        HRes368 = br.ReadBoolean(), VRes480 = br.ReadBoolean(), Pal = br.ReadBoolean(), Disp24 = br.ReadBoolean(), Interlace = br.ReadBoolean(), DisplayDisabled = br.ReadBoolean(),
+                        DmaDir = br.ReadInt32()
+                    };
+                    gpu.RestoreState(gs);
+                }
+
                 // VRAM Restore
                 int vramLen = br.ReadInt32();
                 var vram = gpu.Vram;
                 for (int i = 0; i < Math.Min(vramLen, vram.Length); i++)
                     vram[i] = br.ReadUInt16();
 
-                // Upload restored VRAM buffer to GPU backend immediately
+                // Notify GpuHle display rectangle & re-upload VRAM texture to OpenGL ES
+                GpuHle.NotifyDisplay(gpu.DisplayX, gpu.DisplayY, gpu.DisplayWidth, gpu.DisplayHeight);
                 GpuHle.Backend?.WriteVram(0, 0, 1024, 512, gpu.Vram);
 
                 return true;
