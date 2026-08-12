@@ -13,6 +13,7 @@ using RecompOne.Runtime.Config;
 using RecompOne.Runtime.Hardware;
 using RecompOne.Runtime.Host;
 using RecompOne.Runtime.Memory;
+using RecompOne.Runtime.Modding;
 using Sotn;
 
 namespace RecompOne.SoTN.Android
@@ -234,6 +235,7 @@ namespace RecompOne.SoTN.Android
                     var options = new string[]
                     {
                         "⚡ Cheats (Full Heal, God Mode, Gold)",
+                        "🧩 Mods Manager",
                         "🎨 Display Settings (Aspect, Resolution)",
                         "🎮 Touch Controls (Opacity, Visibility)",
                         "🔄 Reset / Reload Disc"
@@ -246,9 +248,10 @@ namespace RecompOne.SoTN.Android
                             switch (e.Which)
                             {
                                 case 0: ShowCheatsMenu(); break;
-                                case 1: ShowDisplayMenu(); break;
-                                case 2: ShowTouchControlsMenu(); break;
-                                case 3: AutoDetectDisc(); Toast.MakeText(this, "Disc reloaded", ToastLength.Short)?.Show(); break;
+                                case 1: ShowModsMenu(); break;
+                                case 2: ShowDisplayMenu(); break;
+                                case 3: ShowTouchControlsMenu(); break;
+                                case 4: AutoDetectDisc(); Toast.MakeText(this, "Disc reloaded", ToastLength.Short)?.Show(); break;
                             }
                         })
                         .SetNegativeButton("Close", (IDialogInterfaceOnClickListener?)null)
@@ -259,6 +262,68 @@ namespace RecompOne.SoTN.Android
                     Console.Error.WriteLine($"[Android] Menu dialog failed: {ex.Message}");
                 }
             });
+        }
+
+        private void ShowModsMenu()
+        {
+            try
+            {
+                string modsDir = System.IO.Path.Combine(FilesDir?.Path ?? "/sdcard/Android/data/com.blacklabelhq.sotn/files", "mods");
+                if (!Directory.Exists(modsDir)) Directory.CreateDirectory(modsDir);
+
+                var mods = ModLoader.Mods;
+                if (mods.Count == 0)
+                {
+                    try { ModLoader.LoadAll(modsDir); mods = ModLoader.Mods; } catch { }
+                }
+
+                if (mods.Count == 0)
+                {
+                    new AlertDialog.Builder(this)
+                        .SetTitle("Mods Manager")
+                        .SetMessage($"No mods found.\n\nMods Folder:\n{modsDir}\n\nPlace mod folders or precompiled mod DLLs in this directory.")
+                        .SetPositiveButton("Refresh", (s, e) => { try { ModLoader.LoadAll(modsDir); } catch { } ShowModsMenu(); })
+                        .SetNegativeButton("Back", (s, e) => ShowMenuDialog())
+                        .Show();
+                    return;
+                }
+
+                var modItems = new string[mods.Count + 1];
+                for (int i = 0; i < mods.Count; i++)
+                {
+                    var m = mods[i];
+                    string stateStr = m.Enabled ? "🟢 [ON]" : "⚪ [OFF]";
+                    string name = string.IsNullOrWhiteSpace(m.Info.Name) ? m.Info.Id : m.Info.Name;
+                    modItems[i] = $"{stateStr} {name} (v{m.Info.Version})";
+                }
+                modItems[mods.Count] = "🔄 Reload All Mods";
+
+                new AlertDialog.Builder(this)
+                    .SetTitle($"Mods ({mods.Count} Available)")
+                    .SetItems(modItems, (s, e) =>
+                    {
+                        if (e.Which == mods.Count)
+                        {
+                            try { ModLoader.LoadAll(modsDir); } catch { }
+                            Toast.MakeText(this, "Reloaded mods folder", ToastLength.Short)?.Show();
+                            ShowModsMenu();
+                        }
+                        else if (e.Which >= 0 && e.Which < mods.Count)
+                        {
+                            var selectedMod = mods[e.Which];
+                            bool newState = !selectedMod.Enabled;
+                            ModLoader.SetEnabled(selectedMod.Info.Id, newState);
+                            Toast.MakeText(this, $"{(newState ? "Enabled" : "Disabled")}: {selectedMod.Info.Name}", ToastLength.Short)?.Show();
+                            ShowModsMenu();
+                        }
+                    })
+                    .SetNegativeButton("Back", (s, e) => ShowMenuDialog())
+                    .Show();
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, $"Mods Manager error: {ex.Message}", ToastLength.Long)?.Show();
+            }
         }
 
         private void ShowCheatsMenu()
