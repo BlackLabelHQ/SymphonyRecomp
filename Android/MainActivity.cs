@@ -49,6 +49,7 @@ namespace RecompOne.SoTN.Android
             CopyAssets("assets");
             CopyAssets("config");
             CopyAssets("disc");
+            CopyAssets("Android");
 
             AutoDetectDisc();
         }
@@ -57,6 +58,7 @@ namespace RecompOne.SoTN.Android
         {
             base.OnPostCreate(savedInstanceState);
             SetupTouchControls();
+            ShowSplashScreen();
         }
 
         protected override void OnRun()
@@ -218,6 +220,73 @@ namespace RecompOne.SoTN.Android
             });
         }
 
+        private ImageView? _splashImageView;
+
+        private void ShowSplashScreen()
+        {
+            RunOnUiThread(() =>
+            {
+                try
+                {
+                    string baseDir = FilesDir?.Path ?? "/sdcard/Android/data/com.blacklabelhq.sotn/files";
+                    bool isLandscape = Resources?.Configuration?.Orientation == global::Android.Content.Res.Orientation.Landscape;
+                    string splashFile = isLandscape
+                        ? global::System.IO.Path.Combine(baseDir, "Android", "splash screen horizontal.png")
+                        : global::System.IO.Path.Combine(baseDir, "Android", "splash screen vertical.png");
+
+                    if (!global::System.IO.File.Exists(splashFile))
+                    {
+                        splashFile = isLandscape
+                            ? global::System.IO.Path.Combine(baseDir, "splash screen horizontal.png")
+                            : global::System.IO.Path.Combine(baseDir, "splash screen vertical.png");
+                    }
+
+                    if (global::System.IO.File.Exists(splashFile))
+                    {
+                        var bitmap = global::Android.Graphics.BitmapFactory.DecodeFile(splashFile);
+                        if (bitmap != null)
+                        {
+                            _splashImageView = new ImageView(this);
+                            _splashImageView.SetImageBitmap(bitmap);
+                            _splashImageView.SetScaleType(ImageView.ScaleType.FitCenter);
+                            _splashImageView.SetBackgroundColor(global::Android.Graphics.Color.Black);
+
+                            var paramsMatch = new ViewGroup.LayoutParams(
+                                ViewGroup.LayoutParams.MatchParent,
+                                ViewGroup.LayoutParams.MatchParent);
+
+                            var decorView = Window?.DecorView as ViewGroup;
+                            decorView?.AddView(_splashImageView, paramsMatch);
+
+                            // Auto dismiss after 2.5 seconds with smooth fade
+                            _splashImageView.PostDelayed(() => DismissSplashScreen(), 2500);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine($"[Android] Splash screen display error: {ex.Message}");
+                }
+            });
+        }
+
+        private void DismissSplashScreen()
+        {
+            RunOnUiThread(() =>
+            {
+                if (_splashImageView == null) return;
+                _splashImageView.Animate()
+                    ?.Alpha(0f)
+                    ?.SetDuration(600)
+                    ?.WithEndAction(new global::Java.Lang.Runnable(() =>
+                    {
+                        if (_splashImageView?.Parent is ViewGroup p)
+                            p.RemoveView(_splashImageView);
+                        _splashImageView = null;
+                    }));
+            });
+        }
+
         public override void OnConfigurationChanged(global::Android.Content.Res.Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
@@ -255,7 +324,7 @@ namespace RecompOne.SoTN.Android
                                 case 3: ShowModsMenu(); break;
                                 case 4: ShowDisplayMenu(); break;
                                 case 5: ShowTouchControlsMenu(); break;
-                                case 6: AutoDetectDisc(); Toast.MakeText(this, "Disc reloaded", ToastLength.Short)?.Show(); break;
+                                case 6: RestartApp(); break;
                             }
                         })
                         .SetNegativeButton("Close", (IDialogInterfaceOnClickListener?)null)
@@ -266,6 +335,29 @@ namespace RecompOne.SoTN.Android
                     Console.Error.WriteLine($"[Android] Menu dialog failed: {ex.Message}");
                 }
             });
+        }
+
+        private void RestartApp()
+        {
+            try
+            {
+                var intent = BaseContext?.PackageManager?.GetLaunchIntentForPackage(BaseContext.PackageName);
+                if (intent != null)
+                {
+                    intent.AddFlags(global::Android.Content.ActivityFlags.ClearTop | global::Android.Content.ActivityFlags.NewTask);
+                    StartActivity(intent);
+                    Finish();
+                    global::Java.Lang.JavaSystem.Exit(0);
+                }
+                else
+                {
+                    Recreate();
+                }
+            }
+            catch
+            {
+                Recreate();
+            }
         }
 
         private void ShowSaveStateMenu()

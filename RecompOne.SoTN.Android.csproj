@@ -44,5 +44,6 @@
     <AndroidAsset Include="assets\**\*" />
     <AndroidAsset Include="config\**\*" />
     <AndroidAsset Include="disc\**\*" />
+    <AndroidAsset Include="Android\*.png" />
   </ItemGroup>
 </Project>

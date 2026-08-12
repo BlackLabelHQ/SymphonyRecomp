@@ -1,7 +1,9 @@
 using System;
 using System.IO;
 using System.Text;
+using RecompOne.Runtime;
 using RecompOne.Runtime.Context;
+using RecompOne.Runtime.Dispatch;
 using RecompOne.Runtime.Hle;
 using RecompOne.Runtime.Memory;
 
@@ -101,7 +103,7 @@ namespace RecompOne.SoTN.Android
                 using var bw = new BinaryWriter(ms);
 
                 // Header magic and timestamp
-                bw.Write(Encoding.ASCII.GetBytes("SOTNSS02"));
+                bw.Write(Encoding.ASCII.GetBytes("SOTNSS03"));
                 bw.Write(DateTime.UtcNow.ToBinary());
 
                 // CPU Registers
@@ -112,6 +114,11 @@ namespace RecompOne.SoTN.Android
                 bw.Write(snapshot.sr);
                 bw.Write(snapshot.cause);
                 bw.Write(snapshot.epc);
+
+                // Active Overlays
+                var activeOverlays = Dispatcher.ActiveNames;
+                bw.Write(activeOverlays.Length);
+                foreach (var ov in activeOverlays) bw.Write(ov);
 
                 // RAM Buffer (2MB / 8MB)
                 var ram = mem.RamBuffer;
@@ -186,7 +193,7 @@ namespace RecompOne.SoTN.Android
                 // Magic check
                 byte[] magic = br.ReadBytes(8);
                 string magicStr = Encoding.ASCII.GetString(magic);
-                if (magicStr != "SOTNSS01" && magicStr != "SOTNSS02")
+                if (magicStr != "SOTNSS01" && magicStr != "SOTNSS02" && magicStr != "SOTNSS03")
                 {
                     error = "Invalid savestate file format.";
                     return false;
@@ -203,12 +210,21 @@ namespace RecompOne.SoTN.Android
                 uint epc = br.ReadUInt32();
                 cpu.Restore((gpr, hi, lo, sr, cause, epc));
 
+                if (magicStr == "SOTNSS03")
+                {
+                    int overlayCount = br.ReadInt32();
+                    string[] overlays = new string[overlayCount];
+                    for (int i = 0; i < overlayCount; i++)
+                        overlays[i] = br.ReadString();
+                    Dispatcher.SetActiveOverlays(overlays);
+                }
+
                 // RAM Restore
                 int ramLen = br.ReadInt32();
                 byte[] ramData = br.ReadBytes(ramLen);
                 Array.Copy(ramData, mem.RamBuffer, Math.Min(ramLen, mem.RamBuffer.Length));
 
-                if (magicStr == "SOTNSS02")
+                if (magicStr == "SOTNSS02" || magicStr == "SOTNSS03")
                 {
                     // Scratchpad Restore
                     int scratchLen = br.ReadInt32();
@@ -247,9 +263,16 @@ namespace RecompOne.SoTN.Android
                 // Reset GPU pipeline & destroy old render targets
                 GpuHle.Backend?.Reset();
 
+                // Reset Audio & XA playback
+                RecompOne.Runtime.Runtime.Spu?.Reset();
+                XaAudio.Reset();
+
                 // Notify GpuHle display rectangle & re-upload VRAM texture to OpenGL ES
                 GpuHle.NotifyDisplay(gpu.DisplayX, gpu.DisplayY, gpu.DisplayWidth, gpu.DisplayHeight);
                 GpuHle.Backend?.WriteVram(0, 0, 1024, 512, gpu.Vram);
+
+                // Set flag to unwind old C# callstack and jump directly to EPC in Entry.Run
+                RecompOne.Runtime.Runtime.PendingStateLoaded = true;
 
                 return true;
             }
