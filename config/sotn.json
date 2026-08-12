@@ -2091,6 +2091,13 @@
       "target": "Recompiled.RandoPatch.NewFinalDoorGoals"
     },
     {
+      "comment": "Skip Prologue Support",
+      "overlay": "sel",
+      "function": "func_801ACEC0",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.SkipPrologue"
+    },
+    {
       "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
       "overlay": "dra",
       "function": "func_800F16D0",

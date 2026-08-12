@@ -72,6 +72,7 @@ public static partial class Randomizer
     public static bool RandomizeRelics = false;
     public static bool RandomizeStartingGear = false;
     public static bool RemoveDeathFromEntrance = false;
+    public static bool SkipPrologue = false;
 
     static UInt16 StartingWeapon = 0x7B;
     static UInt16 StartingShield = 0x10;

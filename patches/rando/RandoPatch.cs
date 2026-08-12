@@ -12656,4 +12656,23 @@ public static partial class RandoPatch
         }
     }
 
+    public static void SkipPrologue(CpuContext c, IMemory m)
+    {
+        UInt16 StartingStageIdInMemory;
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+
+        if (m.ReadU32(0x800974a0) == 0x1F)
+        {
+            StartingStageIdInMemory = m.ReadU16(0x801AF594);
+            if (StartingStageIdInMemory != 0x1F)
+            {
+                m.WriteU16(0x800974a0, StartingStageIdInMemory);
+            }
+            if(CUR_PRESET == (byte)PresetId.Integrated && Randomizer.SkipPrologue == true)
+            {
+                m.WriteU16(0x800974a0, 0x41);
+            }
+        }
+    }
+
 }

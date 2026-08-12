@@ -67,6 +67,7 @@ public sealed class RandoPanel : IPanel
         Toggle("rando.relics", ref Randomizer.RandomizeRelics);
         Toggle("rando.starting_gear", ref Randomizer.RandomizeStartingGear);
         Toggle("rando.remove_death", ref Randomizer.RemoveDeathFromEntrance);
+        Toggle("rando.skip_prologue", ref Randomizer.SkipPrologue);
         ImGui.SeparatorText("");
 
         ImGui.InputInt(Localization.T("rando.seed"), ref Randomizer.SeedNumber);
