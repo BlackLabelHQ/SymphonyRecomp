@@ -235,6 +235,8 @@ namespace RecompOne.SoTN.Android
                     var options = new string[]
                     {
                         "⚡ Cheats (Full Heal, God Mode, Gold)",
+                        "💾 Save State (Slots 1-5)",
+                        "📂 Load State (Slots 1-5)",
                         "🧩 Mods Manager",
                         "🎨 Display Settings (Aspect, Resolution)",
                         "🎮 Touch Controls (Opacity, Visibility)",
@@ -248,10 +250,12 @@ namespace RecompOne.SoTN.Android
                             switch (e.Which)
                             {
                                 case 0: ShowCheatsMenu(); break;
-                                case 1: ShowModsMenu(); break;
-                                case 2: ShowDisplayMenu(); break;
-                                case 3: ShowTouchControlsMenu(); break;
-                                case 4: AutoDetectDisc(); Toast.MakeText(this, "Disc reloaded", ToastLength.Short)?.Show(); break;
+                                case 1: ShowSaveStateMenu(); break;
+                                case 2: ShowLoadStateMenu(); break;
+                                case 3: ShowModsMenu(); break;
+                                case 4: ShowDisplayMenu(); break;
+                                case 5: ShowTouchControlsMenu(); break;
+                                case 6: AutoDetectDisc(); Toast.MakeText(this, "Disc reloaded", ToastLength.Short)?.Show(); break;
                             }
                         })
                         .SetNegativeButton("Close", (IDialogInterfaceOnClickListener?)null)
@@ -262,6 +266,74 @@ namespace RecompOne.SoTN.Android
                     Console.Error.WriteLine($"[Android] Menu dialog failed: {ex.Message}");
                 }
             });
+        }
+
+        private void ShowSaveStateMenu()
+        {
+            try
+            {
+                string baseDir = FilesDir?.Path ?? "/sdcard/Android/data/com.blacklabelhq.sotn/files";
+                var slots = new string[5];
+                for (int i = 0; i < 5; i++)
+                    slots[i] = SaveStateManager.GetSlotInfo(baseDir, i + 1);
+
+                new AlertDialog.Builder(this)
+                    .SetTitle("Save State to Slot")
+                    .SetItems(slots, (s, e) =>
+                    {
+                        int slot = e.Which + 1;
+                        SaveStateManager.RequestSaveState(baseDir, slot, (success, err, sl) =>
+                        {
+                            RunOnUiThread(() =>
+                            {
+                                if (success)
+                                    Toast.MakeText(this, $"💾 Saved State to Slot {sl}!", ToastLength.Short)?.Show();
+                                else
+                                    Toast.MakeText(this, $"Save State Failed: {err}", ToastLength.Long)?.Show();
+                            });
+                        });
+                    })
+                    .SetNegativeButton("Back", (s, e) => ShowMenuDialog())
+                    .Show();
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, $"Save State error: {ex.Message}", ToastLength.Long)?.Show();
+            }
+        }
+
+        private void ShowLoadStateMenu()
+        {
+            try
+            {
+                string baseDir = FilesDir?.Path ?? "/sdcard/Android/data/com.blacklabelhq.sotn/files";
+                var slots = new string[5];
+                for (int i = 0; i < 5; i++)
+                    slots[i] = SaveStateManager.GetSlotInfo(baseDir, i + 1);
+
+                new AlertDialog.Builder(this)
+                    .SetTitle("Load State from Slot")
+                    .SetItems(slots, (s, e) =>
+                    {
+                        int slot = e.Which + 1;
+                        SaveStateManager.RequestLoadState(baseDir, slot, (success, err, sl) =>
+                        {
+                            RunOnUiThread(() =>
+                            {
+                                if (success)
+                                    Toast.MakeText(this, $"📂 Loaded State from Slot {sl}!", ToastLength.Short)?.Show();
+                                else
+                                    Toast.MakeText(this, $"Load State Failed: {err}", ToastLength.Long)?.Show();
+                            });
+                        });
+                    })
+                    .SetNegativeButton("Back", (s, e) => ShowMenuDialog())
+                    .Show();
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, $"Load State error: {ex.Message}", ToastLength.Long)?.Show();
+            }
         }
 
         private void ShowModsMenu()
