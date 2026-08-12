@@ -200,6 +200,7 @@ namespace RecompOne.SoTN.Android
                     {
                         TouchOpacity = _touchOpacity,
                         TouchVisible = _touchVisible,
+                        ControlMode = (TouchControlMode)ConfigManager.View.TouchControlMode,
                         OnMenuClicked = ShowMenuDialog
                     };
 
@@ -432,8 +433,12 @@ namespace RecompOne.SoTN.Android
 
         private void ShowTouchControlsMenu()
         {
+            int mode = ConfigManager.View.TouchControlMode;
+            string modeStr = mode == 0 ? "🔲 Four Arrows (D-Pad)" : "🕹️ Virtual Analog Joystick";
+
             var options = new string[]
             {
+                $"Movement Style: {modeStr}",
                 $"Touch Overlay: {(_touchVisible ? "Visible" : "Hidden")}",
                 "Opacity: 100%",
                 "Opacity: 70%",
@@ -446,12 +451,24 @@ namespace RecompOne.SoTN.Android
                 {
                     if (e.Which == 0)
                     {
+                        int nextMode = mode == 0 ? 1 : 0;
+                        ConfigManager.View.TouchControlMode = nextMode;
+                        ConfigManager.SaveView(null);
+                        if (_touchView != null)
+                        {
+                            _touchView.ControlMode = (TouchControlMode)nextMode;
+                            _touchView.Invalidate();
+                        }
+                        Toast.MakeText(this, $"Movement style: {(nextMode == 0 ? "Four Arrows (D-Pad)" : "Virtual Joystick")}", ToastLength.Short)?.Show();
+                    }
+                    else if (e.Which == 1)
+                    {
                         _touchVisible = !_touchVisible;
                         if (_touchView != null) { _touchView.TouchVisible = _touchVisible; _touchView.Invalidate(); }
                     }
-                    else if (e.Which == 1) { _touchOpacity = 1.0f; if (_touchView != null) { _touchView.TouchOpacity = _touchOpacity; _touchView.Invalidate(); } }
-                    else if (e.Which == 2) { _touchOpacity = 0.7f; if (_touchView != null) { _touchView.TouchOpacity = _touchOpacity; _touchView.Invalidate(); } }
-                    else if (e.Which == 3) { _touchOpacity = 0.4f; if (_touchView != null) { _touchView.TouchOpacity = _touchOpacity; _touchView.Invalidate(); } }
+                    else if (e.Which == 2) { _touchOpacity = 1.0f; if (_touchView != null) { _touchView.TouchOpacity = _touchOpacity; _touchView.Invalidate(); } }
+                    else if (e.Which == 3) { _touchOpacity = 0.7f; if (_touchView != null) { _touchView.TouchOpacity = _touchOpacity; _touchView.Invalidate(); } }
+                    else if (e.Which == 4) { _touchOpacity = 0.4f; if (_touchView != null) { _touchView.TouchOpacity = _touchOpacity; _touchView.Invalidate(); } }
                 })
                 .SetNegativeButton("Back", (s, e) => ShowMenuDialog())
                 .Show();

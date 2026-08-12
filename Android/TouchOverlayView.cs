@@ -6,11 +6,18 @@ using RecompOne.Runtime.Hardware;
 
 namespace RecompOne.SoTN.Android
 {
+    public enum TouchControlMode
+    {
+        DPad = 0,
+        VirtualJoystick = 1
+    }
+
     public class TouchOverlayView : View
     {
         public Action? OnMenuClicked;
         public float TouchOpacity = 0.7f;
         public bool TouchVisible = true;
+        public TouchControlMode ControlMode = TouchControlMode.DPad;
 
         private readonly Paint _fillPaint = new Paint(PaintFlags.AntiAlias);
         private readonly Paint _strokePaint = new Paint(PaintFlags.AntiAlias);
@@ -21,6 +28,10 @@ namespace RecompOne.SoTN.Android
         private bool _pTriangle, _pSquare, _pCircle, _pCross;
         private bool _pL1, _pL2, _pR1, _pR2;
         private bool _pSelect, _pMenu, _pStart;
+
+        // Joystick knob offset for drawing
+        private float _knobOffsetX = 0f;
+        private float _knobOffsetY = 0f;
 
         public TouchOverlayView(Context context) : base(context)
         {
@@ -41,6 +52,9 @@ namespace RecompOne.SoTN.Android
             bool pL1 = false, pL2 = false, pR1 = false, pR2 = false;
             bool pSelect = false, pMenu = false, pStart = false;
 
+            float knobX = 0f, knobY = 0f;
+            bool joystickActive = false;
+
             float density = Context?.Resources?.DisplayMetrics?.Density ?? 1f;
             int w = Width;
             int h = Height;
@@ -53,7 +67,7 @@ namespace RecompOne.SoTN.Android
             float btnPx = btnDp * density;
             float padPx = 15f * density;
 
-            // D-Pad center
+            // D-Pad / Joystick center
             float dpadW = btnPx * 3.1f;
             float dpadLeft = padPx;
             float dpadBottom = isPortrait ? (56f * density) : padPx;
@@ -114,20 +128,45 @@ namespace RecompOne.SoTN.Android
                 float px = e.GetX(i);
                 float py = e.GetY(i);
 
-                // 1. D-Pad hit test
+                // 1. Movement hit test (D-Pad or Virtual Joystick)
                 float dx = px - dpadCenterX;
                 float dy = py - dpadCenterY;
                 float dist = MathF.Sqrt(dx * dx + dy * dy);
 
-                if (dist <= dpadRadius * 1.4f && dist > 6f * density)
+                if (ControlMode == TouchControlMode.VirtualJoystick)
                 {
-                    double angle = Math.Atan2(dy, dx) * (180.0 / Math.PI); // -180 to 180
-                    // Angles: Right is 0, Down is 90, Left is 180/-180, Up is -90
+                    if (dist <= dpadRadius * 1.6f)
+                    {
+                        joystickActive = true;
+                        float maxDrag = dpadRadius * 0.75f;
+                        float clampedDist = MathF.Min(dist, maxDrag);
+                        float angleRad = MathF.Atan2(dy, dx);
+                        knobX = MathF.Cos(angleRad) * clampedDist;
+                        knobY = MathF.Sin(angleRad) * clampedDist;
 
-                    if (angle >= -67.5 && angle <= 67.5) pRight = true;
-                    if (angle >= 22.5 && angle <= 157.5) pDown = true;
-                    if (angle >= 112.5 || angle <= -112.5) pLeft = true;
-                    if (angle >= -157.5 && angle <= -22.5) pUp = true;
+                        float normX = dist > 0f ? (dx / dist) * (clampedDist / maxDrag) : 0f;
+                        float normY = dist > 0f ? (dy / dist) * (clampedDist / maxDrag) : 0f;
+
+                        if (normX < -0.3f) pLeft = true;
+                        if (normX > 0.3f) pRight = true;
+                        if (normY < -0.3f) pUp = true;
+                        if (normY > 0.3f) pDown = true;
+
+                        Controller.LeftX = (byte)Math.Clamp(128 + (int)(normX * 127f), 0, 255);
+                        Controller.LeftY = (byte)Math.Clamp(128 + (int)(normY * 127f), 0, 255);
+                    }
+                }
+                else
+                {
+                    // D-Pad (Four Arrows)
+                    if (dist <= dpadRadius * 1.4f && dist > 4f * density)
+                    {
+                        double angle = Math.Atan2(dy, dx) * (180.0 / Math.PI); // -180 to 180
+                        if (angle >= -67.5 && angle <= 67.5) pRight = true;
+                        if (angle >= 22.5 && angle <= 157.5) pDown = true;
+                        if (angle >= 112.5 || angle <= -112.5) pLeft = true;
+                        if (angle >= -157.5 && angle <= -22.5) pUp = true;
+                    }
                 }
 
                 // 2. Action Buttons hit test
@@ -170,6 +209,24 @@ namespace RecompOne.SoTN.Android
                     if (action == (int)MotionEventActions.Down || action == (int)MotionEventActions.PointerDown)
                         menuTriggered = true;
                 }
+            }
+
+            if (!joystickActive && ControlMode == TouchControlMode.VirtualJoystick)
+            {
+                _knobOffsetX = 0f;
+                _knobOffsetY = 0f;
+                Controller.LeftX = 128;
+                Controller.LeftY = 128;
+            }
+            else if (joystickActive)
+            {
+                _knobOffsetX = knobX;
+                _knobOffsetY = knobY;
+            }
+            else
+            {
+                Controller.LeftX = pLeft ? (byte)0 : pRight ? (byte)255 : (byte)128;
+                Controller.LeftY = pUp ? (byte)0 : pDown ? (byte)255 : (byte)128;
             }
 
             // Update pressed states for rendering
@@ -241,7 +298,7 @@ namespace RecompOne.SoTN.Android
                 canvas.DrawText(label, rect.CenterX(), textY, _textPaint);
             }
 
-            // 1. D-Pad
+            // 1. Movement Controls (D-Pad or Virtual Joystick)
             float dpadW = btnPx * 3.1f;
             float dpadLeft = padPx;
             float dpadBottom = isPortrait ? (56f * density) : padPx;
@@ -249,16 +306,50 @@ namespace RecompOne.SoTN.Android
 
             float dpadCenterX = dpadLeft + dpadW / 2f;
             float dpadCenterY = dpadY + dpadW / 2f;
+            float dpadRadius = dpadW / 2f;
 
-            RectF rUp = new RectF(dpadCenterX - btnPx / 2f, dpadY, dpadCenterX + btnPx / 2f, dpadY + btnPx);
-            RectF rDown = new RectF(dpadCenterX - btnPx / 2f, dpadY + dpadW - btnPx, dpadCenterX + btnPx / 2f, dpadY + dpadW);
-            RectF rLeft = new RectF(dpadLeft, dpadCenterY - btnPx / 2f, dpadLeft + btnPx, dpadCenterY + btnPx / 2f);
-            RectF rRight = new RectF(dpadLeft + dpadW - btnPx, dpadCenterY - btnPx / 2f, dpadLeft + dpadW, dpadCenterY + btnPx / 2f);
+            if (ControlMode == TouchControlMode.VirtualJoystick)
+            {
+                // Draw Base Circle
+                _fillPaint.Color = Color.Argb(alphaNorm, 30, 30, 30);
+                canvas.DrawCircle(dpadCenterX, dpadCenterY, dpadRadius, _fillPaint);
 
-            DrawBtn(rUp, "▲", Color.White, _pUp);
-            DrawBtn(rDown, "▼", Color.White, _pDown);
-            DrawBtn(rLeft, "◄", Color.White, _pLeft);
-            DrawBtn(rRight, "►", Color.White, _pRight);
+                _strokePaint.Color = Color.Argb(180, 200, 200, 200);
+                _strokePaint.SetStyle(Paint.Style.Stroke);
+                _strokePaint.StrokeWidth = 2f * density;
+                canvas.DrawCircle(dpadCenterX, dpadCenterY, dpadRadius, _strokePaint);
+
+                // Inner Guide Cross Ring
+                _strokePaint.Color = Color.Argb(100, 150, 150, 150);
+                _strokePaint.StrokeWidth = 1f * density;
+                canvas.DrawCircle(dpadCenterX, dpadCenterY, dpadRadius * 0.4f, _strokePaint);
+
+                // Floating Stick Knob
+                float kx = dpadCenterX + _knobOffsetX;
+                float ky = dpadCenterY + _knobOffsetY;
+                float knobR = btnPx * 0.6f;
+
+                bool active = (_knobOffsetX != 0f || _knobOffsetY != 0f);
+                _fillPaint.Color = active ? Color.Argb(alphaHigh, 80, 140, 255) : Color.Argb(alphaHigh, 70, 70, 70);
+                canvas.DrawCircle(kx, ky, knobR, _fillPaint);
+
+                _strokePaint.Color = Color.White;
+                _strokePaint.StrokeWidth = 2f * density;
+                canvas.DrawCircle(kx, ky, knobR, _strokePaint);
+            }
+            else
+            {
+                // Classic D-Pad (Four Arrows)
+                RectF rUp = new RectF(dpadCenterX - btnPx / 2f, dpadY, dpadCenterX + btnPx / 2f, dpadY + btnPx);
+                RectF rDown = new RectF(dpadCenterX - btnPx / 2f, dpadY + dpadW - btnPx, dpadCenterX + btnPx / 2f, dpadY + dpadW);
+                RectF rLeft = new RectF(dpadLeft, dpadCenterY - btnPx / 2f, dpadLeft + btnPx, dpadCenterY + btnPx / 2f);
+                RectF rRight = new RectF(dpadLeft + dpadW - btnPx, dpadCenterY - btnPx / 2f, dpadLeft + dpadW, dpadCenterY + btnPx / 2f);
+
+                DrawBtn(rUp, "▲", Color.White, _pUp);
+                DrawBtn(rDown, "▼", Color.White, _pDown);
+                DrawBtn(rLeft, "◄", Color.White, _pLeft);
+                DrawBtn(rRight, "►", Color.White, _pRight);
+            }
 
             // 2. Action Buttons
             float actionW = btnPx * 3.1f;
