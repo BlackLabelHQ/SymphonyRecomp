@@ -65,10 +65,12 @@ namespace RecompOne.SoTN.Android
             try
             {
                 AutoDetectDisc();
+                var cdPath = ConfigManager.Game.CdPath;
+                Console.WriteLine($"[Android] Launching Entry.Run with CdPath = '{cdPath}'");
 
                 // Run the game!
                 var m = new PSMemory();
-                Recompiled.Entry.Run(m, null, "SymphonyRecomp");
+                Recompiled.Entry.Run(m, cdPath, "SymphonyRecomp");
             }
             catch (Exception ex)
             {
@@ -200,10 +202,12 @@ namespace RecompOne.SoTN.Android
 
                         btn.Touch += (s, e) =>
                         {
-                            if (e.Event?.Action == MotionEventActions.Down || e.Event?.Action == MotionEventActions.PointerDown)
+                            var act = e.Event?.ActionMasked;
+                            if (act == MotionEventActions.Down || act == MotionEventActions.PointerDown)
                                 SetControllerBit(mask, true);
-                            else if (e.Event?.Action == MotionEventActions.Up || e.Event?.Action == MotionEventActions.PointerUp || e.Event?.Action == MotionEventActions.Cancel)
+                            else if (act == MotionEventActions.Up || act == MotionEventActions.PointerUp || act == MotionEventActions.Cancel)
                                 SetControllerBit(mask, false);
+                            if (e != null) e.Handled = true;
                         };
                         return btn;
                     }
@@ -220,7 +224,7 @@ namespace RecompOne.SoTN.Android
                     {
                         Gravity = GravityFlags.Bottom | GravityFlags.Left,
                         LeftMargin = padPx,
-                        BottomMargin = isPortrait ? (int)(25 * density) : padPx
+                        BottomMargin = isPortrait ? (int)(56 * density) : padPx
                     };
 
                     var bUp = CreateBtn("▲", Controller.Up, btnDp, btnDp);
@@ -245,7 +249,7 @@ namespace RecompOne.SoTN.Android
                     {
                         Gravity = GravityFlags.Bottom | GravityFlags.Right,
                         RightMargin = padPx,
-                        BottomMargin = isPortrait ? (int)(25 * density) : padPx
+                        BottomMargin = isPortrait ? (int)(56 * density) : padPx
                     };
 
                     var bTriangle = CreateBtn("Δ", Controller.Triangle, btnDp, btnDp);
@@ -276,7 +280,7 @@ namespace RecompOne.SoTN.Android
                     FrameLayout.LayoutParams pL1, pL2, pR1, pR2;
                     if (isPortrait)
                     {
-                        int shBottom = (int)(btnPx * 3.35f + 30 * density);
+                        int shBottom = (int)(btnPx * 3.1f + 62 * density);
                         pL1 = new FrameLayout.LayoutParams(shW, shH) { Gravity = GravityFlags.Bottom | GravityFlags.Left, LeftMargin = padPx, BottomMargin = shBottom };
                         pL2 = new FrameLayout.LayoutParams(shW, shH) { Gravity = GravityFlags.Bottom | GravityFlags.Left, LeftMargin = padPx + shW + (int)(6 * density), BottomMargin = shBottom };
                         pR1 = new FrameLayout.LayoutParams(shW, shH) { Gravity = GravityFlags.Bottom | GravityFlags.Right, RightMargin = padPx + shW + (int)(6 * density), BottomMargin = shBottom };
@@ -589,18 +593,32 @@ namespace RecompOne.SoTN.Android
             try
             {
                 ConfigManager.Load();
-                var currentPath = ConfigManager.Game.CdPath;
-                if (string.IsNullOrWhiteSpace(currentPath) || !File.Exists(currentPath))
+                var searchDirs = new string[]
                 {
-                    var discDir = System.IO.Path.Combine(FilesDir?.Path ?? "", "disc");
-                    if (Directory.Exists(discDir))
+                    "/sdcard/Android/data/com.blacklabelhq.sotn/files/disc",
+                    global::Android.OS.Environment.ExternalStorageDirectory?.AbsolutePath != null
+                        ? System.IO.Path.Combine(global::Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "Android", "data", PackageName ?? "com.blacklabelhq.sotn", "files", "disc")
+                        : "",
+                    System.IO.Path.Combine(FilesDir?.Path ?? "", "disc"),
+                    "/sdcard/SymphonyRecomp/disc",
+                    "/sdcard/disc"
+                };
+
+                foreach (var discDir in searchDirs)
+                {
+                    if (!string.IsNullOrWhiteSpace(discDir) && Directory.Exists(discDir))
                     {
                         var cueFiles = Directory.GetFiles(discDir, "*.cue");
                         if (cueFiles.Length > 0)
                         {
-                            ConfigManager.Game.CdPath = cueFiles[0];
-                            ConfigManager.SaveGame();
-                            Console.WriteLine($"[Android] Auto-configured CdPath to: {cueFiles[0]}");
+                            var validCue = cueFiles.FirstOrDefault(f => File.Exists(f) && new FileInfo(f).Length > 0);
+                            if (validCue != null)
+                            {
+                                ConfigManager.Game.CdPath = validCue;
+                                ConfigManager.SaveGame();
+                                Console.WriteLine($"[Android] Auto-configured CdPath to valid cue: {validCue}");
+                                break;
+                            }
                         }
                     }
                 }
@@ -649,8 +667,8 @@ namespace RecompOne.SoTN.Android
                             stream.CopyTo(dest);
                         }
                     }
-                    catch (Java.IO.FileNotFoundException) { Directory.CreateDirectory(localFile); }
-                    catch (FileNotFoundException) { Directory.CreateDirectory(localFile); }
+                    catch (Java.IO.FileNotFoundException) { }
+                    catch (FileNotFoundException) { }
                 }
             }
             catch (Exception ex)
