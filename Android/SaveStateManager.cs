@@ -244,6 +244,9 @@ namespace RecompOne.SoTN.Android
                 for (int i = 0; i < Math.Min(vramLen, vram.Length); i++)
                     vram[i] = br.ReadUInt16();
 
+                // Reset GPU pipeline & destroy old render targets
+                GpuHle.Backend?.Reset();
+
                 // Notify GpuHle display rectangle & re-upload VRAM texture to OpenGL ES
                 GpuHle.NotifyDisplay(gpu.DisplayX, gpu.DisplayY, gpu.DisplayWidth, gpu.DisplayHeight);
                 GpuHle.Backend?.WriteVram(0, 0, 1024, 512, gpu.Vram);
