@@ -1199,8 +1199,6 @@ public static partial class Randomizer
             else
             {
                 // For Relic
-            }
-            {
                 m.WriteU16(0x801AC85C, RelicId);    // Update Dead Relic ID
                 m.WriteU16(0x80182598, RelicId);    // Update Swirl Relic ID
             }
