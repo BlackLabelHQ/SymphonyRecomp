@@ -8,6 +8,7 @@ namespace Recompiled;
 public sealed class MovementCheatPanel : IPanel
 {
     public string Name => "Movement Cheats";
+    public string TitleKey => "panel.cheats.movement";
     public bool IsOpen { get; set; }
 
     int _inX;
@@ -17,7 +18,7 @@ public sealed class MovementCheatPanel : IPanel
     {
         ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open))
+        if (!ImGui.Begin(this.Title(), ref open))
         {
             IsOpen = open;
             ImGui.End();
@@ -27,13 +28,7 @@ public sealed class MovementCheatPanel : IPanel
         var m = RecompOne.Runtime.Runtime.Mem;
         if (m == null || !Cheats.InPlay())
         {
-            ImGui.TextDisabled(
-                "You're either:\n" +
-                "- In The Title Screen\n" +
-                "- Main Menu\n" +
-                "- Viewing the Credits\n" +
-                "\n\nYou're not playing as Alucard, Richter, or Maria in the game."
-            );
+            ImGui.TextDisabled(Localization.T("common.not_in_play"));
             
             IsOpen = open;
             ImGui.End();

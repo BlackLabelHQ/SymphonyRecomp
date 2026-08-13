@@ -7,13 +7,14 @@ namespace Recompiled;
 public sealed class QualityOfLifePanel : IPanel
 {
     public string Name => "Quality Of Life Options";
+    public string TitleKey => "panel.qol";
     public bool IsOpen { get; set; }
 
     public void Draw()
     {
         ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open))
+        if (!ImGui.Begin(this.Title(), ref open))
         {
             IsOpen = open;
             ImGui.End();
@@ -23,52 +24,40 @@ public sealed class QualityOfLifePanel : IPanel
         var m = RecompOne.Runtime.Runtime.Mem;
         if (m == null || !Cheats.InPlay())
         {
-            ImGui.TextDisabled(
-                "You're either:\n" +
-                "- In The Title Screen\n" +
-                "- Main Menu\n" +
-                "- Viewing the Credits\n" +
-                "\n\nYou're not playing as Alucard, Richter, or Maria in the game."
-            );
-            
+            ImGui.TextDisabled(Localization.T("common.not_in_play"));
+
             IsOpen = open;
             ImGui.End();
             return;
         }
 
-        ImGui.SeparatorText("Toggles");
+        ImGui.SeparatorText(Localization.T("qol.toggles"));
 
         /* Toggles */
         bool dirty = false;
-        dirty |= ImGui.Checkbox("Color Blind Fixes", ref QualityOfLife.ColorBlind);
-        ImGui.SetItemTooltip("Makes relics easier to distinguish for colorblind players.");
-        dirty |= ImGui.Checkbox("Remove Screen Flashes", ref QualityOfLife.RemoveFlashing);
-        ImGui.SetItemTooltip("Removes flashing screens from certain items and effects.");
-        dirty |= ImGui.Checkbox("Bug Fixes", ref QualityOfLife.BugFixes);
-        ImGui.SetItemTooltip("Various bug fixes and crash prevention items.");
-        dirty |= ImGui.Checkbox("Clear File", ref QualityOfLife.ClearFile);
-        ImGui.SetItemTooltip("Removes the need for a clear file already on the memory card.");
-        dirty |= ImGui.Checkbox("No Screen Freeze", ref QualityOfLife.AntiFreeze);
-        ImGui.SetItemTooltip("Removes the screen freeze on level-up or relic acquisitions.");
-        dirty |= ImGui.Checkbox("Infinite Wing Smash", ref QualityOfLife.InfiniteWingSmash);
-        ImGui.SetItemTooltip("Make Wing Smash continue forever like in the Saturn version.");
-        dirty |= ImGui.Checkbox("Easy Spell Inputs", ref QualityOfLife.UseEasySpellInput);
-        ImGui.SetItemTooltip("Make spell inputs, gravity jumps, and Wing Smashes easier to input through use of L2:\n- L2: Gravity Jump\n- L2 + Up + Square: Soul Steal\n- L2 + Dn + Square: Tetra Spirit\n- L2 + Lf or Ri + Square: Hellfire\n- L2 in Bat: Wing Smash");
-        dirty |= ImGui.Checkbox("Increase Invincibility Frames", ref QualityOfLife.IncreaseInvincibilityFrames);
-        ImGui.SetItemTooltip("Increases the invincibility frames by 4 frames on everything which already gives them.");
+        dirty |= Toggle("qol.color_blind", ref QualityOfLife.ColorBlind);
+        dirty |= Toggle("qol.remove_flashing", ref QualityOfLife.RemoveFlashing);
+        dirty |= Toggle("qol.bug_fixes", ref QualityOfLife.BugFixes);
+        dirty |= Toggle("qol.clear_file", ref QualityOfLife.ClearFile);
+        dirty |= Toggle("qol.anti_freeze", ref QualityOfLife.AntiFreeze);
+        dirty |= Toggle("qol.infinite_wing_smash", ref QualityOfLife.InfiniteWingSmash);
+        dirty |= Toggle("qol.easy_spell_input", ref QualityOfLife.UseEasySpellInput);
+        dirty |= Toggle("qol.invincibility_frames", ref QualityOfLife.IncreaseInvincibilityFrames);
 
         /* Enhancements */
-        ImGui.SeparatorText("Enhancements");
-        dirty |= ImGui.Checkbox("Restore Sprite Familiar Nocturne Song", ref QualityOfLife.RestoreFairySong);
-        ImGui.SetItemTooltip(
-            "If you have the Sprite familiar, otherwise known as the Pixie familiar, summoned and you're\nsitting in a chair idle for 1 minute, it will make her sing the song 'Nocturne,' in Japanese.\n\n" +
-            "Note: This is the one with a green outfit which is named 'Yousei' in Japanese...\nNot the blue outfit one that you're probably thinking it is which is named 'Faerie' in English!\n\n" +
-            "Note2: This familiar is only available CURRENTLY via the randomizer or by giving 'Sprite Card (JP)' to yourself in the Inventory Cheat Menu!"
-        );
+        ImGui.SeparatorText(Localization.T("qol.enhancements"));
+        dirty |= Toggle("qol.fairy_song", ref QualityOfLife.RestoreFairySong);
 
         if (dirty) QualityOfLife.Save();
 
         IsOpen = open;
         ImGui.End();
+    }
+
+    static bool Toggle(string key, ref bool value)
+    {
+        bool changed = ImGui.Checkbox(Localization.T(key), ref value);
+        ImGui.SetItemTooltip(Localization.T(key + ".hint"));
+        return changed;
     }
 }

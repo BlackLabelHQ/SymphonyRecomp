@@ -10,6 +10,7 @@ namespace Recompiled;
 public sealed class InventoryCheatPanel : IPanel
 {
     public string Name => "Inventory";
+    public string TitleKey => "panel.cheats.inventory";
     public bool IsOpen { get; set; }
 
     string _search = "";
@@ -32,7 +33,7 @@ public sealed class InventoryCheatPanel : IPanel
     {
         ImGui.SetNextWindowSize(new Vector2(430, 560), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open))
+        if (!ImGui.Begin(this.Title(), ref open))
         {
             IsOpen = open;
             ImGui.End();
@@ -41,13 +42,7 @@ public sealed class InventoryCheatPanel : IPanel
 
         if (RecompOne.Runtime.Runtime.Mem == null || !Cheats.InPlay())
         {
-            ImGui.TextDisabled(
-                "You're either:\n" +
-                "- In The Title Screen\n" +
-                "- Main Menu\n" +
-                "- Viewing the Credits\n" +
-                "\n\nYou're not playing as Alucard, Richter, or Maria in the game."
-            );
+            ImGui.TextDisabled(Localization.T("common.not_in_play"));
             
             IsOpen = open;
             ImGui.End();

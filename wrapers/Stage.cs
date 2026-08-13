@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using RecompOne.Runtime.Memory;
 
 namespace Sotn;
 
@@ -90,6 +92,227 @@ public static class Stages
     public const int SharedPalette = 0x100;
     public const int EntityPalette = 0x200;
     public const int PaletteCount = 0x100;
+
+    public const uint GameStepAddr = 0x80073060u;
+    public const uint RoomXAddr = 0x800730B0u;
+    public const uint RoomYAddr = 0x800730B4u;
+    public const uint SetNextRoomToLoadAddr = 0x800F0BC0u;
+    public const uint PrepareStageAddr = 0x800F223Cu;
+    public const uint OverlayHeaderAddr = 0x80180000u;
+
+    public const uint StageEntryModeAddr = 0x8003C730u;
+    public const uint StageEntryFromRoom = 2u;
+
+    public const uint RoomEntryXAddr = 0x801375C0u;
+    public const uint RoomEntryYAddr = 0x801375C4u;
+
+
+    public const uint EngineStepAddr = 0x8003C9A4u;
+    public const uint TransitionStepAddr = 0x800978F8u;
+    public const uint EngineStepRoomTransition = 3u;
+
+    public const uint CdStepAddr = 0x8006C398u;
+    public const uint LoadFileAddr = 0x8006BAFCu;
+    public const uint LoadOvlIdxAddr = 0x80097918u;
+    public const uint IsUsingCdAddr = 0x8006C3B0u;
+    public const uint CdStepLoadInit = 1u;
+    public const uint CdFileStageChr = 3u;
+
+    static IMemory M => RecompOne.Runtime.Runtime.Mem!;
+
+    public static PlayStep Step
+    {
+        get => (PlayStep)M.ReadU32(GameStepAddr);
+        set => M.WriteU32(GameStepAddr, (uint)value);
+    }
+
+
+    public static int RoomX
+    {
+        get => (int)M.ReadU32(RoomXAddr);
+        set => M.WriteU32(RoomXAddr, (uint)value);
+    }
+
+    public static int RoomY
+    {
+        get => (int)M.ReadU32(RoomYAddr);
+        set => M.WriteU32(RoomYAddr, (uint)value);
+    }
+
+    public static List<(int Left, int Top, int Right, int Bottom)> Rooms()
+    {
+        var list = new List<(int, int, int, int)>();
+        uint table = M.ReadU32(OverlayHeaderAddr + 0x10);
+        if (table == 0) return list;
+
+        for (int i = 0; i < 256; i++)
+        {
+            uint e = table + (uint)(i * 8);
+            int left = M.ReadU8(e);
+            if (left == 0x40) break;
+            list.Add((left, M.ReadU8(e + 1), M.ReadU8(e + 2), M.ReadU8(e + 3)));
+        }
+        return list;
+    }
+    public static List<(int Left, int Top, int Right, int Bottom)> Rooms(Stage stage)
+    {
+        if (stage == Current)
+        {
+            var live = Rooms();
+            if (live.Count > 0) return live;
+        }
+
+        if (_discRooms.TryGetValue(stage, out var cached)) return cached;
+
+        var list = new List<(int, int, int, int)>();
+        var file = DiscFile(stage);
+        if (file != null)
+        {
+            try
+            {
+                var ovl = RecompOne.Runtime.Runtime.Cd?.Fs.ReadFile(file);
+                if (ovl != null) ReadRoomTable(ovl, list);
+            }
+            catch { }
+        }
+
+        _discRooms[stage] = list;
+        return list;
+    }
+
+    static readonly Dictionary<Stage, List<(int, int, int, int)>> _discRooms = new();
+
+    static void ReadRoomTable(byte[] ovl, List<(int, int, int, int)> list)
+    {
+        if (ovl.Length < 0x14) return;
+        uint table = (uint)(ovl[0x10] | (ovl[0x11] << 8) | (ovl[0x12] << 16) | (ovl[0x13] << 24));
+        if (table < OverlayHeaderAddr) return;
+
+        long off = table - OverlayHeaderAddr;
+        for (int i = 0; i < 256 && off + 8 <= ovl.Length; i++, off += 8)
+        {
+            int left = ovl[off];
+            if (left == 0x40) break;
+            list.Add((left, ovl[off + 1], ovl[off + 2], ovl[off + 3]));
+        }
+    }
+
+    public static string? DiscFile(Stage stage) =>StageFiles.TryGetValue(stage, out var f) ? f : null;
+
+    static readonly Dictionary<Stage, string> StageFiles = BuildStageFiles();
+
+    static Dictionary<Stage, string> BuildStageFiles()
+    {
+        var st = new (Stage Id, string Name)[]
+        {
+            (Stage.MarbleGallery, "NO0"), (Stage.OuterWall, "NO1"), (Stage.LongLibrary, "LIB"),
+            (Stage.Catacombs, "CAT"), (Stage.OlroxsQuarters, "NO2"), (Stage.AbandonedMine, "CHI"),
+            (Stage.RoyalChapel, "DAI"), (Stage.CastleEntrance, "NP3"), (Stage.CenterCube, "CEN"),
+            (Stage.UndergroundCaverns, "NO4"), (Stage.Colosseum, "ARE"), (Stage.CastleKeep, "TOP"),
+            (Stage.AlchemyLaboratory, "NZ0"), (Stage.ClockTower, "NZ1"), (Stage.Warp, "WRP"),
+            (Stage.OuterWallAlt, "NO1"), (Stage.MarbleGalleryAlt, "NO0"), (Stage.Nightmare, "DRE"),
+            (Stage.AlchemyLaboratoryDemo, "NZ0"), (Stage.ClockTowerDemo, "NZ1"),
+            (Stage.LongLibraryDemo, "LIB"), (Stage.Prologue, "ST0"),
+            (Stage.BlackMarbleGallery, "RNO0"), (Stage.ReverseOuterWall, "RNO1"),
+            (Stage.ForbiddenLibrary, "RLIB"), (Stage.FloatingCatacombs, "RCAT"),
+            (Stage.DeathWingsLair, "RNO2"), (Stage.Cave, "RCHI"), (Stage.AntiChapel, "RDAI"),
+            (Stage.ReverseEntrance, "RNO3"), (Stage.ReverseCenterCube, "RCEN"),
+            (Stage.ReverseCaverns, "RNO4"), (Stage.ReverseColosseum, "RARE"),
+            (Stage.ReverseCastleKeep, "RTOP"), (Stage.NecromancyLaboratory, "RNZ0"),
+            (Stage.ReverseClockTower, "RNZ1"), (Stage.ReverseWarp, "RWRP"),
+            (Stage.ReverseClockTowerDemo, "RNZ1"), (Stage.Debug, "MAD"),
+            (Stage.CastleEntranceFirstVisit, "NO3"), (Stage.TitleScreen, "SEL"),
+            (Stage.Test1, "TE1"), (Stage.Test2, "TE2"), (Stage.Test3, "TE3"),
+            (Stage.Test4, "TE4"),
+        };
+
+        var boss = new (Stage Id, string Name)[]
+        {
+            (Stage.Cerberus, "BO7"), (Stage.ClockRoomCutscene, "MAR"), (Stage.RichterFight, "BO6"),
+            (Stage.Hippogryph, "BO5"), (Stage.Doppleganger10, "BO4"), (Stage.Scylla, "BO3"),
+            (Stage.MinotaurWerewolf, "BO2"), (Stage.Granfaloon, "BO1"), (Stage.Olrox, "BO0"),
+            (Stage.Galamoth, "RBO8"), (Stage.Akmodan, "RBO7"), (Stage.ShaftDracula, "RBO6"),
+            (Stage.Doppleganger40, "RBO5"), (Stage.Creature, "RBO4"), (Stage.Medusa, "RBO3"),
+            (Stage.Death, "RBO2"), (Stage.Beelzebub, "RBO1"), (Stage.Trio, "RBO0"),
+        };
+
+        var map = new Dictionary<Stage, string>();
+        foreach (var (id, name) in st) map[id] = $"ST/{name}/{name}.BIN";
+        foreach (var (id, name) in boss) map[id] = $"BOSS/{name}/{name}.BIN";
+        return map;
+    }
+
+    public static bool LoadRoom(int roomX, int roomY, int offsetX = 128, int offsetY = 128)
+    {
+        if (GameApi.Call(SetNextRoomToLoadAddr, (uint)roomX, (uint)roomY) == 0) return false;
+
+        M.WriteU32(RoomEntryXAddr, (uint)offsetX);
+        M.WriteU32(RoomEntryYAddr, (uint)offsetY);
+        M.WriteU32(TransitionStepAddr, 0);
+        M.WriteU32(EngineStepAddr, EngineStepRoomTransition);
+        return true;
+    }
+
+    static bool _pending;
+    static bool _ticking;
+    static bool _needChr;
+    static Stage _pendingStage;
+    static int _pendingX, _pendingY, _pendingOffsetX, _pendingOffsetY;
+
+    public static bool RequestStageGfx(Stage stage)
+    {
+        if (M.ReadU32(IsUsingCdAddr) != 0 || M.ReadU32(CdStepAddr) != 0) return false;
+
+        M.WriteU32(LoadOvlIdxAddr, (uint)stage);
+        M.WriteU32(LoadFileAddr, CdFileStageChr);
+        M.WriteU32(CdStepAddr, CdStepLoadInit);
+        return true;
+    }
+
+    public static void Load(Stage stage, int roomX, int roomY, int offsetX = 128, int offsetY = 128)
+    {
+        if (!_ticking)
+        {
+            RecompOne.Runtime.Events.Event.AddListener<RecompOne.Runtime.Events.VSyncEvent>(_ => Tick());
+            _ticking = true;
+        }
+
+        _pending = true;
+        _pendingStage = stage;
+        _pendingX = roomX;
+        _pendingY = roomY;
+        _pendingOffsetX = offsetX;
+        _pendingOffsetY = offsetY;
+
+        RoomX = roomX;
+        RoomY = roomY;
+        M.WriteU32(StageEntryModeAddr, StageEntryFromRoom);
+        M.WriteU32(Game.StageIdAddr, (uint)stage);
+        GameApi.Call(PrepareStageAddr);
+        Step = PlayStep.PrepareNextStage;
+
+        _needChr = !RequestStageGfx(stage);
+    }
+
+    public static bool LoadPending => _pending;
+
+    public static void Tick()
+    {
+        if (!_pending) return;
+
+        if (_needChr)
+        {
+            if (Step > PlayStep.LoadStageChr) _needChr = false;
+            else if (RequestStageGfx(_pendingStage)) _needChr = false;
+        }
+
+        if (!Game.Available || Game.IsLoading) return;
+        if (Current != _pendingStage) return;
+        if (Step != PlayStep.Default) return;
+
+        _pending = false;
+        LoadRoom(_pendingX, _pendingY, _pendingOffsetX, _pendingOffsetY);
+    }
 
     public static Stage Current => Game.StageId;
     public static bool SecondCastle => Game.SecondCastle;

@@ -1,0 +1,515 @@
+{
+  "strings": {
+    "menu.system.soft_reset": {
+      "en": "Soft Reset",
+      "pt-BR": "Soft Reset",
+      "es-419": "Soft Reset"
+    },
+    "common.not_in_play": {
+      "en": "You're either:\n- In The Title Screen\n- Main Menu\n- Viewing the Credits\n\n\nYou're not playing as Alucard, Richter, or Maria in the game.",
+      "pt-BR": "Você está:\n- Na Tela de Título\n- No Menu Principal\n- Assistindo aos Créditos\n\n\nVocê não está jogando como Alucard, Richter ou Maria.",
+      "es-419": "Usted estás:\n- En la Pantalla de Título\n- En el Menú Principal\n- Viendo los Créditos\n\n\nNo estás jugando como Alucard, Richter o Maria."
+    },
+    "menu.misc": {
+      "en": "Misc",
+      "pt-BR": "Diversos",
+      "es-419": "Varios"
+    },
+    "menu.misc.cheats": {
+      "en": "Cheats",
+      "pt-BR": "Cheats",
+      "es-419": "Trucos"
+    },
+    "menu.misc.overlays": {
+      "en": "Overlays",
+      "pt-BR": "Overlays",
+      "es-419": "Overlays"
+    },
+    "menu.randomizer": {
+      "en": "Randomizer",
+      "pt-BR": "Randomizer",
+      "es-419": "Randomizer"
+    },
+    "menu.help": {
+      "en": "Help",
+      "pt-BR": "Ajuda",
+      "es-419": "Ayuda"
+    },
+    "menu.help.about": {
+      "en": "About This Project",
+      "pt-BR": "Sobre Este Projeto",
+      "es-419": "Sobre Este Proyecto"
+    },
+    "menu.updates": {
+      "en": "Updates",
+      "pt-BR": "Atualizações",
+      "es-419": "Actualizaciones"
+    },
+    "menu.updates.on_startup": {
+      "en": "Check on Startup",
+      "pt-BR": "Verificar ao Iniciar",
+      "es-419": "Buscar al Iniciar"
+    },
+    "menu.updates.check_now": {
+      "en": "Check for Updates Now",
+      "pt-BR": "Verificar Atualizações Agora",
+      "es-419": "Buscar Actualizaciones Ahora"
+    },
+    "menu.updates.releases_page": {
+      "en": "Open Releases Page",
+      "pt-BR": "Abrir Página de Versões",
+      "es-419": "Abrir Página de Versiones"
+    },
+    "panel.qol": {
+      "en": "Quality of Life",
+      "pt-BR": "Qualidade de Vida",
+      "es-419": "Calidad de Vida"
+    },
+    "panel.randomizer": {
+      "en": "Randomizer",
+      "pt-BR": "Randomizer",
+      "es-419": "Randomizer"
+    },
+    "panel.cheats.movement": {
+      "en": "Movement",
+      "pt-BR": "Movimento",
+      "es-419": "Movimiento"
+    },
+    "panel.cheats.stats": {
+      "en": "Stats",
+      "pt-BR": "Atributos",
+      "es-419": "Estadísticas"
+    },
+    "panel.cheats.inventory": {
+      "en": "Inventory",
+      "pt-BR": "Inventário",
+      "es-419": "Inventario"
+    },
+    "panel.tracker": {
+      "en": "Tracker Overlay",
+      "pt-BR": "Overlay do Tracker",
+      "es-419": "Overlay del Tracker"
+    },
+    "panel.map": {
+      "en": "Map Overlay",
+      "pt-BR": "Overlay do Mapa",
+      "es-419": "Overlay del Mapa"
+    },
+    "qol.toggles": {
+      "en": "Toggles",
+      "pt-BR": "Opções",
+      "es-419": "Opciones"
+    },
+    "qol.enhancements": {
+      "en": "Enhancements",
+      "pt-BR": "Melhorias",
+      "es-419": "Mejoras"
+    },
+    "qol.color_blind": {
+      "en": "Color Blind Fixes",
+      "pt-BR": "Correções para Daltônicos",
+      "es-419": "Ajustes para Daltónicos"
+    },
+    "qol.color_blind.hint": {
+      "en": "Makes relics easier to distinguish for colorblind players.",
+      "pt-BR": "Torna as relíquias mais fáceis de distinguir para jogadores daltônicos.",
+      "es-419": "Hace que las reliquias sean más fáciles de distinguir para jugadores daltónicos."
+    },
+    "qol.remove_flashing": {
+      "en": "Remove Screen Flashes",
+      "pt-BR": "Remover Flashes de Tela",
+      "es-419": "Quitar Destellos de Pantalla"
+    },
+    "qol.remove_flashing.hint": {
+      "en": "Removes flashing screens from certain items and effects.",
+      "pt-BR": "Remove os flashes de tela de certos itens e efeitos.",
+      "es-419": "Quita los destellos de pantalla de ciertos objetos y efectos."
+    },
+    "qol.bug_fixes": {
+      "en": "Bug Fixes",
+      "pt-BR": "Correções de Bugs",
+      "es-419": "Correcciones de Errores"
+    },
+    "qol.bug_fixes.hint": {
+      "en": "Various bug fixes and crash prevention items.",
+      "pt-BR": "Diversas correções de bugs e prevenção de crashes.",
+      "es-419": "Varias correcciones de errores y prevención de fallos."
+    },
+    "qol.clear_file": {
+      "en": "Clear File",
+      "pt-BR": "Save Zerado",
+      "es-419": "Partida Completada"
+    },
+    "qol.clear_file.hint": {
+      "en": "Removes the need for a clear file already on the memory card.",
+      "pt-BR": "Remove a necessidade de já ter um save zerado no memory card.",
+      "es-419": "Elimina la necesidad de tener una partida completada en la memory card."
+    },
+    "qol.anti_freeze": {
+      "en": "No Screen Freeze",
+      "pt-BR": "Sem Congelamento de Tela",
+      "es-419": "Sin Congelamiento de Pantalla"
+    },
+    "qol.anti_freeze.hint": {
+      "en": "Removes the screen freeze on level-up or relic acquisitions.",
+      "pt-BR": "Remove o congelamento da tela ao subir de nível ou obter relíquias.",
+      "es-419": "Quita el congelamiento de pantalla al subir de nivel u obtener reliquias."
+    },
+    "qol.infinite_wing_smash": {
+      "en": "Infinite Wing Smash",
+      "pt-BR": "Wing Smash Infinito",
+      "es-419": "Wing Smash Infinito"
+    },
+    "qol.infinite_wing_smash.hint": {
+      "en": "Make Wing Smash continue forever like in the Saturn version.",
+      "pt-BR": "Faz o Wing Smash continuar para sempre, como na versão de Saturn.",
+      "es-419": "Hace que Wing Smash continúe para siempre, como en la versión de Saturn."
+    },
+    "qol.easy_spell_input": {
+      "en": "Easy Spell Inputs",
+      "pt-BR": "Comandos de Magia Facilitados",
+      "es-419": "Comandos de Hechizos Fáciles"
+    },
+    "qol.easy_spell_input.hint": {
+      "en": "Make spell inputs, gravity jumps, and Wing Smashes easier to input through use of L2:\n- L2: Gravity Jump\n- L2 + Up + Square: Soul Steal\n- L2 + Dn + Square: Tetra Spirit\n- L2 + Lf or Ri + Square: Hellfire\n- L2 in Bat: Wing Smash",
+      "pt-BR": "Facilita magias, gravity jumps e Wing Smash usando o L2:\n- L2: Gravity Jump\n- L2 + Cima + Quadrado: Soul Steal\n- L2 + Baixo + Quadrado: Tetra Spirit\n- L2 + Esq ou Dir + Quadrado: Hellfire\n- L2 em forma de morcego: Wing Smash",
+      "es-419": "Facilita hechizos, gravity jumps y Wing Smash usando L2:\n- L2: Gravity Jump\n- L2 + Arriba + Cuadrado: Soul Steal\n- L2 + Abajo + Cuadrado: Tetra Spirit\n- L2 + Izq o Der + Cuadrado: Hellfire\n- L2 en forma de murciélago: Wing Smash"
+    },
+    "qol.invincibility_frames": {
+      "en": "Increase Invincibility Frames",
+      "pt-BR": "Aumentar Frames de Invencibilidade",
+      "es-419": "Aumentar Frames de Invencibilidad"
+    },
+    "qol.invincibility_frames.hint": {
+      "en": "Increases the invincibility frames by 4 frames on everything which already gives them.",
+      "pt-BR": "Aumenta em 4 frames a invencibilidade de tudo que já a concede.",
+      "es-419": "Aumenta en 4 frames la invencibilidad de todo lo que ya la otorga."
+    },
+    "qol.fairy_song": {
+      "en": "Restore Sprite Familiar Nocturne Song",
+      "pt-BR": "Restaurar a Canção Nocturne da Sprite",
+      "es-419": "Restaurar la Canción Nocturne del Sprite"
+    },
+    "qol.fairy_song.hint": {
+      "en": "If you have the Sprite familiar, otherwise known as the Pixie familiar, summoned and you're\nsitting in a chair idle for 1 minute, it will make her sing the song 'Nocturne,' in Japanese.\n\nNote: This is the one with a green outfit which is named 'Yousei' in Japanese...\nNot the blue outfit one that you're probably thinking it is which is named 'Faerie' in English!\n\nNote2: This familiar is only available CURRENTLY via the randomizer or by giving 'Sprite Card (JP)' to yourself in the Inventory Cheat Menu!",
+      "pt-BR": "Com a familiar Sprite (também conhecida como Pixie) invocada, se você ficar sentado\nnuma cadeira parado por 1 minuto, ela canta a música 'Nocturne' em japonês.\n\nNota: é a de roupa verde, chamada 'Yousei' em japonês...\nNão é a de roupa azul, que em inglês se chama 'Faerie'!\n\nNota 2: essa familiar só está disponível ATUALMENTE via randomizer ou dando o 'Sprite Card (JP)' a si mesmo no menu de cheats de inventário!",
+      "es-419": "Con la familiar Sprite (también conocida como Pixie) invocada, si te quedas sentado\nen una silla sin moverte por 1 minuto, cantará la canción 'Nocturne' en japonés.\n\nNota: es la del traje verde, llamada 'Yousei' en japonés...\n¡No la del traje azul, que en inglés se llama 'Faerie'!\n\nNota 2: esta familiar solo está disponible ACTUALMENTE por el randomizer o dándote la 'Sprite Card (JP)' en el menú de trucos de inventario."
+    },
+    "startup.title": {
+      "en": "SymphonyRecomp",
+      "pt-BR": "SymphonyRecomp",
+      "es-419": "SymphonyRecomp"
+    },
+    "startup.beta": {
+      "en": "SymphonyRecomp is a 'RE'comp (NOT A 'DE'comp) of the PSX version of Castlevania: Symphony of the Night.\n\nThis recomp project is in a beta state and it is not yet finished. You will experience game breaking bugs and issues, please report any bugs on the GitHub or in the BlackLabelHQ Discord Server to help us improve the project.\n\nThis project is not affiliated with Konami or Sony.\n\nThanks for playing!",
+      "pt-BR": "O SymphonyRecomp é um 'RE'comp (NÃO É UM 'DE'comp) da versão de PSX de Castlevania: Symphony of the Night.\n\nEste projeto está em beta e ainda não está finalizado. Você vai encontrar bugs que quebram o jogo, por favor reporte qualquer problema no GitHub ou no servidor Discord da BlackLabelHQ para nos ajudar a melhorar o projeto.\n\nEste projeto não tem qualquer vínculo com a Konami ou a Sony.\n\nObrigado por jogar!",
+      "es-419": "SymphonyRecomp es un 'RE'comp (NO ES UN 'DE'comp) de la versión de PSX de Castlevania: Symphony of the Night.\n\nEste proyecto está en beta y todavía no está terminado. Te vas a encontrar con errores que rompen el juego, por favor reporta cualquier problema en GitHub o en el servidor de Discord de BlackLabelHQ para ayudarnos a mejorar el proyecto.\n\nEste proyecto no está afiliado a Konami ni a Sony.\n\n¡Gracias por jugar!"
+    },
+    "about.title": {
+      "en": "About",
+      "pt-BR": "Sobre",
+      "es-419": "Acerca de"
+    },
+    "about.disclaimer": {
+      "en": "SymphonyRecomp is a fan-made project for the PSX version of Castlevania: Symphony of the Night. It is not affiliated with Konami or Sony. It was made for fans, by fans. <3",
+      "pt-BR": "O SymphonyRecomp é um projeto feito por fãs para a versão de PSX de Castlevania: Symphony of the Night. Não tem qualquer vínculo com a Konami ou a Sony. Foi feito por fãs, para fãs. <3",
+      "es-419": "SymphonyRecomp es un proyecto hecho por fans para la versión de PSX de Castlevania: Symphony of the Night. No está afiliado a Konami ni a Sony. Fue hecho por fans, para fans. <3"
+    },
+    "about.recomp": {
+      "en": "Please note SymphonyRecomp is a 'RE'comp. Not a 'De'comp. They're 2 separate concepts/projects. Please only ask questions about SymphonyRecomp in the BlackLabelHQ Discord Server.",
+      "pt-BR": "Lembre-se: o SymphonyRecomp é um 'RE'comp, não um 'De'comp. São dois conceitos/projetos diferentes. Tire dúvidas sobre o SymphonyRecomp apenas no servidor Discord da BlackLabelHQ.",
+      "es-419": "Ten en cuenta que SymphonyRecomp es un 'RE'comp, no un 'De'comp. Son dos conceptos/proyectos distintos. Haz preguntas sobre SymphonyRecomp solo en el servidor de Discord de BlackLabelHQ."
+    },
+    "about.decomp_server": {
+      "en": "Please don't bother the people at the SOTN Decomp server about this project.",
+      "pt-BR": "Por favor, não incomode o pessoal do servidor do SOTN Decomp sobre este projeto.",
+      "es-419": "Por favor, no molestes a la gente del servidor de SOTN Decomp sobre este proyecto."
+    },
+    "about.made_by": {
+      "en": "Made By:",
+      "pt-BR": "Feito por:",
+      "es-419": "Hecho por:"
+    },
+    "update.title": {
+      "en": "Update",
+      "pt-BR": "Atualização",
+      "es-419": "Actualización"
+    },
+    "update.status.checking": {
+      "en": "Checking for updates...",
+      "pt-BR": "Verificando atualizações...",
+      "es-419": "Buscando actualizaciones..."
+    },
+    "update.status.available": {
+      "en": "{0} available",
+      "pt-BR": "{0} disponível",
+      "es-419": "{0} disponible"
+    },
+    "update.status.downloading": {
+      "en": "Downloading {0}...",
+      "pt-BR": "Baixando {0}...",
+      "es-419": "Descargando {0}..."
+    },
+    "update.status.applying": {
+      "en": "Restarting to update...",
+      "pt-BR": "Reiniciando para atualizar...",
+      "es-419": "Reiniciando para actualizar..."
+    },
+    "update.status.failed": {
+      "en": "Last update attempt failed",
+      "pt-BR": "A última tentativa de atualização falhou",
+      "es-419": "El último intento de actualización falló"
+    },
+    "update.status.dev": {
+      "en": "Development Build",
+      "pt-BR": "Build de Desenvolvimento",
+      "es-419": "Build de Desarrollo"
+    },
+    "update.status.running": {
+      "en": "Running {0}",
+      "pt-BR": "Executando {0}",
+      "es-419": "Ejecutando {0}"
+    },
+    "update.headline.available": {
+      "en": "{0} is available",
+      "pt-BR": "{0} está disponível",
+      "es-419": "{0} está disponible"
+    },
+    "update.headline.downloading": {
+      "en": "Downloading {0}",
+      "pt-BR": "Baixando {0}",
+      "es-419": "Descargando {0}"
+    },
+    "update.headline.installing": {
+      "en": "Installing {0}",
+      "pt-BR": "Instalando {0}",
+      "es-419": "Instalando {0}"
+    },
+    "update.headline.failed": {
+      "en": "Update failed",
+      "pt-BR": "A atualização falhou",
+      "es-419": "La actualización falló"
+    },
+    "update.current": {
+      "en": "current {0}",
+      "pt-BR": "atual {0}",
+      "es-419": "actual {0}"
+    },
+    "update.not_writable": {
+      "en": "This folder is not writable, so the update cannot be installed automatically. Download it manually or move the game somewhere you can write to.",
+      "pt-BR": "Esta pasta não permite escrita, então a atualização não pode ser instalada automaticamente. Baixe manualmente ou mova o jogo para um local onde você possa escrever.",
+      "es-419": "Esta carpeta no permite escritura, así que la actualización no se puede instalar automáticamente. Descárgala manualmente o mueve el juego a un lugar donde puedas escribir."
+    },
+    "update.no_notes": {
+      "en": "This release ships no notes.",
+      "pt-BR": "Esta versão não tem notas.",
+      "es-419": "Esta versión no trae notas."
+    },
+    "update.install": {
+      "en": "Install",
+      "pt-BR": "Instalar",
+      "es-419": "Instalar"
+    },
+    "update.not_now": {
+      "en": "Not now",
+      "pt-BR": "Agora não",
+      "es-419": "Ahora no"
+    },
+    "update.skip": {
+      "en": "Skip {0}",
+      "pt-BR": "Pular {0}",
+      "es-419": "Omitir {0}"
+    },
+    "update.retry": {
+      "en": "Retry",
+      "pt-BR": "Tentar de novo",
+      "es-419": "Reintentar"
+    },
+    "update.releases_page": {
+      "en": "Releases page",
+      "pt-BR": "Página de versões",
+      "es-419": "Página de versiones"
+    },
+    "update.restarting": {
+      "en": "restarting",
+      "pt-BR": "reiniciando",
+      "es-419": "reiniciando"
+    },
+    "update.reopening": {
+      "en": "The game will reopen in a moment",
+      "pt-BR": "O jogo vai reabrir em instantes",
+      "es-419": "El juego se volverá a abrir en un momento"
+    },
+    "rando.preset_warning": {
+      "en": "You're using an incompatible randomizer preset, it may not work as intended!",
+      "pt-BR": "Você está usando um preset de randomizer incompatível, pode não funcionar como esperado!",
+      "es-419": "Estás usando un preset de randomizer incompatible, ¡puede que no funcione como se espera!"
+    },
+    "rando.preset": {
+      "en": "preset: {0}",
+      "pt-BR": "preset: {0}",
+      "es-419": "preset: {0}"
+    },
+    "rando.continue_anyway": {
+      "en": "Continue anyway",
+      "pt-BR": "Continuar mesmo assim",
+      "es-419": "Continuar de todos modos"
+    },
+    "widescreen.aspect": {
+      "en": "Aspect Ratio",
+      "pt-BR": "Proporção de Tela",
+      "es-419": "Relación de Aspecto"
+    },
+    "widescreen.original": {
+      "en": "Original",
+      "pt-BR": "Original",
+      "es-419": "Original"
+    },
+    "widescreen.letterboxing": {
+      "en": "letter boxing",
+      "pt-BR": "letter boxing",
+      "es-419": "letter boxing"
+    },
+    "widescreen.letterboxing_hint": {
+      "en": "Keeps the original top/bottom black bars in the stage view. Turn off to use the full vertical resolution. (will show some void on some areas)",
+      "pt-BR": "Mantém as barras pretas originais em cima e embaixo na visão do estágio. Desligue para usar toda a resolução vertical. (vai mostrar vazio em algumas áreas)",
+      "es-419": "Mantiene las barras negras originales arriba y abajo en la vista del escenario. Desactívalo para usar toda la resolución vertical. (mostrará vacío en algunas áreas)"
+    },
+    "widescreen.unstretch": {
+      "en": "unstretch",
+      "pt-BR": "unstretch",
+      "es-419": "unstretch"
+    },
+    "widescreen.unstretch_hint": {
+      "en": "Renders the stage with square pixels instead of stretching it to fit 4:3",
+      "pt-BR": "Renderiza o estágio com pixels quadrados em vez de esticá-lo para caber em 4:3",
+      "es-419": "Renderiza el escenario con píxeles cuadrados en lugar de estirarlo para ajustarse a 4:3"
+    },
+    "widescreen.warning": {
+      "en": "Anything other than the original aspect ratio is not fully supported yet, this WILL cause problems, use it at your own risk",
+      "pt-BR": "Qualquer proporção diferente da original ainda não é totalmente suportada, isso VAI causar problemas, use por sua conta e risco",
+      "es-419": "Cualquier relación de aspecto distinta de la original aún no está totalmente soportada, esto VA a causar problemas, úsalo bajo tu propio riesgo"
+    },
+    "rando.no_memory": {
+      "en": "Missing memory context.",
+      "pt-BR": "Contexto de memória ausente.",
+      "es-419": "Falta el contexto de memoria."
+    },
+    "rando.external_seed": {
+      "en": "Built in randomizer cannot be combined\nwith externally randomized seeds.",
+      "pt-BR": "O randomizer interno não pode ser combinado\ncom seeds randomizadas externamente.",
+      "es-419": "El randomizer interno no se puede combinar\ncon seeds randomizadas externamente."
+    },
+    "rando.title_screen_only": {
+      "en": "Return to the title screen\nto use the randomizer.",
+      "pt-BR": "Volte para a tela de título\npara usar o randomizer.",
+      "es-419": "Vuelve a la pantalla de título\npara usar el randomizer."
+    },
+    "rando.toggles": {
+      "en": "Toggles",
+      "pt-BR": "Opções",
+      "es-419": "Opciones"
+    },
+    "rando.items": {
+      "en": "Randomize Items",
+      "pt-BR": "Randomizar Itens",
+      "es-419": "Randomizar Objetos"
+    },
+    "rando.items.hint": {
+      "en": "Randomize items in stages, including the shop,\n and prologue rewards.",
+      "pt-BR": "Randomiza os itens dos estágios, incluindo a loja\ne as recompensas do prólogo.",
+      "es-419": "Randomiza los objetos de los escenarios, incluyendo la tienda\ny las recompensas del prólogo."
+    },
+    "rando.drops": {
+      "en": "Randomize Drops",
+      "pt-BR": "Randomizar Drops",
+      "es-419": "Randomizar Drops"
+    },
+    "rando.drops.hint": {
+      "en": "Randomize items dropped from enemies.",
+      "pt-BR": "Randomiza os itens que os inimigos deixam cair.",
+      "es-419": "Randomiza los objetos que sueltan los enemigos."
+    },
+    "rando.relics": {
+      "en": "Randomize Relics",
+      
+      "pt-BR": "Randomizar Relíquias",
+      "es-419": "Randomizar Reliquias"
+    },
+    "rando.relics.hint": {
+      "en": "Randomize where relics appear.\nEach layout can be completed.",
+      "pt-BR": "Randomiza onde as relíquias aparecem.\nTodo layout gerado é possível de completar.",
+      "es-419": "Randomiza dónde aparecen las reliquias.\nTodo layout generado se puede completar."
+    },
+    "rando.starting_gear": {
+      "en": "Randomize Starting Gear",
+      "pt-BR": "Randomizar Equipamento Inicial",
+      "es-419": "Randomizar Equipo Inicial"
+    },
+    "rando.starting_gear.hint": {
+      "en": "Randomize equipment that\nAlucard starts the game with.",
+      "pt-BR": "Randomiza o equipamento com que\no Alucard começa o jogo.",
+      "es-419": "Randomiza el equipo con el que\nAlucard empieza el juego."
+    },
+    "rando.remove_death": {
+      "en": "Remove Death at Entrance",
+      "pt-BR": "Remover a Morte na Entrada",
+      "es-419": "Quitar a la Muerte en la Entrada"
+    },
+    "rando.remove_death.hint": {
+      "en": "Prevents Death from taking your\nstarting equipment in the first area.",
+      "pt-BR": "Impede que a Morte tome o seu\nequipamento inicial na primeira área.",
+      "es-419": "Evita que la Muerte te quite el\nequipo inicial en la primera área."
+    },
+    "rando.seed": {
+      "en": "Seed Number",
+      "pt-BR": "Número da Seed",
+      "es-419": "Número de Seed"
+    },
+    "rando.generate_seed": {
+      "en": "Generate New Random Seed Number",
+      "pt-BR": "Gerar Nova Seed Aleatória",
+      "es-419": "Generar Nueva Seed Aleatoria"
+    },
+    "rando.randomize": {
+      "en": "Randomize Game",
+      "pt-BR": "Randomizar o Jogo",
+      "es-419": "Randomizar el Juego"
+    },
+    "rando.applied": {
+      "en": "Randomization Applied!",
+      "pt-BR": "Randomização Aplicada!",
+      "es-419": "¡Randomización Aplicada!"
+    },
+    "rando.applied_seed": {
+      "en": "Seed Number: {0}",
+      "pt-BR": "Número da Seed: {0}",
+      "es-419": "Número de Seed: {0}"
+    },
+    "rando.credit": {
+      "en": "Randomizer By: MottZilla",
+      "pt-BR": "Randomizer por: MottZilla",
+      "es-419": "Randomizer por: MottZilla"
+    },
+    "rando.save.mismatch": {
+      "en": "This save uses a different randomizer configuration, this can cause problems. Please hard reset the game to continue.",
+      "pt-BR": "Este save usa uma configuração diferente do randomizer, o que pode causar problemas. Faça um hard reset do jogo para continuar.",
+      "es-419": "Este save usa una configuración diferente del randomizer, lo que puede causar problemas. Haz un hard reset del juego para continuar."
+    },
+    "rando.save.vanilla_with_rando": {
+      "en": "The save you opened was not randomized before. This can cause problems. If it was not intentional, hard reset the game to clear the randomizer.",
+      "pt-BR": "O save que você abriu não era randomizado antes, isso pode causar problemas. Se não foi intencional, faça um hard reset para limpar o rando.",
+      "es-419": "El save que abriste no estaba randomizado antes. Esto puede causar problemas. Si no fue intencional, haz un hard reset para limpiar el randomizer."
+    },
+    "rando.save.applied_title": {
+      "en": "Randomizer",
+      "pt-BR": "Randomizer",
+      "es-419": "Randomizer"
+    },
+    "rando.save.applied": {
+      "en": "You have opened an randomized save, the configuration for this save was automatically applied",
+      "pt-BR": "Você abriu um save randomizado, a configuração desse save foi aplicada automaticamente",
+      "es-419": "Abriste un save randomizado, la configuración de ese save se aplicó automáticamente"
+    }
+  }
+}

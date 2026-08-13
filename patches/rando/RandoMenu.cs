@@ -1,5 +1,4 @@
-﻿using ImGuiNET;
-using RecompOne.Runtime.Host.Window;
+﻿using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
 
@@ -8,19 +7,13 @@ public static class RandoMenu
     public static void Register()
     {
         PanelManager.Register(new RandoPanel());
-        MenuRegistry.Register("Randomizer", DrawItems, null, 200);
+        SaveLoadManager.Register();
+
+        MenuRegistry.BarItem("menu.randomizer", Toggle, 200);
     }
 
-    static void DrawItems()
+    static void Toggle()
     {
-        Toggle<RandoPanel>("Settings");
-    }
-
-    static void Toggle<T>(string label) where T : class, IPanel
-    {
-        var panel = PanelManager.Get<T>();
-        if (panel == null) return;
-        if (ImGui.MenuItem(label, null, panel.IsOpen))
-            panel.IsOpen = !panel.IsOpen;
+        if (PanelManager.Get<RandoPanel>() is { } panel) panel.IsOpen = !panel.IsOpen;
     }
 }

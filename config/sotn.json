@@ -2091,6 +2091,20 @@
       "target": "Recompiled.RandoPatch.NewFinalDoorGoals"
     },
     {
+      "comment": "Skip Prologue Support",
+      "overlay": "sel",
+      "function": "func_801ACEC0",
+      "mode": "post",
+      "target": "Recompiled.RandoPatch.SkipPrologue"
+    },
+    {
+      "comment": "Maria Alchemy Cutscene Fix",
+      "overlay": "nz0",
+      "function": "NZ0_EntityCutscene",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.MariaAlchemyCutsceneFix"
+    },
+    {
       "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
       "overlay": "dra",
       "function": "func_800F16D0",
@@ -2188,6 +2202,30 @@
       "target": "Recompiled.GameHooks.OnStoreSaveData"
     },
     {
+      "overlay": "dra",
+      "function": "StoreSaveData",
+      "mode": "pre",
+      "target": "Recompiled.GameHooks.PreStoreSaveData"
+    },
+    {
+      "overlay": "sel",
+      "function": "StoreSaveData",
+      "mode": "pre",
+      "target": "Recompiled.GameHooks.PreStoreSaveData"
+    },
+    {
+      "overlay": "dra",
+      "function": "ApplySaveData",
+      "mode": "pre",
+      "target": "Recompiled.GameHooks.PreApplySaveData"
+    },
+    {
+      "overlay": "sel",
+      "function": "ApplySaveData",
+      "mode": "pre",
+      "target": "Recompiled.GameHooks.PreApplySaveData"
+    },
+    {
       "overlay": "*",
       "function": "InitRoomEntities",
       "mode": "post",
@@ -2222,6 +2260,13 @@
       "function": "HitDetection",
       "mode": "post",
       "target": "Recompiled.WidescreenPatch.PostHitDetection"
+    },
+    {
+      "comment": "fix richter position on coleseum",
+      "overlay": "bo2",
+      "function": "func_801A7340",
+      "mode": "pre",
+      "target": "Recompiled.RichterCutscenePatch.ForceCenter"
     }
   ]
 }

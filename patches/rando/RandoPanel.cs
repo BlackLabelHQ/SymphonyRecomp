@@ -7,6 +7,7 @@ namespace Recompiled;
 public sealed class RandoPanel : IPanel
 {
     public string Name => "Randomizer Options";
+    public string TitleKey => "panel.randomizer";
     public bool IsOpen { get; set; }
 
     public void Draw()
@@ -19,7 +20,7 @@ public sealed class RandoPanel : IPanel
 
         ImGui.SetNextWindowSize(new Vector2(320, 420), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open))
+        if (!ImGui.Begin(this.Title(), ref open))
         {
             IsOpen = open;
             ImGui.End();
@@ -29,7 +30,7 @@ public sealed class RandoPanel : IPanel
         var m = RecompOne.Runtime.Runtime.Mem;
         if (m == null)
         {
-            ImGui.TextDisabled("Missing memory context.");
+            ImGui.TextDisabled(Localization.T("rando.no_memory"));
             IsOpen = open;
             ImGui.End();
             return;
@@ -40,7 +41,7 @@ public sealed class RandoPanel : IPanel
 
         if (CurrentPreset != (byte)PresetId.None && CurrentPreset != (byte)PresetId.Integrated)
         {
-            ImGui.TextDisabled("Built in randomizer cannot be combined\nwith externally randomized seeds.");
+            ImGui.TextDisabled(Localization.T("rando.external_seed"));
             IsOpen = open;
             ImGui.End();
             return;
@@ -48,7 +49,7 @@ public sealed class RandoPanel : IPanel
 
         if (StageId != 0x45 && CurrentPreset == (byte)PresetId.None)
         {
-            ImGui.TextDisabled("Return to the title screen\nto use the randomizer.");
+            ImGui.TextDisabled(Localization.T("rando.title_screen_only"));
             IsOpen = open;
             ImGui.End();
             return;
@@ -60,40 +61,41 @@ public sealed class RandoPanel : IPanel
         if (AlreadyRandomized == true)
             ImGui.BeginDisabled();
 
-        ImGui.SeparatorText("Toggles");
-        ImGui.Checkbox("Randomize Items", ref Randomizer.RandomizeItems);
-        ImGui.SetItemTooltip("Randomize items in stages, including the shop,\n and prologue rewards.");
-        ImGui.Checkbox("Randomize Drops", ref Randomizer.RandomizeDrops);
-        ImGui.SetItemTooltip("Randomize items dropped from enemies.");
-        ImGui.Checkbox("Randomize Relics", ref Randomizer.RandomizeRelics);
-        ImGui.SetItemTooltip("Randomize where relics appear.\nEach layout can be completed.");
-        ImGui.Checkbox("Randomize Starting Gear", ref Randomizer.RandomizeStartingGear);
-        ImGui.SetItemTooltip("Randomize equipment that\nAlucard starts the game with.");
-        ImGui.Checkbox("Remove Death at Entrance", ref Randomizer.RemoveDeathFromEntrance);
-        ImGui.SetItemTooltip("Prevents Death from taking your\nstarting equipment in the first area.");
+        ImGui.SeparatorText(Localization.T("rando.toggles"));
+        Toggle("rando.items", ref Randomizer.RandomizeItems);
+        Toggle("rando.drops", ref Randomizer.RandomizeDrops);
+        Toggle("rando.relics", ref Randomizer.RandomizeRelics);
+        Toggle("rando.starting_gear", ref Randomizer.RandomizeStartingGear);
+        Toggle("rando.remove_death", ref Randomizer.RemoveDeathFromEntrance);
+        Toggle("rando.skip_prologue", ref Randomizer.SkipPrologue);
         ImGui.SeparatorText("");
 
-
-        ImGui.InputInt("Seed Number", ref Randomizer.SeedNumber);
-        if (ImGui.Button("Generate New Random Seed Number"))
+        ImGui.InputInt(Localization.T("rando.seed"), ref Randomizer.SeedNumber);
+        if (ImGui.Button(Localization.T("rando.generate_seed")))
             Randomizer.RandomizeSeedNumber();
 
         ImGui.SeparatorText("");
 
-        if (ImGui.Button("Randomize Game"))
+        if (ImGui.Button(Localization.T("rando.randomize")))
             Randomizer.RandomizeSeed();
 
         if (AlreadyRandomized == true)
         {
-            ImGui.Text("Randomization Applied!");
-            ImGui.Text("Seed Number:" + Randomizer.SeedNumber);
+            ImGui.Text(Localization.T("rando.applied"));
+            ImGui.Text(Localization.T("rando.applied_seed", Randomizer.SeedNumber));
             ImGui.EndDisabled();
         }
 
         ImGui.SeparatorText("");
-        ImGui.Text("Randomizer By: MottZilla");
+        ImGui.Text(Localization.T("rando.credit"));
 
         IsOpen = open;
         ImGui.End();
+    }
+
+    static void Toggle(string key, ref bool value)
+    {
+        ImGui.Checkbox(Localization.T(key), ref value);
+        ImGui.SetItemTooltip(Localization.T(key + ".hint"));
     }
 }

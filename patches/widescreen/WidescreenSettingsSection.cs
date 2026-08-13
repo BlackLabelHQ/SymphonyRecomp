@@ -26,18 +26,20 @@ public static class WidescreenSettings
         float aspect = RecompOne.Runtime.Runtime.View.GetFloat("WidescreenAspect", 16f / 9f);
         bool original = WidescreenPatch.OriginalAspect;
         int selected = MatchPreset(aspect);
-        string label = original ? "Original" : selected >= 0 ? _presets[selected].Label : "Custom";
+        var originalLabel = Localization.T("widescreen.original");
+        var customLabel = Localization.T("settings.interface.custom");
+        string label = original ? originalLabel : selected >= 0 ? _presets[selected].Label : customLabel;
 
-        ImGui.TextUnformatted("Aspect Ratio");
+        ImGui.TextUnformatted(Localization.T("widescreen.aspect"));
         if (ImGui.BeginCombo("##aspect-preset", label))
         {
-            if (ImGui.Selectable("Original", original)) ApplyOriginal(true);
+            if (ImGui.Selectable(originalLabel, original)) ApplyOriginal(true);
             for (int i = 0; i < _presets.Length; i++)
             {
                 if (ImGui.Selectable(_presets[i].Label, !original && selected == i))
                     Apply(_presets[i].Value);
             }
-            if (ImGui.Selectable("Custom", !original && selected < 0))
+            if (ImGui.Selectable(customLabel, !original && selected < 0))
                 Apply(aspect);
             ImGui.EndCombo();
         }
@@ -55,20 +57,20 @@ public static class WidescreenSettings
 
         ImGui.Spacing();
         bool pillarBoxing = WidescreenPatch.PillarBoxing;
-        if (ImGui.Checkbox("letter boxing", ref pillarBoxing)) //pillar is on the sides dumass
+        if (ImGui.Checkbox(Localization.T("widescreen.letterboxing"), ref pillarBoxing)) //pillar is on the sides dumass
             ApplyPillarBoxing(pillarBoxing);
 
         ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled]);
-        ImGui.TextWrapped("Keeps the original top/bottom black bars in the stage view. Turn off to use the full vertical resolution. (will show some void on some areas)");
+        ImGui.TextWrapped(Localization.T("widescreen.letterboxing_hint"));
         ImGui.PopStyleColor();
 
         ImGui.Spacing();
         bool unstretch = WidescreenPatch.Unstretch;
-        if (ImGui.Checkbox("unstretch", ref unstretch))
+        if (ImGui.Checkbox(Localization.T("widescreen.unstretch"), ref unstretch))
             ApplyUnstretch(unstretch);
 
         ImGui.PushStyleColor(ImGuiCol.Text, ImGui.GetStyle().Colors[(int)ImGuiCol.TextDisabled]);
-        ImGui.TextWrapped("Renders the stage with square pixels instead of stretching it to fit 4:3");
+        ImGui.TextWrapped(Localization.T("widescreen.unstretch_hint"));
         ImGui.PopStyleColor();
     }
 
@@ -108,7 +110,7 @@ public static class WidescreenSettings
         aspect = Math.Clamp(aspect, 1.0f, 3.0f);
 
         if (WidescreenPatch.OriginalAspect)
-            RecompOne.Runtime.Runtime.ShowNotice("Anything other than the original aspect ratio is not fully supported yet, this WILL cause problems, use it at your own risk");
+            RecompOne.Runtime.Runtime.ShowNotice(Localization.T("widescreen.warning"));
 
         WidescreenPatch.OriginalAspect = false;
         RecompOne.Runtime.Runtime.View.SetBool("WidescreenOriginalAspect", false);

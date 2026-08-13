@@ -1,4 +1,3 @@
-using ImGuiNET;
 using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
@@ -9,20 +8,11 @@ public static class TrackerMenu
     {
         PanelManager.Register(new TrackerOverlayPanel());
         PanelManager.Register(new MapOverlayPanel());
-        MenuRegistry.Register("Overlays", DrawItems, "Misc", 300);
-    }
 
-    static void DrawItems()
-    {
-        Toggle<TrackerOverlayPanel>("Tracker Overlay");
-        Toggle<MapOverlayPanel>("Map Overlay");
-    }
-
-    static void Toggle<T>(string label) where T : class, IPanel
-    {
-        var panel = PanelManager.Get<T>();
-        if (panel == null) return;
-        if (ImGui.MenuItem(label, null, panel.IsOpen))
-            panel.IsOpen = !panel.IsOpen;
+        MenuRegistry.Menu("menu.misc", MenuRegistry.OrderGame)
+            .Submenu("menu.misc.overlays").Order(30)
+                .Panel<TrackerOverlayPanel>("panel.tracker")
+                .Panel<MapOverlayPanel>("panel.map")
+                .End();
     }
 }

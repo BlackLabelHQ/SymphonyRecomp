@@ -98,6 +98,28 @@ public static class TrackerIcons
         return sb.ToString();
     }
 
+    public static bool TryGetTexture(string icon, out uint color) => LoadPng(icon, out color, out _);
+
+    public static string[] Names()
+    {
+        var asm = Assembly.GetExecutingAssembly();
+        _resourceNames ??= asm.GetManifestResourceNames();
+
+        const string prefix = ".tracker.";
+        var names = new List<string>();
+        foreach (var res in _resourceNames)
+        {
+            if (!res.EndsWith(".png", StringComparison.OrdinalIgnoreCase)) continue;
+            int at = res.IndexOf(prefix, StringComparison.OrdinalIgnoreCase);
+            if (at < 0) continue;
+
+            int start = at + prefix.Length;
+            int length = res.Length - start - 4;
+            if (length > 0) names.Add(res.Substring(start, length));
+        }
+        return names.ToArray();
+    }
+
     public static void DrawIcon(Tracker.Entry entry, bool owned, Vector2 size)
     {
         var pos = ImGui.GetCursorScreenPos();

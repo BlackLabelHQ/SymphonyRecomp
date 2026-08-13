@@ -26,7 +26,7 @@ public static class AutoUpdater //should be generic enough to use on other recom
     const string EnabledKey = "AutoUpdateEnabled";
     const string SkipTagKey = "AutoUpdateSkipTag";
 
-    enum Phase { Idle, Checking, Available, Downloading, Applying, Failed }
+    internal enum Phase { Idle, Checking, Available, Downloading, Applying, Failed }
 
     static volatile Phase _phase = Phase.Idle;
     static volatile string _latestTag = "";
@@ -34,7 +34,6 @@ public static class AutoUpdater //should be generic enough to use on other recom
     static volatile string _assetUrl = "";
     static volatile string _error = "";
     static volatile bool _dismissed;
-    static volatile bool _popupOpen;
     static CancellationTokenSource? _cancel;
     static long _downloaded;
     static long _total;
@@ -95,8 +94,21 @@ public static class AutoUpdater //should be generic enough to use on other recom
     {
         TryDelete(WorkDir);
         CleanStaleFiles();
-        PanelManager.Register(new UpdatePanel());
-        MenuRegistry.Register("Updates", DrawMenuItems, null, 500);
+        PopupManager.Register(new UpdatePopup());
+
+        MenuRegistry.Menu("menu.updates", 500)
+            .Text(StatusLine)
+            .Separator()
+            .Check("menu.updates.on_startup",
+                () => ConfigManager.View.GetBool(EnabledKey, true),
+                enabled =>
+                {
+                    ConfigManager.View.SetBool(EnabledKey, enabled);
+                    ConfigManager.SaveView(PanelManager.Panels);
+                })
+            .Item("menu.updates.check_now", CheckNow)
+                .Enabled(() => _phase is Phase.Idle or Phase.Available)
+            .Item("menu.updates.releases_page", () => OpenUrl(ReleasesUrl));
 
         if (CurrentTag == null)
         {
@@ -240,7 +252,6 @@ public static class AutoUpdater //should be generic enough to use on other recom
             TryDelete(WorkDir);
             _dismissed = true;
             _phase = Phase.Available;
-            _popupOpen = false;
         }
         catch (Exception e)
         {
@@ -250,117 +261,60 @@ public static class AutoUpdater //should be generic enough to use on other recom
         }
     }
 
-    static void DrawMenuItems()
+    static void CheckNow()
     {
-        ImGui.TextDisabled(StatusLine());
-        ImGui.Separator();
-
-        bool enabled = ConfigManager.View.GetBool(EnabledKey, true);
-        if (ImGui.MenuItem("Check on Startup", null, enabled))
+        if (_phase == Phase.Available)
         {
-            ConfigManager.View.SetBool(EnabledKey, !enabled);
-            ConfigManager.SaveView(PanelManager.Panels);
+            _dismissed = false;
+            return;
         }
 
-        if (ImGui.MenuItem("Check for Updates Now", null, false, _phase is Phase.Idle or Phase.Available))
-        {
-            if (_phase == Phase.Available) _dismissed = false;
-            else
-            {
-                ConfigManager.View.SetString(SkipTagKey, "");
-                _dismissed = false;
-                _phase = Phase.Checking;
-                Log("manual update check requested");
-                Task.Run(CheckAsync);
-            }
-        }
-
-        if (ImGui.MenuItem("Open Releases Page")) OpenUrl(ReleasesUrl);
+        ConfigManager.View.SetString(SkipTagKey, "");
+        _dismissed = false;
+        _phase = Phase.Checking;
+        Log("manual update check requested");
+        Task.Run(CheckAsync);
     }
 
     static string StatusLine() => _phase switch
     {
-        Phase.Checking => "Checking for updates...",
-        Phase.Available => $"{_latestTag} available",
-        Phase.Downloading => $"Downloading {_latestTag}...",
-        Phase.Applying => "Restarting to update...",
-        Phase.Failed => "Last update attempt failed",
-        _ => CurrentTag == null ? "Development Build" : $"Running {CurrentTag}",
+        Phase.Checking => Localization.T("update.status.checking"),
+        Phase.Available => Localization.T("update.status.available", _latestTag),
+        Phase.Downloading => Localization.T("update.status.downloading", _latestTag),
+        Phase.Applying => Localization.T("update.status.applying"),
+        Phase.Failed => Localization.T("update.status.failed"),
+        _ => CurrentTag == null
+            ? Localization.T("update.status.dev")
+            : Localization.T("update.status.running", CurrentTag),
     };
 
     internal static bool ShouldShowUi =>
         !_dismissed && _phase is Phase.Available or Phase.Downloading or Phase.Applying or Phase.Failed;
 
-    internal static void CloseUi()
+    internal static Phase CurrentPhase => _phase;
+
+    internal static void DrawHeader()
     {
-        if (ShouldShowUi) _dismissed = true;
-    }
-
-    internal static void Draw()
-    {
-        var phase = _phase;
-        if (phase is not (Phase.Available or Phase.Downloading or Phase.Applying or Phase.Failed))
+        string headline = _phase switch
         {
-            _popupOpen = false;
-            return;
-        }
-
-        _popupOpen = true;
-
-        var vp = ImGui.GetMainViewport();
-        ImGui.SetNextWindowPos(vp.GetCenter(), ImGuiCond.Appearing, new Vector2(0.5f, 0.5f));
-        ImGui.SetNextWindowSize(new Vector2(520, 430), ImGuiCond.Appearing);
-        ImGui.SetNextWindowSizeConstraints(new Vector2(420, 280), new Vector2(1000, 1000));
-
-        bool open = true;
-        bool visible = ImGui.Begin("Update", ref open,
-            ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoSavedSettings);
-
-        if (visible)
-        {
-            DrawHeader(phase);
-            ImGui.Spacing();
-
-            float footer = ImGui.GetFrameHeightWithSpacing() + ImGui.GetStyle().ItemSpacing.Y * 2f;
-            if (phase is Phase.Downloading or Phase.Applying) footer += ImGui.GetFrameHeightWithSpacing();
-            if (phase == Phase.Failed) footer += ImGui.GetTextLineHeightWithSpacing() * 2f;
-
-            ImGui.BeginChild("##notes", new Vector2(0, -footer), ImGuiChildFlags.Border);
-            DrawNotes(phase);
-            ImGui.EndChild();
-
-            ImGui.Spacing();
-            DrawActions(phase);
-        }
-
-
-
-        ImGui.End();
-        if (!open) DismissForSession();
-    }
-
-    static void DrawHeader(Phase phase)
-    {
-        string headline = phase switch
-        {
-            Phase.Downloading => $"Downloading {_latestTag}",
-            Phase.Applying => $"Installing {_latestTag}",
-            Phase.Failed => "Update failed",
-            _ => $"{_latestTag} is available",
+            Phase.Downloading => Localization.T("update.headline.downloading", _latestTag),
+            Phase.Applying => Localization.T("update.headline.installing", _latestTag),
+            Phase.Failed => Localization.T("update.headline.failed"),
+            _ => Localization.T("update.headline.available", _latestTag),
         };
 
+        var tail = Localization.T("update.current", CurrentTag ?? "dev");
         ImGui.TextUnformatted(headline);
         ImGui.SameLine();
-        float tail = ImGui.CalcTextSize($"current {CurrentTag}").X;
-        float off = ImGui.GetContentRegionAvail().X - tail;
+        float off = ImGui.GetContentRegionAvail().X - ImGui.CalcTextSize(tail).X;
         if (off > 0) ImGui.SetCursorPosX(ImGui.GetCursorPosX() + off);
-        ImGui.TextDisabled($"current {CurrentTag}");
+        ImGui.TextDisabled(tail);
         ImGui.Separator();
     }
 
-    static void DrawNotes(Phase phase)
+    internal static void DrawNotes()
     {
-        if (phase == Phase.Failed)
+        if (_phase == Phase.Failed)
         {
             ImGui.TextWrapped(_error);
             return;
@@ -368,13 +322,13 @@ public static class AutoUpdater //should be generic enough to use on other recom
 
         if (!CanWriteInstallDir())
         {
-            ImGui.TextWrapped("This folder is not writable, so the update cannot be installed automatically. Download it manually or move the game somewhere you can write to.");
+            ImGui.TextWrapped(Localization.T("update.not_writable"));
             ImGui.Spacing();
         }
 
         if (string.IsNullOrWhiteSpace(_releaseNotes))
         {
-            ImGui.TextDisabled("This release ships no notes.");
+            ImGui.TextDisabled(Localization.T("update.no_notes"));
             return;
         }
 
@@ -392,23 +346,19 @@ public static class AutoUpdater //should be generic enough to use on other recom
         }
     }
 
-    static void DrawActions(Phase phase)
+    internal static void DrawActions()
     {
-        switch (phase)
+        switch (_phase)
         {
             case Phase.Available when !CanWriteInstallDir():
-                if (Row(0, 2, "Open releases page")) OpenUrl(ReleasesUrl);
-                if (Row(1, 2, "Not now")) DismissForSession();
+                if (Row(0, 2, Localization.T("update.releases_page"))) OpenUrl(ReleasesUrl);
+                if (Row(1, 2, Localization.T("update.not_now"))) DismissForSession();
                 break;
 
             case Phase.Available:
-                if (Row(0, 3, "Install"))
-                {
-                    _cancel = new CancellationTokenSource();
-                    Task.Run(() => UpdateAsync(_cancel.Token));
-                }
-                if (Row(1, 3, "Not now")) DismissForSession();
-                if (Row(2, 3, $"Skip {_latestTag}"))
+                if (Row(0, 3, Localization.T("update.install"))) StartUpdate();
+                if (Row(1, 3, Localization.T("update.not_now"))) DismissForSession();
+                if (Row(2, 3, Localization.T("update.skip", _latestTag)))
                 {
                     ConfigManager.View.SetString(SkipTagKey, _latestTag);
                     ConfigManager.SaveView(PanelManager.Panels);
@@ -426,33 +376,34 @@ public static class AutoUpdater //should be generic enough to use on other recom
                         ? $"{done / 1048576f:0.0} / {total / 1048576f:0.0} MB"
                         : $"{done / 1048576f:0.0} MB");
                 ImGui.Spacing();
-                if (Row(0, 1, "Cancel")) _cancel?.Cancel();
+                if (Row(0, 1, Localization.T("common.cancel"))) _cancel?.Cancel();
                 break;
             }
 
             case Phase.Applying:
-                ImGui.ProgressBar(1f, new Vector2(-1, 0), "restarting");
+                ImGui.ProgressBar(1f, new Vector2(-1, 0), Localization.T("update.restarting"));
                 ImGui.Spacing();
                 ImGui.BeginDisabled();
-                Row(0, 1, "The game will reopen in a moment");
+                Row(0, 1, Localization.T("update.reopening"));
                 ImGui.EndDisabled();
                 break;
 
             case Phase.Failed:
-                if (Row(0, 3, "Retry"))
-                {
-                    _cancel = new CancellationTokenSource();
-                    Task.Run(() => UpdateAsync(_cancel.Token));
-                }
-                if (Row(1, 3, "Releases page")) OpenUrl(ReleasesUrl);
-                if (Row(2, 3, "Close"))
+                if (Row(0, 3, Localization.T("update.retry"))) StartUpdate();
+                if (Row(1, 3, Localization.T("update.releases_page"))) OpenUrl(ReleasesUrl);
+                if (Row(2, 3, Localization.T("common.close")))
                 {
                     _phase = Phase.Available;
                     DismissForSession();
                 }
                 break;
         }
-        
+    }
+
+    static void StartUpdate()
+    {
+        _cancel = new CancellationTokenSource();
+        Task.Run(() => UpdateAsync(_cancel.Token));
     }
 
     static bool Row(int index, int count, string label)
@@ -463,16 +414,7 @@ public static class AutoUpdater //should be generic enough to use on other recom
         return ImGui.Button(label, new Vector2(width, 0));
     }
 
-    static void DismissForSession()
-    {
-        _dismissed = true;
-        ClosePopup();
-    }
-
-    static void ClosePopup()
-    {
-        _popupOpen = false;
-    }
+    internal static void DismissForSession() => _dismissed = true;
 
     static HttpClient NewClient(TimeSpan timeout)
     {
@@ -641,15 +583,33 @@ public static class AutoUpdater //should be generic enough to use on other recom
     }
 }
 
-public sealed class UpdatePanel : IFloatingPanel
+public sealed class UpdatePopup : Popup
 {
-    public string Name => "Update";
+    protected override string TitleKey => "update.title";
+    protected override Vector2 Size => new(560f, 460f);
 
-    public bool IsOpen
+    protected override void Update()
     {
-        get => AutoUpdater.ShouldShowUi;
-        set { if (!value) AutoUpdater.CloseUi(); }
+        if (AutoUpdater.ShouldShowUi && !IsOpen) Open();
+        else if (!AutoUpdater.ShouldShowUi && IsOpen) Close();
     }
 
-    public void Draw() => AutoUpdater.Draw();
+    protected override void OnClosed() => AutoUpdater.DismissForSession();
+
+    protected override void DrawContent()
+    {
+        AutoUpdater.DrawHeader();
+        ImGui.Spacing();
+
+        float footer = ImGui.GetFrameHeightWithSpacing() + ImGui.GetStyle().ItemSpacing.Y * 2f;
+        if (AutoUpdater.CurrentPhase is AutoUpdater.Phase.Downloading or AutoUpdater.Phase.Applying)
+            footer += ImGui.GetFrameHeightWithSpacing();
+
+        ImGui.BeginChild("##notes", new Vector2(0, -footer), ImGuiChildFlags.Border);
+        AutoUpdater.DrawNotes();
+        ImGui.EndChild();
+
+        ImGui.Spacing();
+        AutoUpdater.DrawActions();
+    }
 }

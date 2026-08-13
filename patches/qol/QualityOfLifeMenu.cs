@@ -1,5 +1,4 @@
-﻿using ImGuiNET;
-using RecompOne.Runtime.Events;
+﻿using RecompOne.Runtime.Events;
 using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
@@ -10,19 +9,8 @@ public static class QualityOfLifeMenu
     {
         Event.AddListener<RuntimeReadyEvent>(_ => QualityOfLife.Load());
         PanelManager.Register(new QualityOfLifePanel());
-        MenuRegistry.Register("Quality of Life", DrawItems, "Misc", 300);
-    }
 
-    static void DrawItems()
-    {
-        Toggle<QualityOfLifePanel>("Quality of Life");
-    }
-
-    static void Toggle<T>(string label) where T : class, IPanel
-    {
-        var panel = PanelManager.Get<T>();
-        if (panel == null) return;
-        if (ImGui.MenuItem(label, null, panel.IsOpen))
-            panel.IsOpen = !panel.IsOpen;
+        MenuRegistry.Menu("menu.misc", MenuRegistry.OrderGame)
+            .Panel<QualityOfLifePanel>("panel.qol").Order(10);
     }
 }

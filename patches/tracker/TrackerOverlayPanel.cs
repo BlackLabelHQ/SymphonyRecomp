@@ -9,6 +9,7 @@ namespace Recompiled;
 public sealed class TrackerOverlayPanel : IPanel
 {
     public string Name => "Tracker overlay";
+    public string TitleKey => "panel.tracker";
     public bool IsOpen { get; set; }
 
     const float FixedIconDim = 32f;
@@ -29,7 +30,7 @@ public sealed class TrackerOverlayPanel : IPanel
 
         ImGui.SetNextWindowSize(new Vector2(300, 520), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open, ImGuiWindowFlags.MenuBar))
+        if (!ImGui.Begin(this.Title(), ref open, ImGuiWindowFlags.MenuBar))
         {
             IsOpen = open;
             ImGui.End();

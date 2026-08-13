@@ -42,6 +42,21 @@ public static class Player
     public static int ScreenY => Game.PlayerScreenY;
     public static int MapX => Game.RoomX;
     public static int MapY => Game.RoomY;
+    //in tile offset
+    public static int OffsetX { get => PosX & 0xFF; set => PosX = value & 0xFF; }
+    public static int OffsetY { get => PosY & 0xFF; set => PosY = value & 0xFF; }
+
+    public static bool CanTeleport => Game.Available && Game.InGame && !Game.IsLoading;
+
+    public static bool TeleportTo(int roomX, int roomY, int offsetX = 128, int offsetY = 128) => Stages.LoadRoom(roomX, roomY, offsetX, offsetY);
+
+    public static bool TeleportTo(Stage stage, int roomX, int roomY, int offsetX = 128, int offsetY = 128)
+    {
+        if (stage == Stages.Current) return TeleportTo(roomX, roomY, offsetX, offsetY);
+
+        Stages.Load(stage, roomX, roomY, offsetX, offsetY);
+        return true;
+    }
 
     public static bool FacingLeft { get => Entity.FacingLeft != 0; set { var e = Entity; e.FacingLeft = (ushort)(value ? 1 : 0); } }
     public static int VelocityX { get => Entity.VelocityX; set { var e = Entity; e.VelocityX = value; } }

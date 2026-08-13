@@ -12656,4 +12656,38 @@ public static partial class RandoPatch
         }
     }
 
+    public static void SkipPrologue(CpuContext c, IMemory m)
+    {
+        UInt16 StartingStageIdInMemory;
+        byte CUR_PRESET = m.ReadU8(PresetMemoryOffset);
+
+        if (m.ReadU32(0x800974a0) == 0x1F)
+        {
+            StartingStageIdInMemory = m.ReadU16(0x801AF594);
+            if (StartingStageIdInMemory != 0x1F)
+            {
+                m.WriteU16(0x800974a0, StartingStageIdInMemory);
+            }
+            if(CUR_PRESET == (byte)PresetId.Integrated && Randomizer.SkipPrologue == true)
+            {
+                m.WriteU16(0x800974a0, 0x41);
+            }
+        }
+    }
+
+    // Preempt NZ0_EntityCutscene
+    // If Cutscene would trigger and we entered from the left, mark the flag as tho we already saw it.
+    // This prevents a softlock.
+    public static void MariaAlchemyCutsceneFix(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.BugFixes == false)
+            return;
+
+        byte Flag = m.ReadU8(0x8003BE71);
+        UInt16 PosX = m.ReadU16(0x800733DA);
+
+        if (Flag == 0 && PosX < 64)
+            m.WriteU8(0x8003BE71, 1);
+    }
+
 }

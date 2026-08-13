@@ -72,6 +72,7 @@ public static partial class Randomizer
     public static bool RandomizeRelics = false;
     public static bool RandomizeStartingGear = false;
     public static bool RemoveDeathFromEntrance = false;
+    public static bool SkipPrologue = false;
 
     static UInt16 StartingWeapon = 0x7B;
     static UInt16 StartingShield = 0x10;
@@ -615,6 +616,8 @@ public static partial class Randomizer
 
         // Turn on Bug Fixes when playing randomizer. No real reason not to have them on.
         QualityOfLife.BugFixes = true;
+
+        SaveLoadManager.MarkApplied(SaveStamp.FromRandomizer());
     }
 
     public static void DoRandomizeDrops()
@@ -1196,8 +1199,6 @@ public static partial class Randomizer
             else
             {
                 // For Relic
-            }
-            {
                 m.WriteU16(0x801AC85C, RelicId);    // Update Dead Relic ID
                 m.WriteU16(0x80182598, RelicId);    // Update Swirl Relic ID
             }

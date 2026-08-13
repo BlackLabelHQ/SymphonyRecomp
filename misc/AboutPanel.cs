@@ -4,9 +4,9 @@ using RecompOne.Runtime.Host.Window;
 
 namespace Recompiled;
 
-public sealed class AboutPanel : IFloatingPanel
+public sealed class AboutPopup : Popup
 {
-    public const string Title = "SymphonyRecomp";
+    public const string Project = "SymphonyRecomp";
 
     static readonly string[] Credits =
     [
@@ -17,26 +17,15 @@ public sealed class AboutPanel : IFloatingPanel
         "Eldri7ch",
     ];
 
-    public string Name => "About";
-    public bool IsOpen { get; set; }
+    protected override string TitleKey => "about.title";
+    protected override Vector2 Size => new(420f, 0f);
 
-    public void Draw()
+    protected override void DrawContent()
     {
-        ImGui.SetNextWindowSize(new Vector2(340, 0), ImGuiCond.Always);
-        ImGui.SetNextWindowPos(ImGui.GetMainViewport().GetCenter(), ImGuiCond.Always, new Vector2(0.5f, 0.5f));
-
-        bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove))
-        {
-            IsOpen = open;
-            ImGui.End();
-            return;
-        }
-
         string version = $"(version: {AutoUpdater.CurrentTag ?? "dev"})";
-        float titleWidth = ImGui.CalcTextSize(Title).X + ImGui.GetStyle().ItemSpacing.X + ImGui.CalcTextSize(version).X;
-        Center(titleWidth);
-        ImGui.TextUnformatted(Title);
+        float width = ImGui.CalcTextSize(Project).X + ImGui.GetStyle().ItemSpacing.X + ImGui.CalcTextSize(version).X;
+        Center(width);
+        ImGui.TextUnformatted(Project);
         ImGui.SameLine();
         ImGui.TextDisabled(version);
 
@@ -44,18 +33,15 @@ public sealed class AboutPanel : IFloatingPanel
         ImGui.Separator();
         ImGui.Spacing();
 
-        ImGui.TextWrapped("SymphonyRecomp is a fan-made project for the PSX version of Castlevania: Symphony of the Night. It is not affiliated with Konami or Sony. It was made for fans, by fans. <3");
+        ImGui.TextWrapped(Localization.T("about.disclaimer"));
         ImGui.Spacing();
-        ImGui.TextWrapped("Please note SymphonyRecomp is a 'RE'comp. Not a 'De'comp. They're 2 separate concepts/projects. Please only ask questions about SymphonyRecomp in the BlackLabelHQ Discord Server.");
+        ImGui.TextWrapped(Localization.T("about.recomp"));
         ImGui.Spacing();
-        ImGui.TextWrapped("Please don't bother the people at the SOTN Decomp server about this project.");
+        ImGui.TextWrapped(Localization.T("about.decomp_server"));
         ImGui.Spacing();
-        ImGui.TextUnformatted("Made By:");
+        ImGui.TextUnformatted(Localization.T("about.made_by"));
         ImGui.Spacing();
         ImGui.TextWrapped(string.Join(", ", Credits));
-
-        IsOpen = open;
-        ImGui.End();
     }
 
     static void Center(float width)
@@ -69,13 +55,9 @@ public static class HelpMenu
 {
     public static void Register()
     {
-        PanelManager.Register(new AboutPanel());
-        MenuRegistry.Register("Help", DrawItems, null, 600);
-    }
+        PopupManager.Register(new AboutPopup());
 
-    static void DrawItems()
-    {
-        if (ImGui.MenuItem("About This Project"))
-            if (PanelManager.Get<AboutPanel>() is { } about) about.IsOpen = true;
+        MenuRegistry.Menu("menu.help", MenuRegistry.OrderHelp)
+            .Popup<AboutPopup>("menu.help.about");
     }
 }

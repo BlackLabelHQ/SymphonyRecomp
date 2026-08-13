@@ -40,8 +40,39 @@ jobs:
           name: generated-source
           path: generated/
 
+  cimgui-linux-arm64:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: checkout ImGui.NET nativebuild
+        uses: actions/checkout@v4
+        with:
+          repository: ImGuiNET/ImGui.NET-nativebuild
+          ref: v1.90.8
+          submodules: recursive
+          path: nativebuild
+
+      - name: Install the build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential cmake
+
+      - name: Build cimgui
+        run: |
+          cd nativebuild
+          ./build-native.sh -release
+          strip cimgui/build/Release/cimgui.so
+          mkdir -p ../native
+          cp cimgui/build/Release/cimgui.so ../native/libcimgui.so
+          nm -D ../native/libcimgui.so | grep -q " T igGetIO$"
+
+      - name: upload cimgui
+        uses: actions/upload-artifact@v4
+        with:
+          name: cimgui-linux-arm64
+          path: native/libcimgui.so
+
   build:
-    needs: generate
+    needs: [generate, cimgui-linux-arm64]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -99,6 +130,13 @@ jobs:
           -p:InformationalVersion=${{ github.ref_name }}
           -p:NoWarn=0162
           -o publish/${{ matrix.rid }}
+
+      - name: bundle cimgui (linux-arm64)
+        if: matrix.rid == 'linux-arm64'
+        uses: actions/download-artifact@v4
+        with:
+          name: cimgui-linux-arm64
+          path: publish/linux-arm64
 
       - name: Bundle linux run launchr
         if: startsWith(matrix.rid, 'linux')

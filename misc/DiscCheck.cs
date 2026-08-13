@@ -38,7 +38,7 @@ public static class DiscCheck
     public static void Register()
     {
         RecompOne.Runtime.Runtime.DiscValidator = Validate;
-        PanelManager.Register(new PresetWarningPanel());
+        PopupManager.Register(new PresetWarningPopup());
     }
 
     static string? Validate(string path)
@@ -95,43 +95,35 @@ public static class DiscCheck
 
     public static void ShowUncompatiblePresetModal() => _showPresetModal = true;
 
-    sealed class PresetWarningPanel : IFloatingPanel
+    sealed class PresetWarningPopup : Popup
     {
-        public string Name => "Randomizer";
-        public bool IsOpen { get => _showPresetModal; set { if (!value) _showPresetModal = false; } }
+        protected override string TitleKey => "menu.randomizer";
+        protected override Vector2 Size => new(440f, 0f);
 
-        public void Draw()
+        protected override void Update()
         {
-            ImGui.SetNextWindowSize(new Vector2(420, 0), ImGuiCond.Always);
-            ImGui.SetNextWindowPos(ImGui.GetMainViewport().GetCenter(), ImGuiCond.Appearing, new Vector2(0.5f, 0.5f));
+            if (_showPresetModal && !IsOpen) Open();
+        }
 
-            bool open = true;
-            if (!ImGui.Begin(Name, ref open,
-                    ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
-            {
-                ImGui.End();
-                if (!open) _showPresetModal = false;
-                return;
-            }
+        protected override void OnClosed() => _showPresetModal = false;
 
+        protected override void DrawContent()
+        {
             ImGui.PushStyleColor(ImGuiCol.Text, new Vector4(1f, 0.85f, 0.3f, 1f));
-            ImGui.TextWrapped("You're using an incompatible randomizer preset, it may not work as intended!");
+            ImGui.TextWrapped(Localization.T("rando.preset_warning"));
             ImGui.PopStyleColor();
 
             if (_preset.Length > 0)
             {
                 ImGui.Spacing();
-                ImGui.TextDisabled($"preset: {_preset}");
+                ImGui.TextDisabled(Localization.T("rando.preset", _preset));
             }
 
             ImGui.Spacing();
             ImGui.Separator();
             ImGui.Spacing();
 
-            if (ImGui.Button("Continue anyway", new Vector2(-1, 0))) _showPresetModal = false;
-
-            ImGui.End();
-            if (!open) _showPresetModal = false;
+            if (ImGui.Button(Localization.T("rando.continue_anyway"), new Vector2(-1, 0))) Close();
         }
     }
 }

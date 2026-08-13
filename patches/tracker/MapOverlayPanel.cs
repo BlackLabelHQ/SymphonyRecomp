@@ -15,6 +15,7 @@ namespace Recompiled;
 public sealed class MapOverlayPanel : IPanel
 {
     public string Name => "Map overlay";
+    public string TitleKey => "panel.map";
     public bool IsOpen { get; set; }
 
     const uint ZoneAddr = 0x800974A0;
@@ -63,7 +64,7 @@ public sealed class MapOverlayPanel : IPanel
 
         ImGui.SetNextWindowSize(new Vector2(660, 560), ImGuiCond.FirstUseEver);
         bool open = IsOpen;
-        if (!ImGui.Begin(Name, ref open))
+        if (!ImGui.Begin(this.Title(), ref open))
         {
             IsOpen = open;
             ImGui.End();

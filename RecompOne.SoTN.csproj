@@ -7,7 +7,9 @@
     <AssemblyName>sotn</AssemblyName>
     <ApplicationIcon>assets/icon/SymphonyRecomp.ico</ApplicationIcon>
     <NoWarn>0162</NoWarn>
-    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**</DefaultItemExcludes>
+    <!-- Android/** is the net10.0-android head (RecompOne.SoTN.Android.csproj); it references
+         the Android SDK bindings and must not be compiled into the desktop build. -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);RecompOne/**;Android/**;jdk/**</DefaultItemExcludes>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -25,5 +27,6 @@
     <EmbeddedResource Include="assets/map/*.png" />
     <EmbeddedResource Include="assets/extension/*.png" />
     <EmbeddedResource Include="assets/icon/*.ico" />
+    <EmbeddedResource Include="assets/languages.json" />
   </ItemGroup>
 </Project>
