@@ -1,6 +1,6 @@
 [submodule "RecompOne"]
 	path = RecompOne
-	url = https://github.com/BlackLabelHQ/RecompOne.git
+	url = https://github.com/sergiomanzur/RecompOne.git
 [submodule "mods"]
 	path = mods
 	url = https://github.com/BlackLabelHQ/SymphonyRecompMods.git
