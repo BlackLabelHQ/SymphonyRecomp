@@ -11,6 +11,9 @@ namespace RecompOne.SoTN.Android
 {
     public static class SaveStateManager
     {
+        // Guards the pending-request fields below: they are written from the Android UI
+        // thread and read from the emulation thread in ProcessPending().
+        private static readonly object _pendingLock = new();
         private static int _pendingSaveSlot;
         private static int _pendingLoadSlot;
         private static string _baseFilesDir = "";
@@ -50,38 +53,52 @@ namespace RecompOne.SoTN.Android
 
         public static void RequestSaveState(string baseFilesDir, int slot, Action<bool, string, int> onComplete)
         {
-            _baseFilesDir = baseFilesDir;
-            _onComplete = onComplete;
-            _pendingSaveSlot = slot;
+            lock (_pendingLock)
+            {
+                _baseFilesDir = baseFilesDir;
+                _onComplete = onComplete;
+                _pendingSaveSlot = slot;
+            }
         }
 
         public static void RequestLoadState(string baseFilesDir, int slot, Action<bool, string, int> onComplete)
         {
-            _baseFilesDir = baseFilesDir;
-            _onComplete = onComplete;
-            _pendingLoadSlot = slot;
+            lock (_pendingLock)
+            {
+                _baseFilesDir = baseFilesDir;
+                _onComplete = onComplete;
+                _pendingLoadSlot = slot;
+            }
         }
 
         public static void ProcessPending()
         {
-            if (_pendingSaveSlot > 0)
+            int saveSlot, loadSlot;
+            string baseDir;
+            Action<bool, string, int>? cb;
+
+            lock (_pendingLock)
             {
-                int slot = _pendingSaveSlot;
-                _pendingSaveSlot = 0;
-                bool success = DoSaveState(_baseFilesDir, slot, out string err);
-                var cb = _onComplete;
+                saveSlot = _pendingSaveSlot;
+                loadSlot = _pendingLoadSlot;
+                if (saveSlot <= 0 && loadSlot <= 0) return;
+
+                if (saveSlot > 0) _pendingSaveSlot = 0;
+                else _pendingLoadSlot = 0;
+
+                baseDir = _baseFilesDir;
+                cb = _onComplete;
                 _onComplete = null;
-                cb?.Invoke(success, err, slot);
             }
-            else if (_pendingLoadSlot > 0)
-            {
-                int slot = _pendingLoadSlot;
-                _pendingLoadSlot = 0;
-                bool success = DoLoadState(_baseFilesDir, slot, out string err);
-                var cb = _onComplete;
-                _onComplete = null;
-                cb?.Invoke(success, err, slot);
-            }
+
+            bool success;
+            string err;
+            if (saveSlot > 0)
+                success = DoSaveState(baseDir, saveSlot, out err);
+            else
+                success = DoLoadState(baseDir, loadSlot, out err);
+
+            cb?.Invoke(success, err, saveSlot > 0 ? saveSlot : loadSlot);
         }
 
         private static bool DoSaveState(string baseFilesDir, int slot, out string error)
@@ -150,7 +167,18 @@ namespace RecompOne.SoTN.Android
                 bw.Write(gs.DmaDir);
 
                 // VRAM Pixels (1024x512 ushorts = 1MB)
+                //
+                // Gpu.Vram is only the CPU-side shadow. With the GL backend every primitive is
+                // rendered into GPU render targets and written back into the backend's own VRAM
+                // texture - the shadow never receives any rendered output. Serializing it
+                // directly captured an essentially blank framebuffer, which is why restoring a
+                // state produced a black screen. ReadVram flushes the pipeline, writes back any
+                // dirty render targets and pulls the real VRAM out of the GPU (which also
+                // refreshes the shadow we are about to write).
                 var vram = gpu.Vram;
+                if (GpuHle.Backend is { Ready: true } backend)
+                    backend.ReadVram(0, 0, 1024, 512, vram);
+
                 bw.Write(vram.Length);
                 for (int i = 0; i < vram.Length; i++)
                     bw.Write(vram[i]);
@@ -260,20 +288,34 @@ namespace RecompOne.SoTN.Android
                 for (int i = 0; i < Math.Min(vramLen, vram.Length); i++)
                     vram[i] = br.ReadUInt16();
 
-                // Reset GPU pipeline & destroy old render targets
+                // Reset the GPU pipeline, then push the restored VRAM straight back into the
+                // backend. These must stay adjacent: Reset() destroys the render targets that
+                // hold the visible frame, so the re-upload must not be skippable by anything
+                // that throws in between (the audio reset below used to sit here).
                 GpuHle.Backend?.Reset();
+                GpuHle.NotifyDisplay(gpu.DisplayX, gpu.DisplayY, gpu.DisplayWidth, gpu.DisplayHeight);
+                GpuHle.Backend?.WriteVram(0, 0, 1024, 512, gpu.Vram);
 
                 // Reset Audio & XA playback
                 RecompOne.Runtime.Runtime.Spu?.Reset();
                 XaAudio.Reset();
 
-                // Notify GpuHle display rectangle & re-upload VRAM texture to OpenGL ES
-                GpuHle.NotifyDisplay(gpu.DisplayX, gpu.DisplayY, gpu.DisplayWidth, gpu.DisplayHeight);
-                GpuHle.Backend?.WriteVram(0, 0, 1024, 512, gpu.Vram);
-
-                // Set flag to unwind old C# callstack and jump directly to EPC in Entry.Run
-                RecompOne.Runtime.Runtime.PendingStateLoaded = true;
-
+                // NOTE: do NOT unwind the C# callstack here.
+                //
+                // Recompiled MIPS functions are plain C# methods: `jal` is a C# call and
+                // `jr $ra` is a C# `return`, so the *real* program counter and return chain
+                // live in the C# callstack, not in c.EPC. Nothing in the generated code ever
+                // writes c.EPC (the recompiler only emits it for `mtc0 $14`, which SoTN never
+                // executes), so c.EPC is permanently the boot entry 0x80010DFC. Throwing to
+                // unwind and re-dispatching on c.EPC therefore did not resume at the save
+                // point - it re-entered the boot entry, which zeroes .bss over the RAM we just
+                // restored and reboots the game on top of a half-restored state, recursing
+                // until the thread stack guard page was hit (SIGSEGV).
+                //
+                // Instead we swap the emulated state in place. Both save and load run from
+                // OnBeforePresentFrame inside LibEtc.VSync, so the callstack shape here already
+                // matches the one captured at save time; returning from VSync normally lets the
+                // game continue with the restored state.
                 return true;
             }
             catch (Exception ex)
