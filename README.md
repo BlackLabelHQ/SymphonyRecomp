@@ -42,29 +42,61 @@ Clone repo. Add legally owned game files to disc. Run windows_run.bat or windows
 ## 📱 Android Build & Playing Instructions
 
 ### Building the Android APK
-1. Install the .NET 10 SDK with Android Workload:
+
+> ⚠️ Your disc files are packaged **into** the APK at build time, so the APK ends up
+> very large (roughly 470 MB) and contains your own dump. Build it for yourself, don't
+> redistribute it. See the [Todo](#todo) - picking a bin/cue from inside the app is
+> planned so a clean APK can be shared.
+
+1. Clone the repo **with submodules** - the Android head builds against the `RecompOne`
+   runtime, so a plain `git clone` will not build:
+   ```bash
+   git clone --recursive https://github.com/BlackLabelHQ/SymphonyRecomp.git
+   cd SymphonyRecomp
+   ```
+   Already cloned without `--recursive`? Run this instead:
+   ```bash
+   git submodule update --init --recursive
+   ```
+2. Install the .NET 10 SDK with the Android workload:
    ```bash
    dotnet workload install android
    ```
-2. Place the PSX game disc files into the `disc/` folder (or copy them to `/sdcard/Android/data/com.blacklabelhq.sotn/files/disc/` on your device).
-3. Publish the Release APK:
+   You will also need a JDK (17 or newer) and the Android SDK. Installing the
+   "Mobile development with .NET" workload in Visual Studio, or Android Studio,
+   provides both.
+3. Add your legally owned game files to the `disc/` folder, named exactly as listed
+   under [Prerequisites](#prerequisites). **They must be in place before you publish**,
+   because they are packaged into the APK as Android assets.
+4. Generate the recompiled game sources. The Android head compiles the `generated/`
+   folder just like the desktop build does, so this step is required:
+   ```bash
+   dotnet run --project RecompOne/RecompOne.Recompiler config/sotn.json
+   ```
+   On Windows you can run `windows_initial_build.bat` instead, which does this for you.
+5. Publish the Release APK:
    ```bash
    dotnet publish RecompOne.SoTN.Android.csproj -c Release
    ```
-4. The generated signed APK will be located at:
+6. The generated signed APK will be located at:
    `bin/Release/net10.0-android/com.blacklabelhq.sotn-Signed.apk`
-5. Install on your Android phone, tablet, or handheld (Retroid Pocket, Odin, etc.):
+7. Install on your Android phone, tablet, or handheld (Retroid Pocket, Odin, etc.):
    ```bash
    adb install -r bin/Release/net10.0-android/com.blacklabelhq.sotn-Signed.apk
    ```
 
+Requires Android 5.0 (API 21) or newer, on arm64 or x64. The first launch unpacks the
+disc and config out of the APK into app storage, so give it a moment before the title
+screen shows up.
+
 ### Android Features & Controls
-- **⚙️ In-Game Menu**: Tap the yellow **⚙ MENU** button on-screen to access Cheats, Display Settings, Touch Controls, and Disc Reloader.
+- **⚙️ In-Game Menu**: Tap the yellow **⚙ MENU** button on-screen to access Cheats, Save/Load State, Mods Manager, Display Settings, Touch Controls, and Disc Reloader.
 - **⚡ Built-in Cheats**: Includes Full Heal, God Mode (Max Stats & Gold), Level 99, and Max Gold toggles.
+- **💾 Save States**: 5 slots, saved and restored on the frame boundary from the in-game menu. Save and load from a comparable point in the game (mid-gameplay to mid-gameplay) - the emulated SPU is not serialised, so a state loaded in a different area can play the wrong samples until the game reloads them.
 - **📱 Dynamic Aspect Ratio & Auto-Fit**: Supports 4:3 Original, 16:9 Widescreen, Stretch, and **Auto-Fit Device** (dynamic fitting for landscape and portrait).
 - **🔄 Auto-Rotate & Orientation Lock**: Choose Auto-Rotate (Sensor), Lock Landscape, or Lock Portrait under Display Settings.
 - **🎮 Controller & Touch Overlay**:
-  - Full PSX Touch Control Overlay with D-Pad, 🔺 🟦 🔴 ✖ Action buttons, L1/L2/R1/R2, Select, and Start.
+  - Full PSX Touch Control Overlay with D-Pad or Virtual Analog Joystick (switchable under Touch Controls), 🔺 🟦 🔴 ✖ Action buttons, L1/L2/R1/R2, Select, and Start.
   - Native Bluetooth, USB, and Handheld Controller support (Retroid Pocket, Xbox, DualSense, Odin).
 - **🔊 Native Audio**: High-fidelity 44.1kHz audio powered by native `Android.Media.AudioTrack`.
 
@@ -80,4 +112,9 @@ this project was made using RecompOne to statically recompile the game, it also 
 
 # Todo:
 
+- **Pick your own bin/cue from inside the Android app.** Right now the disc is baked
+  into the APK at build time, which makes the APK huge and impossible to distribute
+  since it carries the game data. The app should ask for the bin/cue on first launch
+  and read them from wherever you put them, so a clean APK can be shared and everyone
+  supplies their own legally owned dump.
 - The rest of the README.MD ... eventually.
