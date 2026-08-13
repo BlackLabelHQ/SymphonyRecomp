@@ -2160,6 +2160,12 @@
       "target": "Recompiled.FunctionFixes.ClockCollisionFix"
     },
     {
+      "overlay": "bo2",
+      "function": "func_801A6EF8",
+      "mode": "pre",
+      "target": "Recompiled.FunctionFixes.MinotaurAndWerewolfFix"
+    },
+    {
       "overlay": "dra",
       "function": "func_80118C28",
       "mode": "pre",

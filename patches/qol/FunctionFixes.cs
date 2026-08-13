@@ -70,5 +70,25 @@ public static partial class FunctionFixes
             }
         }
     }
+
+    // Fix Minotaur & Werewolf Crash when entering from the right using Bat
+    // Hook func_801A6EF8 in bo2
+    public static void MinotaurAndWerewolfFix(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.BugFixes == false)
+            return;
+
+        byte Step = m.ReadU8(0x80077A84);
+        UInt16 PlayerStep = m.ReadU16(0x80073404);
+        UInt16 PlayerPosX = m.ReadU16(0x800733DA);
+
+        if (Step < 4 && PlayerPosX > 0x40 && (PlayerStep == 5 || PlayerStep == 0x18 || PlayerStep == 0x19))
+        {
+            m.WriteU16(0x80073404, 0);
+            m.WriteU16(0x80073406, 0);
+            m.WriteU16(0x800733EE, 0x8100);
+            m.WriteU16(0x800733F0, 0);
+        }
+    }
 }
 
