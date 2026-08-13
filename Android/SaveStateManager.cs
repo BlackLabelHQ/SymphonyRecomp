@@ -296,8 +296,25 @@ namespace RecompOne.SoTN.Android
                 GpuHle.NotifyDisplay(gpu.DisplayX, gpu.DisplayY, gpu.DisplayWidth, gpu.DisplayHeight);
                 GpuHle.Backend?.WriteVram(0, 0, 1024, 512, gpu.Vram);
 
-                // Reset Audio & XA playback
-                RecompOne.Runtime.Runtime.Spu?.Reset();
+                // Silence voices left over from before the load - but do NOT call Spu.Reset().
+                //
+                // Reset() zeroes the SPU main volume (_mainVolL/R and _mainCurL/R), SPUCNT and
+                // the CD volume. The mixer multiplies the final mix by _mainCurL/R, and the game
+                // only writes those registers during its init - none of them are part of the
+                // savestate, so nothing ever restores them and the game goes permanently silent
+                // after a load. Keying every voice off gives the intended "don't carry stale
+                // sound across a load" behaviour while leaving the volumes intact; the sound
+                // driver re-keys voices from the restored RAM within a frame or two.
+                const uint SpuBase = 0x1F801C00u;
+                var spu = RecompOne.Runtime.Runtime.Spu;
+                if (spu != null)
+                {
+                    spu.WriteReg16(SpuBase + 0x18Cu, 0xFFFF); // KOFF, voices 0-15
+                    spu.WriteReg16(SpuBase + 0x18Eu, 0x00FF); // KOFF, voices 16-23
+                }
+
+                // XA is safe to reset: it only clears the stream buffers and the playing flag,
+                // and the game restarts the stream itself.
                 XaAudio.Reset();
 
                 // NOTE: do NOT unwind the C# callstack here.
