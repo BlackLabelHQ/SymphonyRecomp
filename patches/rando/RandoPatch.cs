@@ -12675,4 +12675,19 @@ public static partial class RandoPatch
         }
     }
 
+    // Preempt NZ0_EntityCutscene
+    // If Cutscene would trigger and we entered from the left, mark the flag as tho we already saw it.
+    // This prevents a softlock.
+    public static void MariaAlchemyCutsceneFix(CpuContext c, IMemory m)
+    {
+        if (QualityOfLife.BugFixes == false)
+            return;
+
+        byte Flag = m.ReadU8(0x8003BE71);
+        UInt16 PosX = m.ReadU16(0x800733DA);
+
+        if (Flag == 0 && PosX < 64)
+            m.WriteU8(0x8003BE71, 1);
+    }
+
 }

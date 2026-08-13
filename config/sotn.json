@@ -2098,6 +2098,13 @@
       "target": "Recompiled.RandoPatch.SkipPrologue"
     },
     {
+      "comment": "Maria Alchemy Cutscene Fix",
+      "overlay": "nz0",
+      "function": "NZ0_EntityCutscene",
+      "mode": "pre",
+      "target": "Recompiled.RandoPatch.MariaAlchemyCutsceneFix"
+    },
+    {
       "comment": "Apply Integrated Randomizer Changes on Stage Load (End of Randomizer Entries)",
       "overlay": "dra",
       "function": "func_800F16D0",
