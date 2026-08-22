@@ -5,728 +5,832 @@
             "pt-BR": "Soft Reset",
             "es-419": "Soft Reset",
             "ja-jp": "ソフトリセット",
-            "cn-zh": "热启动"
+            "cn-zh": "热启动",
+			"fr-fr": "Soft Reset"
         },
         "common.not_in_play": {
             "en": "You're either:\n- In The Title Screen\n- Main Menu\n- Viewing the Credits\n\n\nYou're not playing as Alucard, Richter, or Maria in the game.",
             "pt-BR": "Você está:\n- Na Tela de Título\n- No Menu Principal\n- Assistindo aos Créditos\n\n\nVocê não está jogando como Alucard, Richter ou Maria.",
             "es-419": "Usted estás:\n- En la Pantalla de Título\n- En el Menú Principal\n- Viendo los Créditos\n\n\nNo estás jugando como Alucard, Richter o Maria.",
             "ja-jp": "現在は以下のいずれかの状態です：\n- タイトル画面\n- メインメニュー\n- クレジット表示中\n\n\nゲーム本編では、アルカード、リヒター、マリアを操作することはありません。",
-            "cn-zh": "你可能在:\n- 标题画面中\n- 主菜单界面中\n- 结尾字幕表中\n\n\n且你当前没有在操作阿鲁卡多、里希特、或玛丽亚。"
+            "cn-zh": "你可能在:\n- 标题画面中\n- 主菜单界面中\n- 结尾字幕表中\n\n\n且你当前没有在操作阿鲁卡多、里希特、或玛丽亚。",
+			"fr-fr": "Vous êtes soit:\n- Sur l'écran Titre\n- Dans le Menu Principal\n- Dans les Crédits\n\n\nVous ne jouez pas Alucard, Richter ou Maria en jeu"
         },
         "menu.misc": {
             "en": "Misc",
             "pt-BR": "Diversos",
             "es-419": "Varios",
             "ja-jp": "その他",
-            "cn-zh": "其他"
+            "cn-zh": "其他",
+			"fr-fr": "Divers"
         },
         "menu.misc.cheats": {
             "en": "Cheats",
             "pt-BR": "Cheats",
             "es-419": "Trucos",
             "ja-jp": "チート",
-            "cn-zh": "修改器"
+            "cn-zh": "修改器",
+			"fr-fr": "Triche"
         },
         "menu.misc.overlays": {
             "en": "Overlays",
             "pt-BR": "Overlays",
             "es-419": "Overlays",
             "ja-jp": "オーバーレイ",
-            "cn-zh": "叠加层"
+            "cn-zh": "叠加层",
+			"fr-fr": "Overlays"
         },
         "menu.randomizer": {
             "en": "Randomizer",
             "pt-BR": "Randomizer",
             "es-419": "Randomizer",
             "ja-jp": "ランダマイザー",
-            "cn-zh": "随机生成器"
+            "cn-zh": "随机生成器",
+			"fr-fr": "Randomizer"
         },
         "menu.help": {
             "en": "Help",
             "pt-BR": "Ajuda",
             "es-419": "Ayuda",
             "ja-jp": "ヘルプ",
-            "cn-zh": "帮助"
+            "cn-zh": "帮助",
+			"fr-fr": "Aide"
         },
         "menu.help.about": {
             "en": "About This Project",
             "pt-BR": "Sobre Este Projeto",
             "es-419": "Sobre Este Proyecto",
             "ja-jp": "このプロジェクトについて",
-            "cn-zh": "关于本企划"
+            "cn-zh": "关于本企划",
+			"fr-fr": "A propos du projet"
         },
         "menu.updates": {
             "en": "Updates",
             "pt-BR": "Atualizações",
             "es-419": "Actualizaciones",
             "ja-jp": "アップデイト",
-            "cn-zh": "版本更新"
+            "cn-zh": "版本更新",
+			"fr-fr": "Mises à jour"
         },
         "menu.updates.on_startup": {
             "en": "Check on Startup",
             "pt-BR": "Verificar ao Iniciar",
             "es-419": "Buscar al Iniciar",
             "ja-jp": "起動時に更新を確認する",
-            "cn-zh": "在启动时询问更新"
+            "cn-zh": "在启动时询问更新",
+			"fr-fr": "Vérifier au démarrage"
         },
         "menu.updates.check_now": {
             "en": "Check for Updates Now",
             "pt-BR": "Verificar Atualizações Agora",
             "es-419": "Buscar Actualizaciones Ahora",
             "ja-jp": "今すぐ更新を確認する",
-            "cn-zh": "现在检查更新"
+            "cn-zh": "现在检查更新",
+			"fr-fr": "Vérifier les Mises à jour"
         },
         "menu.updates.releases_page": {
             "en": "Open Releases Page",
             "pt-BR": "Abrir Página de Versões",
             "es-419": "Abrir Página de Versiones",
             "ja-jp": "リリース・ページを開く",
-            "cn-zh": "打开发布页"
+            "cn-zh": "打开发布页",
+			"fr-fr": "Ouvrir la page GitHub des versions"
         },
         "panel.qol": {
             "en": "Quality of Life",
             "pt-BR": "Qualidade de Vida",
             "es-419": "Calidad de Vida",
             "ja-jp": "改善オプション",
-            "cn-zh": "改进选项"
+            "cn-zh": "改进选项",
+			"fr-fr": "Options de confort"
         },
         "panel.randomizer": {
             "en": "Randomizer",
             "pt-BR": "Randomizer",
             "es-419": "Randomizer",
             "ja-jp": "ランダマイザー",
-            "cn-zh": "随机生成器"
+            "cn-zh": "随机生成器",
+			"fr-fr": "Randomizer"
         },
         "panel.cheats.movement": {
             "en": "Movement",
             "pt-BR": "Movimento",
             "es-419": "Movimiento",
             "ja-jp": "動き",
-            "cn-zh": "修改动作"
+            "cn-zh": "修改动作",
+			"fr-fr": "Mouvements"
         },
         "panel.cheats.stats": {
             "en": "Stats",
             "pt-BR": "Atributos",
             "es-419": "Estadísticas",
             "ja-jp": "ステータス",
-            "cn-zh": "修改状态"
+            "cn-zh": "修改状态",
+			"fr-fr": "Statistiques"
         },
         "panel.cheats.inventory": {
             "en": "Inventory",
             "pt-BR": "Inventário",
             "es-419": "Inventario",
             "ja-jp": "インベントリ",
-            "cn-zh": "修改装备"
+            "cn-zh": "修改装备",
+			"fr-fr": "Inventaire"
         },
         "panel.tracker": {
             "en": "Tracker Overlay",
             "pt-BR": "Overlay do Tracker",
             "es-419": "Overlay del Tracker",
             "ja-jp": "トラッカーオーバーレイ",
-            "cn-zh": "Tracker Overlay"
+            "cn-zh": "Tracker Overlay",
+			"fr-fr": "Tracker"
         },
         "panel.map": {
             "en": "Map Overlay",
             "pt-BR": "Overlay do Mapa",
             "es-419": "Overlay del Mapa",
             "ja-jp": "マップオーバーレイ",
-            "cn-zh": "Map Overlay"
+            "cn-zh": "Map Overlay",
+			"fr-fr": "Carte"
         },
         "qol.toggles": {
             "en": "Toggles",
             "pt-BR": "Opções",
             "es-419": "Opciones",
             "ja-jp": "トグル",
-            "cn-zh": "可选改进项"
+            "cn-zh": "可选改进项",
+			"fr-fr": "Cocher"
         },
         "qol.enhancements": {
             "en": "Enhancements",
             "pt-BR": "Melhorias",
             "es-419": "Mejoras",
             "ja-jp": "ゲームの機能強化",
-            "cn-zh": "强化选项"
+            "cn-zh": "强化选项",
+			"fr-fr": "Améliorations"
         },
         "qol.color_blind": {
             "en": "Color Blind Fixes",
             "pt-BR": "Correções para Daltônicos",
             "es-419": "Ajustes para Daltónicos",
             "ja-jp": "色盲の修正",
-            "cn-zh": "色盲修正"
+            "cn-zh": "色盲修正",
+			"fr-fr": "Options pour daltoniens"
         },
         "qol.color_blind.hint": {
             "en": "Makes relics easier to distinguish for colorblind players.",
             "pt-BR": "Torna as relíquias mais fáceis de distinguir para jogadores daltônicos.",
             "es-419": "Hace que las reliquias sean más fáciles de distinguir para jugadores daltónicos.",
             "ja-jp": "色覚特性を持つプレイヤーにとって、遺物を識別しやすくなります。",
-            "cn-zh": "对于色盲或色弱的玩家来说，启用本选项后更容易辨别魔导器的位置。"
+            "cn-zh": "对于色盲或色弱的玩家来说，启用本选项后更容易辨别魔导器的位置。",
+			"fr-fr": "Rends les reliques plus faciles à distinguer pour les joueurs daltoniens."
         },
         "qol.remove_flashing": {
             "en": "Remove Screen Flashes",
             "pt-BR": "Remover Flashes de Tela",
             "es-419": "Quitar Destellos de Pantalla",
             "ja-jp": "画面のフラッシュを無効にする",
-            "cn-zh": "去除画面中的白闪光"
+            "cn-zh": "去除画面中的白闪光",
+			"fr-fr": "Retirer les flashs de l'écran"
         },
         "qol.remove_flashing.hint": {
             "en": "Removes flashing screens from certain items and effects.",
             "pt-BR": "Remove os flashes de tela de certos itens e efeitos.",
             "es-419": "Quita los destellos de pantalla de ciertos objetos y efectos.",
             "ja-jp": "特定のアイテムやエフェクトによる画面の点滅を排除します。",
-            "cn-zh": "去除部分道具或技能的特效造成的画面闪烁"
+            "cn-zh": "去除部分道具或技能的特效造成的画面闪烁",
+			"fr-fr": "Enlève l'effet de flash de l'écrans de certains objets et effets."
         },
         "qol.bug_fixes": {
             "en": "Bug Fixes",
             "pt-BR": "Correções de Bugs",
             "es-419": "Correcciones de Errores",
             "ja-jp": "ゲームのバグ修正",
-            "cn-zh": "修正游戏中的bug"
+            "cn-zh": "修正游戏中的bug",
+			"fr-fr": "Correction de bugs"
         },
         "qol.bug_fixes.hint": {
             "en": "Various bug fixes and crash prevention items.",
             "pt-BR": "Diversas correções de bugs e prevenção de crashes.",
             "es-419": "Varias correcciones de errores y prevención de fallos.",
             "ja-jp": "各種バグの修正およびクラッシュ防止のための改善",
-            "cn-zh": "防止游戏原作的部分bug造成游戏崩溃或卡死的问题"
+            "cn-zh": "防止游戏原作的部分bug造成游戏崩溃或卡死的问题",
+			"fr-fr": "Corrections de divers bugs et des potentiels crash."
         },
         "qol.clear_file": {
             "en": "Clear File",
             "pt-BR": "Save Zerado",
             "es-419": "Partida Completada",
             "ja-jp": "クリアファイル",
-            "cn-zh": "已通关flag开启"
+            "cn-zh": "已通关flag开启",
+			"fr-fr": "Fichier propre"
         },
         "qol.clear_file.hint": {
             "en": "Removes the need for a clear file already on the memory card.",
             "pt-BR": "Remove a necessidade de já ter um save zerado no memory card.",
             "es-419": "Elimina la necesidad de tener una partida completada en la memory card.",
             "ja-jp": "メモリーカード上に既存のクリアファイルを用意する必要がなくなります",
-            "cn-zh": "开启后即便记忆卡里没有完美通关的存档，游戏也会认为你已完美通关过"
+            "cn-zh": "开启后即便记忆卡里没有完美通关的存档，游戏也会认为你已完美通关过",
+			"fr-fr": "Retire la nécessité d'avoir un fichier propre sur la carte mémoire."
         },
         "qol.anti_freeze": {
             "en": "No Screen Freeze",
             "pt-BR": "Sem Congelamento de Tela",
             "es-419": "Sin Congelamiento de Pantalla",
             "ja-jp": "画面のフリーズなし",
-            "cn-zh": "去除定屏效果"
+            "cn-zh": "去除定屏效果",
+			"fr-fr": "Pas de freeze de l'écran"
         },
         "qol.anti_freeze.hint": {
             "en": "Removes the screen freeze on level-up or relic acquisitions.",
             "pt-BR": "Remove o congelamento da tela ao subir de nível ou obter relíquias.",
             "es-419": "Quita el congelamiento de pantalla al subir de nivel u obtener reliquias.",
             "ja-jp": "レベルアップ時やレリック入手時に画面がフリーズするのを防ぎます。",
-            "cn-zh": "去除升级或得到魔导器后造成画面停止的效果"
+            "cn-zh": "去除升级或得到魔导器后造成画面停止的效果",
+			"fr-fr": "Supprime l'effet de freeze de l'écran lors de la montée de niveau ou de l'obtention d'une relique."
         },
         "qol.infinite_wing_smash": {
             "en": "Infinite Wing Smash",
             "pt-BR": "Wing Smash Infinito",
             "es-419": "Wing Smash Infinito",
             "ja-jp": "無限ウィング・スマッシュ",
-            "cn-zh": "无限Wing Smash"
+            "cn-zh": "无限Wing Smash",
+			"fr-fr": "Wing Smash Infini"
         },
         "qol.infinite_wing_smash.hint": {
             "en": "Make Wing Smash continue forever like in the Saturn version.",
             "pt-BR": "Faz o Wing Smash continuar para sempre, como na versão de Saturn.",
             "es-419": "Hace que Wing Smash continúe para siempre, como en la versión de Saturn.",
             "ja-jp": "セガサターン版と同様に、「ウィングスマッシュ」の効果は永続します。",
-            "cn-zh": "与Sega Saturn版一样，Wing Smash发动后没有距离限制"
+            "cn-zh": "与Sega Saturn版一样，Wing Smash发动后没有距离限制",
+			"fr-fr": "Permet au Wing Smash de durer indéfiniment comme dans la version Saturn."
         },
         "qol.easy_spell_input": {
             "en": "Easy Spell Inputs",
             "pt-BR": "Comandos de Magia Facilitados",
             "es-419": "Comandos de Hechizos Fáciles",
             "ja-jp": "簡単な呪文入力",
-            "cn-zh": "简易出招"
+            "cn-zh": "简易出招",
+			"fr-fr": "Commandes de sort facilité"
         },
         "qol.easy_spell_input.hint": {
             "en": "Make spell inputs, gravity jumps, and Wing Smashes easier to input through use of L2:\n- L2: Gravity Jump\n- L2 + Up + Square: Soul Steal\n- L2 + Down + Square: Tetra Spirit\n- L2 + Left or Right + Square: Hellfire\n- L2 in Bat: Wing Smash",
             "pt-BR": "Facilita magias, gravity jumps e Wing Smash usando o L2:\n- L2: Gravity Jump\n- L2 + Cima + Quadrado: Soul Steal\n- L2 + Baixo + Quadrado: Tetra Spirit\n- L2 + Esq ou Dir + Quadrado: Hellfire\n- L2 em forma de morcego: Wing Smash",
             "es-419": "Facilita hechizos, gravity jumps y Wing Smash usando L2:\n- L2: Gravity Jump\n- L2 + Arriba + Cuadrado: Soul Steal\n- L2 + Abajo + Cuadrado: Tetra Spirit\n- L2 + Izq o Der + Cuadrado: Hellfire\n- L2 en forma de murciélago: Wing Smash",
             "ja-jp": "L2ボタンを活用することで、魔法、グラビティジャンプ、ウィングスマッシュの操作が簡単になります:\n- L2:グラビティジャンプ\n- L2 + 上 + □：ソウルスティール\n- L2 + 下 + □：テトラ・スピリット\n- L2 + 左右 + □：ヘルファイア\n- コウモリ変身中にL2:ウィングスマッシュ",
-            "cn-zh": "通过L2键的功能使必杀技, 高跳, Wing Smash的出招更简单: L2: 高跳\n- L2 + 上 + 方块键: 夺魂咒\n- L2 + 下 + 方块键: 四魂召唤\n- L2 + 左/右 + 方块键: 地狱烈焰\n- 蝙蝠状态下L2 : Wing Smash"
+            "cn-zh": "通过L2键的功能使必杀技, 高跳, Wing Smash的出招更简单: L2: 高跳\n- L2 + 上 + 方块键: 夺魂咒\n- L2 + 下 + 方块键: 四魂召唤\n- L2 + 左/右 + 方块键: 地狱烈焰\n- 蝙蝠状态下L2 : Wing Smash",
+			"fr-fr": "Facilite les commandes pour les sorts, gravity jumps and le Wing Smash avec la Touche L2:\n- L2: Gravity Jump\n- L2 + Haut + Carré: Soul Steal\n- L2 + Bas + Carré: Tetra Spirit\n- L2 + Gauche ou Droite + Carré: Hellfire\n- L2 en Chauve-Souris: Wing Smash"
         },
         "qol.invincibility_frames": {
             "en": "Increase Invincibility Frames",
             "pt-BR": "Aumentar Frames de Invencibilidade",
             "es-419": "Aumentar Frames de Invencibilidad",
             "ja-jp": "無敵時間を延長する",
-            "cn-zh": "增加无敌时间"
+            "cn-zh": "增加无敌时间",
+			"fr-fr": "Augmentation des Frames d'invincibilité"
         },
         "qol.invincibility_frames.hint": {
             "en": "Increases the invincibility frames by 4 frames on everything which already gives them.",
             "pt-BR": "Aumenta em 4 frames a invencibilidade de tudo que já a concede.",
             "es-419": "Aumenta en 4 frames la invencibilidad de todo lo que ya la otorga.",
             "ja-jp": "無敵時間を持つすべてのアクションにおいて、その無敵時間が4フレーム延長されます。",
-            "cn-zh": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。"
+            "cn-zh": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。",
+			"fr-fr": "Augmente de 4 frames l'invincibilité obtenu avec les objets qui en confèrent."
         },
         "qol.fairy_song": {
             "en": "Restore Sprite Familiar Nocturne Song",
             "pt-BR": "Restaurar a Canção Nocturne da Sprite",
             "es-419": "Restaurar la Canción Nocturne del Sprite",
             "ja-jp": "ようせいファミリアの「ノクターン」を復元する",
-            "cn-zh": "修复半妖精的【夜曲】播放功能"
+            "cn-zh": "修复半妖精的【夜曲】播放功能",
+			"fr-fr": "Restaurer la chanson Nocturne du familier Fée"
         },
         "qol.fairy_song.hint": {
             "en": "If you have the Sprite familiar, otherwise known as the Pixie familiar, summoned and you're\nsitting in a chair idle for 1 minute, it will make her sing the song 'Nocturne,' in Japanese.\n\nNote: This is the one with a green outfit which is named 'Yousei' in Japanese...\nNot the blue outfit one that you're probably thinking it is which is named 'Faerie' in English!\n\nNote2: This familiar is only available CURRENTLY via the randomizer or by giving 'Sprite Card (JP)' to yourself in the Inventory Cheat Menu!",
             "pt-BR": "Com a familiar Sprite (também conhecida como Pixie) invocada, se você ficar sentado\nnuma cadeira parado por 1 minuto, ela canta a música 'Nocturne' em japonês.\n\nNota: é a de roupa verde, chamada 'Yousei' em japonês...\nNão é a de roupa azul, que em inglês se chama 'Faerie'!\n\nNota 2: essa familiar só está disponível ATUALMENTE via randomizer ou dando o 'Sprite Card (JP)' a si mesmo no menu de cheats de inventário!",
             "es-419": "Con la familiar Sprite (también conocida como Pixie) invocada, si te quedas sentado\nen una silla sin moverte por 1 minuto, cantará la canción 'Nocturne' en japonés.\n\nNota: es la del traje verde, llamada 'Yousei' en japonés...\n¡No la del traje azul, que en inglés se llama 'Faerie'!\n\nNota 2: esta familiar solo está disponible ACTUALMENTE por el randomizer o dándote la 'Sprite Card (JP)' en el menú de trucos de inventario.",
             "ja-jp": "「スプライト」(別名「ピクシー」)の使い魔を召喚した状態で椅子に座り、1分間何もしないでいると、\n彼女が日本語で「ノクターン」を歌い始めます。\n\n注:ここで言う使い魔とは、緑色の衣装を身にまとったタイプ(日本版での名称は「妖精」)のことです。青い衣装の「フェアリー」のことではありませんのでご注意ください!\n\n注2:現在、この使い魔はランダマイザーを使用するか、インベントリのチートメニューから「Sprite Card (JP)」を入手することでのみ獲得可能です。",
-            "cn-zh": "如果你拥有使魔【半妖精】（或称Pixie）, 召唤她并坐上椅子, 之后不进行操作大约1分钟后, 她会唱一首叫【夜曲】的日文歌。\n\n注意: 半妖精的衣服是绿的, 使魔列表里的名称是 'Yousei' ...\n而不是蓝色衣服，使魔列表里名称是 'Faerie' 的那只!\n\n注意2: 当前这个使魔只能通过随机生成器或开启修改器选项>修改装备中的【'Sprite Card (JP)'】来启用!"
+            "cn-zh": "如果你拥有使魔【半妖精】（或称Pixie）, 召唤她并坐上椅子, 之后不进行操作大约1分钟后, 她会唱一首叫【夜曲】的日文歌。\n\n注意: 半妖精的衣服是绿的, 使魔列表里的名称是 'Yousei' ...\n而不是蓝色衣服，使魔列表里名称是 'Faerie' 的那只!\n\n注意2: 当前这个使魔只能通过随机生成器或开启修改器选项>修改装备中的【'Sprite Card (JP)'】来启用!",
+			"fr-fr": "Si vous avez la Fée, aussi connue comme Pixie, invoquée et que vous\nrestez assis une minute sur une chaise, elle commencera à chanter 'Nocturne', en Japonais.\n\nNote: Il s'agit de celle avec la tenue verte, aussi appelée 'Yousei' en Japonais...\nPas celle avec la tenue bleue qui est appelée 'Faerie' en Anglais.\n\nNote 2: Ce familier est seulement disponible ACTUELLEMENT via le randomizer ou en vous donnant l'objet 'Spirit Card(JP)' dans le menu de triche de l'inventaire."
         },
         "startup.title": {
             "en": "SymphonyRecomp",
             "pt-BR": "SymphonyRecomp",
             "es-419": "SymphonyRecomp",
             "ja-jp": "SymphonyRecomp - RecompX月下の夜想曲",
-            "cn-zh": "月下夜想曲重编译企划"
+            "cn-zh": "月下夜想曲重编译企划",
+			"fr-fr": "SymphonyRecomp"
         },
         "startup.beta": {
             "en": "SymphonyRecomp is a 'RE'comp (NOT A 'DE'comp) of the PSX version of Castlevania: Symphony of the Night.\n\nThis recomp project is in a beta state and it is not yet finished. You will experience game breaking bugs and issues, please report any bugs on the GitHub or in the BlackLabelHQ Discord Server to help us improve the project.\n\nThis project is not affiliated with Konami or Sony.\n\nThanks for playing!",
             "pt-BR": "O SymphonyRecomp é um 'RE'comp (NÃO É UM 'DE'comp) da versão de PSX de Castlevania: Symphony of the Night.\n\nEste projeto está em beta e ainda não está finalizado. Você vai encontrar bugs que quebram o jogo, por favor reporte qualquer problema no GitHub ou no servidor Discord da BlackLabelHQ para nos ajudar a melhorar o projeto.\n\nEste projeto não tem qualquer vínculo com a Konami ou a Sony.\n\nObrigado por jogar!",
             "es-419": "SymphonyRecomp es un 'RE'comp (NO ES UN 'DE'comp) de la versión de PSX de Castlevania: Symphony of the Night.\n\nEste proyecto está en beta y todavía no está terminado. Te vas a encontrar con errores que rompen el juego, por favor reporta cualquier problema en GitHub o en el servidor de Discord de BlackLabelHQ para ayudarnos a mejorar el proyecto.\n\nEste proyecto no está afiliado a Konami ni a Sony.\n\n¡Gracias por jugar!",
             "ja-jp": "SymphonyRecompは、PSX版『悪魔城ドラキュラX 月下の夜想曲』(Castlevania: Symphony of the Night)の「Recompilation(再コンパイル)」プロジェクトです(「Decompilation(逆コンパイル)」ではありません)。\n\n本プロジェクトは現在ベータ版であり、開発途上の段階にあります。ゲームの進行が不可能になるようなバグや不具合が発生する可能性があります。プロジェクトの改善にご協力いただける場合は、GitHubまたはBlackLabelHQのDiscordサーバーにてバグをご報告ください。\n\n本プロジェクトは、コナミやソニーとは一切関係ありません。\n\nプレイしていただき、ありがとうございます!",
-            "cn-zh": "【月下夜想曲重编译企划】是基于PSX美版《恶魔城X：月下夜想曲》的'重'编译（注意不是'反'编译）企划。\n\n这个重编译企划目前仍处于 beta 阶段，尚未完成。 在此过程中你可能会遭遇一些bug或问题, 如果可以的话请将问题反馈到本企划的 GitHub 页面或者 BlackLabelHQ 的 Discord 频道来帮助我们完善本企划。\n\n本企划与 Konami 或 Sony 的任何行动无关。\n\n希望你玩得开心!"
+            "cn-zh": "【月下夜想曲重编译企划】是基于PSX美版《恶魔城X：月下夜想曲》的'重'编译（注意不是'反'编译）企划。\n\n这个重编译企划目前仍处于 beta 阶段，尚未完成。 在此过程中你可能会遭遇一些bug或问题, 如果可以的话请将问题反馈到本企划的 GitHub 页面或者 BlackLabelHQ 的 Discord 频道来帮助我们完善本企划。\n\n本企划与 Konami 或 Sony 的任何行动无关。\n\n希望你玩得开心!",
+			"fr-fr": "SymphonyRecomp est une 'RE'compilation (Pas une 'DE'compilation) de la version PSX de Castlevania: Symphony of the Night.\n\nCe projet de recompilation est actuellement en bêta et n'est pas encore fini. Il y a encore des bugs et problèmes bloquants, merci de signaler tout bug que vous trouverez sur la page GitHub ou sur le serveur Discord BlackLabelHQ pour nous aider à améliorer le projet.\n\n Ce projet n'est pas affilié avec Konami ou Sony.\n\nMerci d'avoir joué !"
         },
         "about.title": {
             "en": "About",
             "pt-BR": "Sobre",
             "es-419": "Acerca de",
             "ja-jp": "について",
-            "cn-zh": "关于本企划"
+            "cn-zh": "关于本企划",
+			"fr-fr": "A propos"
         },
         "about.disclaimer": {
             "en": "SymphonyRecomp is a fan-made project for the PSX version of Castlevania: Symphony of the Night. It is not affiliated with Konami or Sony. It was made for fans, by fans. <3",
             "pt-BR": "O SymphonyRecomp é um projeto feito por fãs para a versão de PSX de Castlevania: Symphony of the Night. Não tem qualquer vínculo com a Konami ou a Sony. Foi feito por fãs, para fãs. <3",
             "es-419": "SymphonyRecomp es un proyecto hecho por fans para la versión de PSX de Castlevania: Symphony of the Night. No está afiliado a Konami ni a Sony. Fue hecho por fans, para fans. <3",
             "ja-jp": "SymphonyRecompは、PSX『悪魔城ドラキュラX 月下の夜想曲』を対象としたファンメイドのプロジェクトです。コナミやソニーとは一切関係ありません。ファンによる、ファンのためのプロジェクトです。 <3",
-            "cn-zh": "【月下夜想曲重编译企划】是基于PSX美版《恶魔城X：月下夜想曲》的'重'编译（注意不是'反'编译）企划。本企划与 Konami 或 Sony 的任何行动无关，是由原作的爱好者制作并面向原作爱好者的非商业企划。"
+            "cn-zh": "【月下夜想曲重编译企划】是基于PSX美版《恶魔城X：月下夜想曲》的'重'编译（注意不是'反'编译）企划。本企划与 Konami 或 Sony 的任何行动无关，是由原作的爱好者制作并面向原作爱好者的非商业企划。",
+			"fr-fr": "SmphonyRecomp est un projet de fan pour la version PSX de Castlevania: Symphony of the Night. Aucune affiliation avec Konami ou Sony. Fait par des fans, pour d'autres fans. <3"
         },
         "about.recomp": {
             "en": "Please note SymphonyRecomp is a 'RE'comp. Not a 'De'comp. They're 2 separate concepts/projects. Please only ask questions about SymphonyRecomp in the BlackLabelHQ Discord Server.",
             "pt-BR": "Lembre-se: o SymphonyRecomp é um 'RE'comp, não um 'De'comp. São dois conceitos/projetos diferentes. Tire dúvidas sobre o SymphonyRecomp apenas no servidor Discord da BlackLabelHQ.",
             "es-419": "Ten en cuenta que SymphonyRecomp es un 'RE'comp, no un 'De'comp. Son dos conceptos/proyectos distintos. Haz preguntas sobre SymphonyRecomp solo en el servidor de Discord de BlackLabelHQ.",
             "ja-jp": "SymphonyRecompは「Decomp(デコンパイル)」ではなく、「REcomp(リコンパイル)」である点にご注意ください。これらは別個の概念・プロジェクトです。SymphonyRecompに関するご質問は、BlackLabelHQのDiscordサーバーにてお願いいたします。",
-            "cn-zh": "需要注意的是【月下夜想曲重编译企划（SymphonyRecomp）】并不是【Decomp(反编译)】，而是【REcomp(重编译)】。两者各有一个企划，但两者之间并不共通。关于月下夜想曲重编译企划的任何疑问，请尽量只在 BlackLabelHQ 的 Discord 频道内提问。"
+            "cn-zh": "需要注意的是【月下夜想曲重编译企划（SymphonyRecomp）】并不是【Decomp(反编译)】，而是【REcomp(重编译)】。两者各有一个企划，但两者之间并不共通。关于月下夜想曲重编译企划的任何疑问，请尽量只在 BlackLabelHQ 的 Discord 频道内提问。",
+			"fr-fr": "Veuillez notez que SymphonyRecomp est une 'RE'compilation. Pas une 'DE'compilation. Ce sont 2 projets/concepts différents. Veuillez posez vos questions dans le serveur Discord BlackLabelHQ uniquement à propos de SymphonyRecomp."
         },
         "about.decomp_server": {
             "en": "Please don't bother the people at the SOTN Decomp server about this project.",
             "pt-BR": "Por favor, não incomode o pessoal do servidor do SOTN Decomp sobre este projeto.",
             "es-419": "Por favor, no molestes a la gente del servidor de SOTN Decomp sobre este proyecto.",
             "ja-jp": "このプロジェクトに関して、SOTN Decompサーバーの方々に迷惑をかけないようにしてください。",
-            "cn-zh": "请尽量不要因为本企划而给在SOTN Decomp频道内的成员造成困惑。"
+            "cn-zh": "请尽量不要因为本企划而给在SOTN Decomp频道内的成员造成困惑。",
+			"fr-fr": "S'il vous plaît, n'embetez pas les personnes du serveur SOTN Decomp à propos de ce projet."
         },
         "about.made_by": {
             "en": "Made By:",
             "pt-BR": "Feito por:",
             "es-419": "Hecho por:",
             "ja-jp": "作成者:",
-            "cn-zh": "制作者"
+            "cn-zh": "制作者",
+			"fr-fr": "Réalisé par:"
         },
         "update.title": {
             "en": "Update",
             "pt-BR": "Atualização",
             "es-419": "Actualización",
             "ja-jp": "アップデート",
-            "cn-zh": "版本更新"
+            "cn-zh": "版本更新",
+			"fr-fr": "Mise à jour"
         },
         "update.status.checking": {
             "en": "Checking for updates...",
             "pt-BR": "Verificando atualizações...",
             "es-419": "Buscando actualizaciones...",
             "ja-jp": "更新を確認しています...",
-            "cn-zh": "正在检查更新..."
+            "cn-zh": "正在检查更新...",
+			"fr-fr": "Recherche de mises à jour"
         },
         "update.status.available": {
             "en": "{0} available",
             "pt-BR": "{0} disponível",
             "es-419": "{0} disponible",
             "ja-jp": "{0} 利用可能",
-            "cn-zh": "目前有更新"
+            "cn-zh": "目前有更新",
+			"fr-fr": "{0} disponible"
         },
         "update.status.downloading": {
             "en": "Downloading {0}...",
             "pt-BR": "Baixando {0}...",
             "es-419": "Descargando {0}...",
             "ja-jp": "{0} をダウンロード中...",
-            "cn-zh": "更新文件下载中..."
+            "cn-zh": "更新文件下载中...",
+			"fr-fr": "Téléchargement de {0}..."
         },
         "update.status.applying": {
             "en": "Restarting to update...",
             "pt-BR": "Reiniciando para atualizar...",
             "es-419": "Reiniciando para actualizar...",
             "ja-jp": "更新のために再起動しています...",
-            "cn-zh": "重新启动以加载更新..."
+            "cn-zh": "重新启动以加载更新...",
+			"fr-fr": "Redémarrez pour appliquer la mise à jour..."
         },
         "update.status.failed": {
             "en": "Last update attempt failed",
             "pt-BR": "A última tentativa de atualização falhou",
             "es-419": "El último intento de actualización falló",
             "ja-jp": "前回の更新の試行が失敗しました。",
-            "cn-zh": "最近一次的更新失败了。"
+            "cn-zh": "最近一次的更新失败了。",
+			"fr-fr": "La dernière tentative de mise à jour a échoué"
         },
         "update.status.dev": {
             "en": "Development Build",
             "pt-BR": "Build de Desenvolvimento",
             "es-419": "Build de Desarrollo",
             "ja-jp": "DEVのビルド",
-            "cn-zh": "正在检查更新..."
+            "cn-zh": "正在检查更新...",
+			"fr-fr": "Build de développement"
         },
         "update.status.running": {
             "en": "Running {0}",
             "pt-BR": "Executando {0}",
             "es-419": "Ejecutando {0}",
             "ja-jp": "{0} を実行中",
-            "cn-zh": "{0} 在运行中"
+            "cn-zh": "{0} 在运行中",
+			"fr-fr": "En cours {0}"
         },
         "update.headline.available": {
             "en": "{0} is available",
             "pt-BR": "{0} está disponível",
             "es-419": "{0} está disponible",
             "ja-jp": "{0}が利用可能です",
-            "cn-zh": "{0} 使用可能"
+            "cn-zh": "{0} 使用可能",
+			"fr-fr": "{0} est disponible"
         },
         "update.headline.downloading": {
             "en": "Downloading {0}",
             "pt-BR": "Baixando {0}",
             "es-419": "Descargando {0}",
             "ja-jp": "{0} をダウンロード中",
-            "cn-zh": "{0} 在下载中"
+            "cn-zh": "{0} 在下载中",
+			"fr-fr": "Téléchargement de {0}"
         },
         "update.headline.installing": {
             "en": "Installing {0}",
             "pt-BR": "Instalando {0}",
             "es-419": "Instalando {0}",
             "ja-jp": "{0} をインストールしています",
-            "cn-zh": "{0} 已安装"
+            "cn-zh": "{0} 已安装",
+			"fr-fr": "Installation de {0}"
         },
         "update.headline.failed": {
             "en": "Update failed",
             "pt-BR": "A atualização falhou",
             "es-419": "La actualización falló",
             "ja-jp": "更新に失敗しました",
-            "cn-zh": "更新失败了"
+            "cn-zh": "更新失败了",
+			"fr-fr": "Echec de la mise à jour"
         },
         "update.current": {
             "en": "current {0}",
             "pt-BR": "atual {0}",
             "es-419": "actual {0}",
             "ja-jp": "現在の {0}",
-            "cn-zh": "现在的 {0} "
+            "cn-zh": "现在的 {0} ",
+			"fr-fr": "Actuel {0}"
         },
         "update.not_writable": {
             "en": "This folder is not writable, so the update cannot be installed automatically. Download it manually or move the game somewhere you can write to.",
             "pt-BR": "Esta pasta não permite escrita, então a atualização não pode ser instalada automaticamente. Baixe manualmente ou mova o jogo para um local onde você possa escrever.",
             "es-419": "Esta carpeta no permite escritura, así que la actualización no se puede instalar automáticamente. Descárgala manualmente o mueve el juego a un lugar donde puedas escribir.",
             "ja-jp": "このフォルダには書き込み権限がないため、アップデートを自動的にインストールできません。手動でダウンロードするか、書き込み可能な場所にゲームを移動してください。",
-            "cn-zh": "当前的目录没有修改权限，所以更新文件无法自动安装。请手动下载新版本的文件或将文件移动到有修改权限的路径再操作。"
+            "cn-zh": "当前的目录没有修改权限，所以更新文件无法自动安装。请手动下载新版本的文件或将文件移动到有修改权限的路径再操作。",
+			"fr-fr": "Impossible d'écrire dans ce dossier, la mise à jour ne peut pas être faite automatiquement. Téléchargez-la manuellement ou déplacez le jeu à un endroit ou vous pouvez écrire"
         },
         "update.no_notes": {
             "en": "This release ships no notes.",
             "pt-BR": "Esta versão não tem notas.",
             "es-419": "Esta versión no trae notas.",
             "ja-jp": "このリリースにはリリースノートは含まれていません。",
-            "cn-zh": "此版本不附带任何说明。 "
+            "cn-zh": "此版本不附带任何说明。 ",
+			"fr-fr": "Cette version n'a pas de notes"
         },
         "update.install": {
             "en": "Install",
             "pt-BR": "Instalar",
             "es-419": "Instalar",
             "ja-jp": "インストール",
-            "cn-zh": "安装 "
+            "cn-zh": "安装 ",
+			"fr-fr": "Installer"
         },
         "update.not_now": {
             "en": "Not now",
             "pt-BR": "Agora não",
             "es-419": "Ahora no",
             "ja-jp": "今じゃない",
-            "cn-zh": "现在略过"
+            "cn-zh": "现在略过",
+			"fr-fr": "Pas maintenant"
         },
         "update.skip": {
             "en": "Skip {0}",
             "pt-BR": "Pular {0}",
             "es-419": "Omitir {0}",
             "ja-jp": "{0}をスキップ",
-            "cn-zh": "跳过 {0}"
+            "cn-zh": "跳过 {0}",
+			"fr-fr": "Passer {0}"
         },
         "update.retry": {
             "en": "Retry",
             "pt-BR": "Tentar de novo",
             "es-419": "Reintentar",
             "ja-jp": "リトライ",
-            "cn-zh": "重试"
+            "cn-zh": "重试",
+			"fr-fr": "Réessayer"
         },
         "update.releases_page": {
             "en": "Releases page",
             "pt-BR": "Página de versões",
             "es-419": "Página de versiones",
             "ja-jp": "リリース・ページ",
-            "cn-zh": "发布页面"
+            "cn-zh": "发布页面",
+			"fr-fr": "Page des versions"
         },
         "update.restarting": {
             "en": "restarting",
             "pt-BR": "reiniciando",
             "es-419": "reiniciando",
             "ja-jp": "再起動中",
-            "cn-zh": "重新启动中"
+            "cn-zh": "重新启动中",
+			"fr-fr": "Redémarrage"
         },
         "update.reopening": {
             "en": "The game will reopen in a moment",
             "pt-BR": "O jogo vai reabrir em instantes",
             "es-419": "El juego se volverá a abrir en un momento",
             "ja-jp": "まもなくゲームが再開されます",
-            "cn-zh": "游戏正在重新启动"
+            "cn-zh": "游戏正在重新启动",
+			"fr-fr": "Le jeu va se réouvrir dans quelques instants"
         },
         "rando.preset_warning": {
             "en": "You're using an incompatible randomizer preset, it may not work as intended!",
             "pt-BR": "Você está usando um preset de randomizer incompatível, pode não funcionar como esperado!",
             "es-419": "Estás usando un preset de randomizer incompatible, ¡puede que no funcione como se espera!",
             "ja-jp": "互換性のないランダマイザープリセットを使用しています。意図した通りに動作しない可能性があります。",
-            "cn-zh": "你正在使用与recomp前端不兼容的随机生成器预设，可能会产生错误的结果。"
+            "cn-zh": "你正在使用与recomp前端不兼容的随机生成器预设，可能会产生错误的结果。",
+			"fr-fr": "Vous utilisez un preset de randomizer incompatible, ça pourrait ne pas fonctionner comme prévu"
         },
         "rando.preset": {
             "en": "preset: {0}",
             "pt-BR": "preset: {0}",
             "es-419": "preset: {0}",
             "ja-jp": "プリセット: {0}",
-            "cn-zh": "预设"
+            "cn-zh": "预设",
+			"fr-fr": "preset: {0}"
         },
         "rando.continue_anyway": {
             "en": "Continue anyway",
             "pt-BR": "Continuar mesmo assim",
             "es-419": "Continuar de todos modos",
             "ja-jp": "いずれにせよ続行する",
-            "cn-zh": "强制继续"
+            "cn-zh": "强制继续",
+			"fr-fr": "Continuer malgré tout"
         },
         "widescreen.aspect": {
             "en": "Aspect Ratio",
             "pt-BR": "Proporção de Tela",
             "es-419": "Relación de Aspecto",
             "ja-jp": "アスペクト比",
-            "cn-zh": "画面比例"
+            "cn-zh": "画面比例",
+			"fr-fr": "Ratio d'écran"
         },
         "widescreen.original": {
             "en": "Original",
             "pt-BR": "Original",
             "es-419": "Original",
             "ja-jp": "オリジナル",
-            "cn-zh": "原始"
+            "cn-zh": "原始",
+			"fr-fr": "Original"
         },
         "widescreen.letterboxing": {
             "en": "Letterboxing",
             "pt-BR": "Letterboxing",
             "es-419": "Letterboxing",
             "ja-jp": "レターボクシング",
-            "cn-zh": "Letterboxing"
+            "cn-zh": "Letterboxing",
+			"fr-fr": "Letterbox"
         },
         "widescreen.letterboxing_hint": {
             "en": "Keeps the original top/bottom black bars in the stage view. Turn off to use the full vertical resolution. (will show some void on some areas)",
             "pt-BR": "Mantém as barras pretas originais em cima e embaixo na visão do estágio. Desligue para usar toda a resolução vertical. (vai mostrar vazio em algumas áreas)",
             "es-419": "Mantiene las barras negras originales arriba y abajo en la vista del escenario. Desactívalo para usar toda la resolución vertical. (mostrará vacío en algunas áreas)",
             "ja-jp": "ステージ表示において、上下の黒帯を維持します。オフにすると、垂直方向の解像度をフルに活用できます(ただし、一部に余白が生じます)。",
-            "cn-zh": "保留原作PSX版中画面上下的黑带部分。关闭后画面的纵向区域会铺满窗口。（但是原作未渲染的区域可能会产生不自然的空白。）"
+            "cn-zh": "保留原作PSX版中画面上下的黑带部分。关闭后画面的纵向区域会铺满窗口。（但是原作未渲染的区域可能会产生不自然的空白。）",
+			"fr-fr": "Conserve les bandes noirs original en haut et en bas. Désactivez pour utiliser toute la résolution verticale. (montrera du vide dans certaines zones)"
         },
         "widescreen.unstretch": {
             "en": "unstretch",
             "pt-BR": "unstretch",
             "es-419": "unstretch",
             "ja-jp": "ゲーム画面の引き伸ばしを無効にする",
-            "cn-zh": "禁用画面拉伸"
+            "cn-zh": "禁用画面拉伸",
+			"fr-fr": "Rendu natif en écran large"
         },
         "widescreen.unstretch_hint": {
             "en": "Renders the stage with square pixels instead of stretching it to fit 4:3",
             "pt-BR": "Renderiza o estágio com pixels quadrados em vez de esticá-lo para caber em 4:3",
             "es-419": "Renderiza el escenario con píxeles cuadrados en lugar de estirarlo para ajustarse a 4:3",
             "ja-jp": "ステージを4:3に引き伸ばすのではなく、正方形のピクセルで描画します。",
-            "cn-zh": "以正方形像素渲染关卡场景而非将其拉伸以适应4:3比例。"
+            "cn-zh": "以正方形像素渲染关卡场景而非将其拉伸以适应4:3比例。",
+			"fr-fr": "Affiche la scène au delà du format original au lieu de l'étirer pour l'adapter au format 4:3"
         },
         "widescreen.warning": {
             "en": "Anything other than the original aspect ratio is not fully supported yet, this WILL cause problems, use it at your own risk",
             "pt-BR": "Qualquer proporção diferente da original ainda não é totalmente suportada, isso VAI causar problemas, use por sua conta e risco",
             "es-419": "Cualquier relación de aspecto distinta de la original aún no está totalmente soportada, esto VA a causar problemas, úsalo bajo tu propio riesgo",
             "ja-jp": "オリジナルのアスペクト比以外の設定はまだ完全にはサポートされておらず、問題が発生する可能性があります。使用は自己責任でお願いします。",
-            "cn-zh": "除原作PSX版以外的其他画面比例尚未完全支持，并且可能会发生错误，关于这一点请留意。"
+            "cn-zh": "除原作PSX版以外的其他画面比例尚未完全支持，并且可能会发生错误，关于这一点请留意。",
+			"fr-fr": "Les formats autres que celui d'origine ne sont pas encore pleinement supportés, cela causera FORCEMENT des problèmes, utilisez cette option à vos risques et périls"
         },
         "rando.no_memory": {
             "en": "Missing memory context.",
             "pt-BR": "Contexto de memória ausente.",
             "es-419": "Falta el contexto de memoria.",
             "ja-jp": "メモリコンテキストが不足しています。",
-            "cn-zh": "Letterboxing"
+            "cn-zh": "Letterboxing",
+			"fr-fr": "Pas de contexte mémoire."
         },
         "rando.external_seed": {
             "en": "Built in randomizer cannot be combined\nwith externally randomized seeds.",
             "pt-BR": "O randomizer interno não pode ser combinado\ncom seeds randomizadas externamente.",
             "es-419": "El randomizer interno no se puede combinar\ncon seeds randomizadas externamente.",
             "ja-jp": "内蔵のランダマイザーは、外部でランダム化されたシードと組み合わせることはできません。",
-            "cn-zh": "recomp前端内建的随机生成器无法与其他外部随机生成器的种子结合。"
+            "cn-zh": "recomp前端内建的随机生成器无法与其他外部随机生成器的种子结合。",
+			"fr-fr": "Le randomizer intégré ne peut pas être combiné avec une seed externe."
         },
         "rando.title_screen_only": {
             "en": "Return to the title screen\nto use the randomizer.",
             "pt-BR": "Volte para a tela de título\npara usar o randomizer.",
             "es-419": "Vuelve a la pantalla de título\npara usar el randomizer.",
             "ja-jp": "ランダマイザーを使用するには、\nタイトル画面に戻ってください。",
-            "cn-zh": "请返回标题画面以使随机生成器生效。"
+            "cn-zh": "请返回标题画面以使随机生成器生效。",
+			"fr-fr": "Retournez à l'écran titre pour utiliser le randomizer."
         },
         "rando.toggles": {
             "en": "Toggles",
             "pt-BR": "Opções",
             "es-419": "Opciones",
             "ja-jp": "トグル",
-            "cn-zh": "开关"
+            "cn-zh": "开关",
+			"fr-fr": "Basculer"
         },
         "rando.items": {
             "en": "Randomize Items",
             "pt-BR": "Randomizar Itens",
             "es-419": "Randomizar Objetos",
             "ja-jp": "アイテムをランダムに並べ替える",
-            "cn-zh": "打乱物品的位置"
+            "cn-zh": "打乱物品的位置",
+			"fr-fr": "Randomizer les Items"
         },
         "rando.items.hint": {
             "en": "Randomize items in stages, including the shop,\n and prologue rewards.",
             "pt-BR": "Randomiza os itens dos estágios, incluindo a loja\ne as recompensas do prólogo.",
             "es-419": "Randomiza los objetos de los escenarios, incluyendo la tienda\ny las recompensas del prólogo.",
             "ja-jp": "ショップやプロローグの報酬を含む、各ステージのアイテムをランダム化します。",
-            "cn-zh": "打乱所有物品的位置，包含商店与序章结束的奖励"
+            "cn-zh": "打乱所有物品的位置，包含商店与序章结束的奖励",
+			"fr-fr": "Randomize les items dans les stages, y compris ceux des boutiques et les récompenses du prologue."
         },
         "rando.drops": {
             "en": "Randomize Drops",
             "pt-BR": "Randomizar Drops",
             "es-419": "Randomizar Drops",
             "ja-jp": "アイテムのドロップをランダム化する",
-            "cn-zh": "打乱敌人掉落"
+            "cn-zh": "打乱敌人掉落",
+			"fr-fr": "Randomizer les Drops"
         },
         "rando.drops.hint": {
             "en": "Randomize items dropped from enemies.",
             "pt-BR": "Randomiza os itens que os inimigos deixam cair.",
             "es-419": "Randomiza los objetos que sueltan los enemigos.",
             "ja-jp": "敵がドロップするアイテムをランダム化する。",
-            "cn-zh": "打乱敌人身上会掉落的道具"
+            "cn-zh": "打乱敌人身上会掉落的道具",
+			"fr-fr": "Randomize les items lachés par les ennemis."
         },
         "rando.relics": {
             "en": "Randomize Relics",
             "pt-BR": "Randomizar Relíquias",
             "es-419": "Randomizar Reliquias",
             "ja-jp": "レリックをランダム化する",
-            "cn-zh": "打乱魔导器的位置"
+            "cn-zh": "打乱魔导器的位置",
+			"fr-fr": "Randomizer les Reliques"
         },
         "rando.relics.hint": {
             "en": "Randomize where relics appear.\nEach layout can be completed.",
             "pt-BR": "Randomiza onde as relíquias aparecem.\nTodo layout gerado é possível de completar.",
             "es-419": "Randomiza dónde aparecen las reliquias.\nTodo layout generado se puede completar.",
             "ja-jp": "レリックの出現位置をランダムにします。\nどのレイアウトでもクリア可能です。",
-            "cn-zh": "魔导器的位置会被打乱。\n在任意组合下均可通关。"
+            "cn-zh": "魔导器的位置会被打乱。\n在任意组合下均可通关。",
+			"fr-fr": "Randomize où apparaissent les reliques\nChaque layout peut être complété."
         },
         "rando.starting_gear": {
             "en": "Randomize Starting Gear",
             "pt-BR": "Randomizar Equipamento Inicial",
             "es-419": "Randomizar Equipo Inicial",
             "ja-jp": "初期装備をランダム化する",
-            "cn-zh": "打乱初始装备"
+            "cn-zh": "打乱初始装备",
+			"fr-fr": "Randomizer l'équipement de départ"
         },
         "rando.starting_gear.hint": {
             "en": "Randomize equipment that\nAlucard starts the game with.",
             "pt-BR": "Randomiza o equipamento com que\no Alucard começa o jogo.",
             "es-419": "Randomiza el equipo con el que\nAlucard empieza el juego.",
             "ja-jp": "アルカードがゲーム開始時に所持する装備をランダム化する。",
-            "cn-zh": "打乱阿鲁卡多初始状态\n时所持有的装备。"
+            "cn-zh": "打乱阿鲁卡多初始状态\n时所持有的装备。",
+			"fr-fr": "Randomize l'équipement avec lequel\nAlucard commence le jeu."
         },
         "rando.remove_death": {
             "en": "Remove Death at Entrance",
             "pt-BR": "Remover a Morte na Entrada",
             "es-419": "Quitar a la Muerte en la Entrada",
             "ja-jp": "入り口の死神を排除する",
-            "cn-zh": "去除城入口初次遭遇死神的事件"
+            "cn-zh": "去除城入口初次遭遇死神的事件",
+			"fr-fr": "Supprimer la Mort"
         },
         "rando.remove_death.hint": {
             "en": "Prevents Death from taking your\nstarting equipment in the first area.",
             "pt-BR": "Impede que a Morte tome o seu\nequipamento inicial na primeira área.",
             "es-419": "Evita que la Muerte te quite el\nequipo inicial en la primera área.",
             "ja-jp": "これにより、最初のエリアで死神に遭遇した際、初期装備を失わずに済みます。",
-            "cn-zh": "启用后死神不会夺走你的初始装备。"
+            "cn-zh": "启用后死神不会夺走你的初始装备。",
+			"fr-fr": "Empêche la Mort de prendre votre équipement\ndans la première zone"
         },
         "rando.skip_prologue": {
             "en": "Skip Prologue",
             "pt-br": "Pular Prólogo",
             "es-419": "Saltar el Prólogo",
             "ja-jp": "プロローグをスキップする",
-            "cn-zh": "跳过序章"
+            "cn-zh": "跳过序章",
+			"fr-fr": "Passer le prologue"
         },
         "rando.skip_prologue.hint": {
             "en": "This will cause the prologue sequence to be skipped when starting a new game.",
             "pt-br": "Isso fará com que a sequência do prólogo seja ignorada ao iniciar um novo jogo.",
             "es-419": "Esto hará que la secuencia del prólogo se omita al iniciar una nueva partida.",
             "ja-jp": "新しいゲームを開始する際、プロローグのシークエンスをスキップします。",
-            "cn-zh": "当开始一轮新游戏时，序章（Final Stage: Bloodlines）将会被跳过。"
+            "cn-zh": "当开始一轮新游戏时，序章（Final Stage: Bloodlines）将会被跳过。",
+			"fr-fr": "Passe la séquence avec Richter au début d'une nouvelle partie"
         },
         "rando.seed": {
             "en": "Seed Number",
             "pt-BR": "Número da Seed",
             "es-419": "Número de Seed",
             "ja-jp": "シードー番号",
-            "cn-zh": "种子编号"
+            "cn-zh": "种子编号",
+			"fr-fr": "Numéro de Seed"
         },
         "rando.generate_seed": {
             "en": "Generate New Random Seed Number",
             "pt-BR": "Gerar Nova Seed Aleatória",
             "es-419": "Generar Nueva Seed Aleatoria",
             "ja-jp": "新しい乱数シード値を生成する",
-            "cn-zh": "生成新的乱数种子值。"
+            "cn-zh": "生成新的乱数种子值。",
+			"fr-fr": "Générer une nouvelle Seed"
         },
         "rando.randomize": {
             "en": "Randomize Game",
             "pt-BR": "Randomizar o Jogo",
             "es-419": "Randomizar el Juego",
             "ja-jp": "ゲームをランダム化",
-            "cn-zh": "将游戏随机化"
+            "cn-zh": "将游戏随机化",
+			"fr-fr": "Randomizer le jeu"
         },
         "rando.applied": {
             "en": "Randomization Applied!",
             "pt-BR": "Randomização Aplicada!",
             "es-419": "¡Randomización Aplicada!",
             "ja-jp": "ランダマイザーON!",
-            "cn-zh": "随机生成器已启用"
+            "cn-zh": "随机生成器已启用",
+			"fr-fr": "Randomization appliquée"
         },
         "rando.applied_seed": {
             "en": "Seed Number: {0}",
             "pt-BR": "Número da Seed: {0}",
             "es-419": "Número de Seed: {0}",
             "ja-jp": "ランダマイザーのシード値: {0}",
-            "cn-zh": "生成的种子值: {0}"
+            "cn-zh": "生成的种子值: {0}",
+			"fr-fr": "Numéro de Seed: {0}"
         },
         "rando.credit": {
             "en": "Randomizer By: MottZilla",
             "pt-BR": "Randomizer por: MottZilla",
             "es-419": "Randomizer por: MottZilla",
             "ja-jp": "MottZillaによるランダマイザー",
-            "cn-zh": "随机生成器作者: MottZilla"
+            "cn-zh": "随机生成器作者: MottZilla",
+			"fr-fr": "Randomizer par: MottZilla"
         },
         "rando.save.mismatch": {
             "en": "This save uses a different randomizer configuration, this can cause problems. Please hard reset the game to continue.",
             "pt-BR": "Este save usa uma configuração diferente do randomizer, o que pode causar problemas. Faça um hard reset do jogo para continuar.",
             "es-419": "Este save usa una configuración diferente del randomizer, lo que puede causar problemas. Haz un hard reset del juego para continuar.",
             "ja-jp": "このセーブデータは異なるランダマイザー設定を使用しているため、問題が発生する可能性があります。続行するには、ゲームをハードリセットしてください。",
-            "cn-zh": "本存档使用了不同的随机生成器预设，可能会导致问题。请完全重新启动游戏后再继续"
+            "cn-zh": "本存档使用了不同的随机生成器预设，可能会导致问题。请完全重新启动游戏后再继续",
+			"fr-fr": "Cette sauvegarde utilise une configuration de randomizer différente, cela peut causer des problèmes. Veuillez redémarrez le jeu pour continuer."
         },
         "rando.save.vanilla_with_rando": {
             "en": "The save you opened was not randomized before. This can cause problems. If it was not intentional, hard reset the game to clear the randomizer.",
             "pt-BR": "O save que você abriu não era randomizado antes, isso pode causar problemas. Se não foi intencional, faça um hard reset para limpar o rando.",
             "es-419": "El save que abriste no estaba randomizado antes. Esto puede causar problemas. Si no fue intencional, haz un hard reset para limpiar el randomizer.",
             "ja-jp": "開いたセーブデータは、以前にランダム化されていませんでした。これが問題を引き起こす可能性があります。意図したものではない場合は、ゲームをハードリセットしてランダム化の状態を解除してください。",
-            "cn-zh": "本存档之前并没有随机化过，这可能会导致与游戏通关流程相关的问题。如果不是有意选择本存档的话，请完全重新启动游戏以关闭随机生成器。"
+            "cn-zh": "本存档之前并没有随机化过，这可能会导致与游戏通关流程相关的问题。如果不是有意选择本存档的话，请完全重新启动游戏以关闭随机生成器。",
+			"fr-fr": "La sauvegarde choisie n'a pas été randomizée avant. Cela peut causer des problèmes. Si ce n'était pas intentionnel, veuillez redémarrez le jeu pour remettre par défaut le randomizer"
         },
         "rando.save.applied_title": {
             "en": "Randomizer",
             "pt-BR": "Randomizer",
             "es-419": "Randomizer",
             "ja-jp": "ランダマイザー",
-            "cn-zh": "随机生成器"
+            "cn-zh": "随机生成器",
+			"fr-fr": "Randomizer"
         },
         "rando.save.applied": {
             "en": "You have opened an randomized save, the configuration for this save was automatically applied",
             "pt-BR": "Você abriu um save randomizado, a configuração desse save foi aplicada automaticamente",
             "es-419": "Abriste un save randomizado, la configuración de ese save se aplicó automáticamente",
             "ja-jp": "ランダム化されたセーブデータを開きました。このセーブデータの設定が自動的に適用されました。",
-            "cn-zh": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。"
+            "cn-zh": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。",
+			"fr-fr": "Vous avez choisi une sauvegarde randomizée, la configuration pour cette sauvegarde a été automatiquement appliquée"
         }
     }
 }
