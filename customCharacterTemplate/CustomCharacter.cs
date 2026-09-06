@@ -84,6 +84,8 @@ public class CustomCharacter
         
     )
     {
+        characterGeneralSettings = CustomCharacterGeneralSettingsToggles;
+        characterRPGElements =  CustomCharacterRPGSystemToggles;
         characterSprites = CustomCharacterApparance;
     }
 
