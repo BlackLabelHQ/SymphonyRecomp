@@ -36,7 +36,7 @@ public class KidMaria : CustomCharacter
     public static CustomCharacterSprites KidMariaCharacterApparance = new()
     {
         CharacterSpritesAreDoubleSided = false,
-        CharacterSpritesCollectionPath = "" // You will provide a path to your Custom Character's sprites here. Example: mods/KidMaria/Sprites
+        CharacterSpritesCollectionPath = "customCharacterTemplate/KidMaria/Sprites"
     };
 
     public KidMaria() : base(
