@@ -2,8 +2,8 @@ public class KidMaria : CustomCharacter
 {
     public static CustomCharacterGeneralSettings KidMariaCharacterGeneralSettingsToggles = new()
     {
-        CharacterName = "ALUCARD",
-        CharacterMenuNameInput = "ALUCARD",
+        CharacterName = "MARIA",
+        CharacterMenuNameInput = "MARIA",
         CharacterUsesRPGSystem = true,
         CharacterDoesPrologue = true,
         CharacterHasCustomIntro = true,

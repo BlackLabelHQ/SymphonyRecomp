@@ -1,4 +1,7 @@
+using RecompOne.Runtime.Assets;
+using Silk.NET.GLFW;
 using Sotn;
+using StbImageSharp;
 
 public class CustomCharacter
 {
@@ -69,13 +72,62 @@ public class CustomCharacter
     public struct CustomCharacterSprites {
         public required bool CharacterSpritesAreDoubleSided { get; set; } /* Are your custom character's sprites double sided? If you don't know what this means, chances are the answer is no. */
         public required string CharacterSpritesCollectionPath { get; set; } /* Provide the path (starting from "SymphonyRecomp" directory) to your mods "Sprites" directory, if invalid path -> Your Character will look like Alucard, Richter, Or Maria */
+        public required Dictionary<string, Dictionary<string, ReplacementTexture>>? CharacterSprites { get; set; } /* This is the top level "Sprite" concept of your character, nullable, if null returns default characters */
     }
 
     public CustomCharacterSprites CustomCharacterApparance = new()
     {
         CharacterSpritesAreDoubleSided = false,
-        CharacterSpritesCollectionPath = "" // You will provide a path to your Custom Character's sprites here. Example: mods/KidMaria/Sprites
+        CharacterSpritesCollectionPath = "", // You will provide a path to your Custom Character's sprites here. Example: mods/KidMaria/Sprites,
+        CharacterSprites = CharacterSpriteLoader("")
     };
+
+    private static Dictionary<string, Dictionary<string, ReplacementTexture>>? CharacterSpriteLoader(string spritesPath)
+    {
+        if (spritesPath == "") return null;
+        
+        Dictionary<string, Dictionary<string, ReplacementTexture>> sprites = [];
+
+        foreach (string directory in Directory.GetDirectories(spritesPath))
+        {
+            string animationName = Path.GetFileName(directory);
+
+            var frames = new Dictionary<string, ReplacementTexture>();
+
+            foreach (string imagePath in Directory.GetFiles(directory, "*.png"))
+            {
+                string frameName = Path.GetFileNameWithoutExtension(imagePath);
+
+                try
+                {
+                    using FileStream stream = File.OpenRead(imagePath);
+
+                    ImageResult image = ImageResult.FromStream(
+                        stream,
+                        ColorComponents.RedGreenBlueAlpha
+                    );
+
+                    frames[frameName] = new ReplacementTexture
+                    {
+                        Width = image.Width,
+                        Height = image.Height,
+                        Rgba = image.Data,
+                        Mode = TextureMode.Rgba
+                    };
+                }
+                catch
+                {
+                    frames[frameName] = new ReplacementTexture
+                    {
+                        Failed = true
+                    };
+                }
+            }
+            sprites[animationName] = frames;
+        }
+
+        return sprites;
+    }
 
     public CustomCharacter(
         CustomCharacterGeneralSettings characterGeneralSettings,
