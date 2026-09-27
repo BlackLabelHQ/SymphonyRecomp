@@ -1,18 +1,21 @@
 # Castlevania: Symphony of the Night PSX Recomp
 
-The Castlevania: Symphony of the Night PlayStation Recomp, called SymphonyRecomp, is proudly brought to you by the BlackLabelHQ team! 
+The Castlevania: Symphony of the Night PlayStation Recomp, called SymphonyRecomp, is proudly brought to you by the BlackLabelHQ team!
 
 # Please Read This
-Before we get started on the README  - This project is a "RE"comp. It is NOT a "DE"comp. Please do NOT go to the SOTN Decomp Discord server to talk about SymphonyRecomp. They are two separate concepts! We, however, encourage you to help out with the SOTN Decomp project if you're interested in helping us fully DECOMPILE the game!
+
+Before we get started on the README - This project is a "RE"comp. It is NOT a "DE"comp. Please do NOT go to the SOTN Decomp Discord server to talk about SymphonyRecomp. They are two separate concepts! We, however, encourage you to help out with the SOTN Decomp project if you're interested in helping us fully DECOMPILE the game!
 
 Please note this is an Open BETA and this is NOT the final version! This Recomp was made by human hands, no AI is involved in writing this code!
 
 We value human work, PRs made with AI will be closed.
 
 # Do You Just Want To Play?
+
 If you just want to play [download the latest release here](https://github.com/BlackLabelHQ/SymphonyRecomp/releases)!
 
 # Do You Need Help?
+
 You can join our Discord or open an issue on this GitHub! Again, you'll join the BlackLabelHQ Discord Server for help... NOT the SOTN Decomp server.
 
 [![Discord](https://discord.com/api/guilds/1525942688728481983/widget.png?style=banner2)](https://discord.gg/65g8ZEPnbR)
@@ -30,14 +33,29 @@ As mentioned above, SymphonyRecomp is NOT the same as the SOTN Decomp project, a
 Clone repo. Add legally owned game files to disc. Run windows_run.bat or windows_initial_build.bat or manually run RecompOne against sotn.json, this will produce the game code, you can then compile it yourself, dev builds do not auto-update
 
 ## Prerequisites
+
 - An GPU that supports at least OpenGL 2.1
 - [.NET 10](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
-- [OpenAL](https://www.openal.org/documentation/) 
+- [OpenAL](https://www.openal.org/documentation/)
 - [Git](https://git-scm.com/install/)
-- A legally owned copy of the North American PSX (PlayStation) version of Castlevania: Symphony of the Night to rip your game from, bin/cue format. The files should be hard named the following and placed inside the `disc` directory in the main directory of `SymphonyRecomp`.
-    - Castlevania - Symphony of the Night (Track 1).bin
-    - Castlevania - Symphony of the Night (Track 2).bin
+- A legally owned copy of the North American PSX (PlayStation) version of Castlevania: Symphony of the Night to rip your game from, bin/cue format. Alternatively, you're welcome to use CHD format. The files should be hard named the following and placed inside the `disc` directory in the main directory of `SymphonyRecomp`.
+    - Castlevania - Symphony of the Night (USA) (Track 1).bin
+    - Castlevania - Symphony of the Night (USA) (Track 2).bin
     - Castlevania - Symphony of the Night (USA).cue
+
+Note: The inside of your .cue file should look like this:
+
+```
+FILE "Castlevania - Symphony of the Night (USA) (Track 1).bin" BINARY
+  TRACK 01 MODE2/2352
+    INDEX 01 00:00:00
+FILE "Castlevania - Symphony of the Night (USA) (Track 2).bin" BINARY
+  TRACK 02 AUDIO
+    INDEX 00 00:00:00
+    INDEX 01 00:02:00
+```
+
+Just make sure that you're using the English North American NTSC copy of the game as everything targets that version as a base! In the future, if you want to play with a different language, you can use those versions to extract the contents of the disc for use with our language switcher tool, but you'll still need the American NTSC copy to play!
 
 ## Nice To Haves (If Wish To Contribute)
 
@@ -45,14 +63,16 @@ Clone repo. Add legally owned game files to disc. Run windows_run.bat or windows
 - [VSCode](https://code.visualstudio.com/)
 
 ## How Was This Made?
+
 This project was made using RecompOne to statically recompile the game, it also used some references from the decomp to help name functions and make patches, please show some love for the Decomp team, they deserve it!
 
 ## Warning To AI Bros
+
 Again, BlackLabelHQ and by extension SymphonyRecomp is proudly made entirely with human hands. We want to keep it that way, so please respect that.
 
 - Fully AI written issues will be automatically closed
 
-- ALL AI based PRs(such as ones containing claude as a contributor or clear AI code)  will be rejected innately, however this is your warning that you will be permanently banned from BlackLabelHQ's repos if you do it anyway.
+- ALL AI based PRs(such as ones containing claude as a contributor or clear AI code) will be rejected innately, however this is your warning that you will be permanently banned from BlackLabelHQ's repos if you do it anyway.
 
 # Todo:
 
