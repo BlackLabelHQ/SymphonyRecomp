@@ -129,13 +129,13 @@ echo.
 echo ^> Checking disc files...
 
 
-if not exist "%DISC%\Castlevania - Symphony of the Night (Track 1).bin" (
-    echo Missing: Castlevania - Symphony of the Night ^(Track 1^).bin
+if not exist "%DISC%\Castlevania - Symphony of the Night (USA) (Track 1).bin" (
+    echo Missing: Castlevania - Symphony of the Night  ^(USA^) ^(Track 1^).bin
     set "MISSING=1"
 )
 
-if not exist "%DISC%\Castlevania - Symphony of the Night (Track 2).bin" (
-    echo Missing: Castlevania - Symphony of the Night ^(Track 2^).bin
+if not exist "%DISC%\Castlevania - Symphony of the Night (USA) (Track 2).bin" (
+    echo Missing: Castlevania - Symphony of the Night  ^(USA^) ^(Track 2^).bin
     set "MISSING=1"
 )
 
@@ -152,8 +152,8 @@ if "%MISSING%"=="1" (
     echo %CD%\disc
     echo.
     echo Files must be named exactly:
-    echo Castlevania - Symphony of the Night ^(Track 1^).bin
-    echo Castlevania - Symphony of the Night ^(Track 2^).bin
+    echo Castlevania - Symphony of the Night ^(USA^) ^(Track 1^).bin
+    echo Castlevania - Symphony of the Night ^(USA^) ^(Track 2^).bin
     echo Castlevania - Symphony of the Night ^(USA^).cue
     echo ============================================================
     echo.
