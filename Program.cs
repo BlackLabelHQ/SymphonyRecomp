@@ -19,6 +19,9 @@ CheatMenu.Register();
 QualityOfLifeMenu.Register();
 TrackerMenu.Register();
 RandoMenu.Register();
+XControl.Register();
+XSpriteRenderer.Register();
+RecompOne.Runtime.Host.Window.PanelManager.Register(new XHealthBarPanel());
 AutoUpdater.Register();
 HelpMenu.Register();
 
