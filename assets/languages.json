@@ -831,6 +831,62 @@
             "ja-JP": "ランダム化されたセーブデータを開きました。このセーブデータの設定が自動的に適用されました。",
             "zh-CN": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。",
             "fr-FR": "Vous avez choisi une sauvegarde randomizée, la configuration pour cette sauvegarde a été automatiquement appliquée"
+        },
+        "menu.misc.savestate": {
+            "en": "Save States",
+            "pt-BR": "Save States",
+            "es-419": "Save States",
+            "ja-JP": "セーブステート",
+            "zh-CN": "即时存档",
+            "fr-FR": "Sauvegardes rapides"
+        },
+        "menu.savestate.save": {
+            "en": "Save State",
+            "pt-BR": "Salvar State",
+            "es-419": "Guardar State",
+            "ja-JP": "セーブステート作成",
+            "zh-CN": "创建即时存档",
+            "fr-FR": "Sauvegarder l'état"
+        },
+        "menu.savestate.load": {
+            "en": "Load State",
+            "pt-BR": "Carregar State",
+            "es-419": "Cargar State",
+            "ja-JP": "セーブステート読み込み",
+            "zh-CN": "加载即时存档",
+            "fr-FR": "Charger l'état"
+        },
+        "menu.savestate.load_auto": {
+            "en": "Load Autosave",
+            "pt-BR": "Carregar Autosave",
+            "es-419": "Cargar Autoguardado",
+            "ja-JP": "オートセーブ読み込み",
+            "zh-CN": "加载自动存档",
+            "fr-FR": "Charger la sauvegarde automatique"
+        },
+        "savestate.saved": {
+            "en": "State saved",
+            "pt-BR": "State salvo",
+            "es-419": "State guardado",
+            "ja-JP": "ステートを保存しました",
+            "zh-CN": "即时存档已保存",
+            "fr-FR": "État sauvegardé"
+        },
+        "savestate.loaded": {
+            "en": "State loaded",
+            "pt-BR": "State carregado",
+            "es-419": "State cargado",
+            "ja-JP": "ステートを読み込みました",
+            "zh-CN": "即时存档已加载",
+            "fr-FR": "État chargé"
+        },
+        "savestate.not_found": {
+            "en": "No save state found",
+            "pt-BR": "Nenhum save state encontrado",
+            "es-419": "No se encontró ningún save state",
+            "ja-JP": "セーブステートが見つかりません",
+            "zh-CN": "未找到即时存档",
+            "fr-FR": "Aucune sauvegarde rapide trouvée"
         }
     }
 }
