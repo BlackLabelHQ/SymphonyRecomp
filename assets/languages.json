@@ -293,21 +293,21 @@
             "pt-BR": "Aumenta em 4 frames a invencibilidade de tudo que já a concede.",
             "es-419": "Aumenta en 4 frames la invencibilidad de todo lo que ya la otorga.",
             "ja-jp": "無敵時間を持つすべてのアクションにおいて、その無敵時間が4フレーム延長されます。",
-            "cn-zh": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。"
+            "zh-CN": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。"
         },
         "qol.skip_prologue": {
             "en": "Skip Prologue",
             "pt-br": "Pular Prólogo",
             "es-419": "Saltar el Prólogo",
             "ja-jp": "プロローグをスキップする",
-            "cn-zh": "跳过序章"
+            "zh-CN": "跳过序章"
         },
         "qol.skip_prologue.hint": {
             "en": "This will cause the prologue sequence to be skipped when starting a new game.",
             "pt-br": "Isso fará com que a sequência do prólogo seja ignorada ao iniciar um novo jogo.",
             "es-419": "Esto hará que la secuencia del prólogo se omita al iniciar una nueva partida.",
             "ja-jp": "新しいゲームを開始する際、プロローグのシークエンスをスキップします。",
-            "cn-zh": "当开始一轮新游戏时，序章（Final Stage: Bloodlines）将会被跳过。"
+            "zh-CN": "当开始一轮新游戏时，序章（Final Stage: Bloodlines）将会被跳过。"
         },
         "qol.fairy_song": {
             "en": "Restore Sprite Familiar Nocturne Song",
@@ -578,12 +578,13 @@
             "pt-BR": "Continuar mesmo assim",
             "es-419": "Continuar de todos modos",
             "ja-jp": "いずれにせよ続行する",
-            "cn-zh": "强制继续"
+            "zh-CN": "强制继续"
         },
         "settings.display.widescreen": {
             "en": "Widescreen",
             "pt-BR": "Widescreen",
-            "es-419": "Pantalla ancha"
+            "es-419": "Pantalla ancha",
+            "zh-CN": "宽屏模式"
         },
         "widescreen.aspect": {
             "en": "Aspect Ratio",
@@ -614,7 +615,7 @@
             "pt-BR": "Desligado: dá zoom para esconder as barras pretas",
             "es-419": "Desactivado: hace zoom para ocultar las barras negras",
             "ja-jp": "オフ：ズームして黒帯を隠す",
-            "cn-zh": "关闭：放大画面以隐藏黑边"
+            "zh-CN": "关闭：放大画面以隐藏黑边"
         },
         "widescreen.unstretch": {
             "en": "unstretch",
@@ -637,68 +638,78 @@
             "pt-BR": "Qualquer proporção diferente da original ainda não é totalmente suportada, isso VAI causar problemas, use por sua conta e risco",
             "es-419": "Cualquier relación de aspecto distinta de la original aún no está totalmente soportada, esto VA a causar problemas, úsalo bajo tu propio riesgo",
             "ja-jp": "オリジナルのアスペクト比以外の設定はまだ完全にはサポートされておらず、問題が発生する可能性があります。使用は自己責任でお願いします。",
-            "cn-zh": "除原作PSX版以外的其他画面比例尚未完全支持，并且可能会发生错误，关于这一点请留意。"
+            "zh-CN": "除原作PSX版以外的其他画面比例尚未完全支持，并且可能会发生错误，关于这一点请留意。"
         },
         "settings.display.room_extension": {
             "en": "Room Extension",
             "pt-BR": "Extensão das Salas",
             "es-419": "Extensión de Salas",
-            "ja-jp": "ルーム拡張"
+            "ja-jp": "ルーム拡張",
+            "zh-CN": "房间贴图扩展"
         },
         "room_extension.mode": {
             "en": "Mode",
             "pt-BR": "Modo",
             "es-419": "Modo",
-            "ja-jp": "モード"
+            "ja-jp": "モード",
+            "zh-CN": "扩展模式"
         },
         "room_extension.custom": {
             "en": "Custom",
             "pt-BR": "Personalizado",
             "es-419": "Personalizado",
-            "ja-jp": "カスタム"
+            "ja-jp": "カスタム",
+            "zh-CN": "自选"
+            
         },
         "room_extension.fill": {
             "en": "Fill",
             "pt-BR": "Preencher",
             "es-419": "Rellenar",
-            "ja-jp": "塗りつぶし"
+            "ja-jp": "塗りつぶし",
+            "zh-CN": "填满"
         },
         "room_extension.disabled": {
             "en": "Off",
             "pt-BR": "Desligado",
             "es-419": "Desactivado",
-            "ja-jp": "オフ"
+            "ja-jp": "オフ",
+            "zh-CN": "关闭"
         },
         "room_extension.mode_hint": {
             "en": "How the area outside the room is shown",
             "pt-BR": "Como a área fora da sala é exibida",
             "es-419": "Cómo se muestra el área fuera de la sala",
-            "ja-jp": "ルーム外の表示方法"
+            "ja-jp": "ルーム外の表示方法",
+            "zh-CN": "原作可读取范围外的房间渲染方法"
         },
         "room_extension.fade": {
             "en": "Fade",
             "pt-BR": "Fade",
             "es-419": "Degradado",
-            "ja-jp": "フェード"
+            "ja-jp": "フェード",
+            "zh-CN": "模糊处理"
         },
         "room_extension.fade_hint": {
             "en": "Blends the fill into the room edge",
             "pt-BR": "Mistura o preenchimento na borda da sala",
             "es-419": "Mezcla el relleno con el borde de la sala",
-            "ja-jp": "塗りつぶしをルームの端になじませる"
+            "ja-jp": "塗りつぶしをルームの端になじませる",
+            "zh-CN": "将原作可读取范围外的贴图进行模糊处理"
         },
         "room_extension.fade_width": {
             "en": "Fade width",
             "pt-BR": "Largura do fade",
             "es-419": "Ancho del degradado",
-            "ja-jp": "フェード幅"
+            "ja-jp": "フェード幅",
+            "zh-CN": "模糊幅度"
         },
         "rando.no_memory": {
             "en": "Missing memory context.",
             "pt-BR": "Contexto de memória ausente.",
             "es-419": "Falta el contexto de memoria.",
             "ja-JP": "メモリコンテキストが不足しています。",
-            "zh-CN": "Letterboxing",
+            "zh-CN": "记忆容量不足",
             "fr-FR": "Pas de contexte mémoire."
         },
         "rando.external_seed": {
@@ -898,49 +909,57 @@
             "pt-BR": "Você abriu um save randomizado, a configuração desse save foi aplicada automaticamente",
             "es-419": "Abriste un save randomizado, la configuración de ese save se aplicó automáticamente",
             "ja-jp": "ランダム化されたセーブデータを開きました。このセーブデータの設定が自動的に適用されました。",
-            "cn-zh": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。"
+            "zh-CN": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。"
         },
         "rando.toast.applied_title": {
             "en": "Randomizer applied",
             "pt-BR": "Randomizer aplicado",
             "es-419": "Randomizer aplicado",
-            "ja-jp": "ランダマイザーON！"
+            "ja-jp": "ランダマイザーON！",
+            "zh-CN": "随机生成器开启"
         },
         "rando.toast.applied": {
             "en": "The randomizer settings have been applied",
             "pt-BR": "As configurações do randomizer foram aplicadas",
             "es-419": "La configuración del randomizer fue aplicada",
-            "ja-jp": "ランダマイザーの設定が使用中です。"
+            "ja-jp": "ランダマイザーの設定が使用中です。",
+            "zh-CN": "随机生成器的设定在生效中"
         },
         "settings.language.game": {
             "en": "Game text",
             "pt-BR": "Texto do jogo",
-            "es-419": "Texto del juego"
+            "es-419": "Texto del juego",
+            "zh-CN": "游戏内文本"
         },
         "translation.original": {
             "en": "Original",
             "pt-BR": "Original",
-            "es-419": "Original"
+            "es-419": "Original",
+            "zh-CN": "原作PSX美版"
         },
         "translation.hint": {
             "en": "Select a language pack.",
             "pt-BR": "Selecione um pacote de idioma.",
-            "es-419": "Selecciona un paquete de idioma."
+            "es-419": "Selecciona un paquete de idioma.",
+            "zh-CN": "选择语言包"
         },
         "translation.rescan": {
             "en": "Refresh packs",
             "pt-BR": "Atualizar pacotes",
-            "es-419": "Actualizar paquetes"
+            "es-419": "Actualizar paquetes",
+            "zh-CN": "刷新语言包"
         },
         "translation.load_error": {
             "en": "Could not load the language pack.",
             "pt-BR": "Não foi possível carregar o pacote de idioma.",
-            "es-419": "No se pudo cargar el paquete de idioma."
+            "es-419": "No se pudo cargar el paquete de idioma.",
+            "zh-CN": "语言包无法加载"
         },
         "translation.applying": {
             "en": "Applying language...",
             "pt-BR": "Aplicando idioma...",
-            "es-419": "Aplicando idioma..."
+            "es-419": "Aplicando idioma...",
+            "zh-CN": "加载语言包中"
         }
     }
 }
