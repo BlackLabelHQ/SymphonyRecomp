@@ -910,56 +910,65 @@
             "es-419": "Abriste un save randomizado, la configuración de ese save se aplicó automáticamente",
             "ja-jp": "ランダム化されたセーブデータを開きました。このセーブデータの設定が自動的に適用されました。",
             "zh-CN": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。"
+            "fr-FR": "Vous avez choisi une sauvegarde randomizée, la configuration pour cette sauvegarde a été automatiquement appliquée"
         },
         "rando.toast.applied_title": {
             "en": "Randomizer applied",
             "pt-BR": "Randomizer aplicado",
             "es-419": "Randomizer aplicado",
             "ja-jp": "ランダマイザーON！",
-            "zh-CN": "随机生成器开启"
+            "zh-CN": "随机生成器开启",
+            "fr-fr": "Randomizer appliqué"
         },
         "rando.toast.applied": {
             "en": "The randomizer settings have been applied",
             "pt-BR": "As configurações do randomizer foram aplicadas",
             "es-419": "La configuración del randomizer fue aplicada",
             "ja-jp": "ランダマイザーの設定が使用中です。",
-            "zh-CN": "随机生成器的设定在生效中"
+            "zh-CN": "随机生成器的设定在生效中",
+            "fr-fr": "La configuration du randomizer a été appliquée"
         },
         "settings.language.game": {
             "en": "Game text",
             "pt-BR": "Texto do jogo",
             "es-419": "Texto del juego",
-            "zh-CN": "游戏内文本"
+            "zh-CN": "游戏内文本",
+            "fr-fr": "Texte du jeu"
         },
         "translation.original": {
             "en": "Original",
             "pt-BR": "Original",
             "es-419": "Original",
-            "zh-CN": "原作PSX美版"
+            "zh-CN": "原作PSX美版",
+            "fr-fr": "Original"
         },
         "translation.hint": {
             "en": "Select a language pack.",
             "pt-BR": "Selecione um pacote de idioma.",
             "es-419": "Selecciona un paquete de idioma.",
-            "zh-CN": "选择语言包"
+            "zh-CN": "选择语言包",
+            "fr-fr": "Sélectionnez un pack de langue"
         },
         "translation.rescan": {
             "en": "Refresh packs",
             "pt-BR": "Atualizar pacotes",
             "es-419": "Actualizar paquetes",
-            "zh-CN": "刷新语言包"
+            "zh-CN": "刷新语言包",
+            "fr-fr": "Actualisation des packs"
         },
         "translation.load_error": {
             "en": "Could not load the language pack.",
             "pt-BR": "Não foi possível carregar o pacote de idioma.",
             "es-419": "No se pudo cargar el paquete de idioma.",
-            "zh-CN": "语言包无法加载"
+            "zh-CN": "语言包无法加载",
+            "fr-fr" "Impossible de charger le pack de langue"
         },
         "translation.applying": {
             "en": "Applying language...",
             "pt-BR": "Aplicando idioma...",
             "es-419": "Aplicando idioma...",
-            "zh-CN": "加载语言包中"
+            "zh-CN": "加载语言包中",
+            "fr-fr": "Application du pack..."
         }
     }
 }
