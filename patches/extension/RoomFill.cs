@@ -385,6 +385,7 @@ public static class RoomFills
             int y0 = baseY + ty * 16;
             for (int tx = 0; tx < TilesPerScreen; tx++)
             {
+                if (Covered(m, e, fill.TileX * TilesPerScreen + tx, fill.TileY * TilesPerScreen + ty)) continue;
                 byte g, page, clutIdx;
                 if (raw != null)
                 {
@@ -407,7 +408,7 @@ public static class RoomFills
                 ushort clut = m.ReadU16(ClutIdsAddr + (e.ClutBase + clutIdx) * 2);
 
                 uint prim = e.Pool + sprites * 16;
-                AddPrim(m, e.Ot, e.Order + page, prim, 3);
+                AddPrim(m, e.Ot, Math.Min(e.Order + page, ImageMaxOrder), prim, 3);
                 m.WriteU32(prim + 4, e.Cmd << 24 | 0x808080);
                 m.WriteU32(prim + 8, (uint)(ushort)y0 << 16 | (ushort)(baseX + tx * 16));
                 m.WriteU32(prim + 12, (uint)clut << 16 | (uint)(byte)(g & 0xF0) << 8 | (byte)(g << 4));
@@ -416,6 +417,12 @@ public static class RoomFills
         }
 
         e.Sprites = sprites;
+    }
+
+    static bool Covered(IMemory m, TilemapLayerDrawnEvent e, int column, int row)
+    {
+        if (e.Wrap || e.Layout == 0 || column < 0 || row < 0 || column >= e.Columns || row >= e.Rows) return false;
+        return m.ReadU16(e.Layout + (uint)(row * e.Columns + column) * 2) != 0;
     }
 
     static bool LayerMatches(RoomFill fill, bool foreground)

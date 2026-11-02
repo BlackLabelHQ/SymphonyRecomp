@@ -205,6 +205,7 @@ public static class ScriptFunctions_rbo6
     private static void RBO6_CutsceneUnk4_Body(CpuContext c, IMemory m)
     {
         var mem = new ScriptMemory(m, "rbo6", 0x801B3F50u);
+        DialogueGlyphs.PrepareLine(c, mem);
         { c.SP = c.SP - 0x18u;  }
         mem.WriteU32((c.SP + 0x10u), c.S0); 
         c.S0 = 0x801B0000u; 
@@ -246,6 +247,7 @@ public static class ScriptFunctions_rbo6
         c.RA = mem.ReadU32((c.SP + 0x14u)); 
         c.S0 = mem.ReadU32((c.SP + 0x10u)); 
         { c.SP = c.SP + 0x18u;  }
+        DialogueGlyphs.BeginLine(mem);
         return;
         }
     public static bool RBO6_DrawCutsceneActorName(CpuContext c, IMemory m)
@@ -681,7 +683,7 @@ public static class ScriptFunctions_rbo6
         var mem = new ScriptMemory(m, "rbo6", 0x801B3F50u);
         c.V0 = 0x801B0000u; 
         c.V0 = (uint)(short)mem.ReadU16((c.V0 + 0x3F5Eu)); 
-        { c.A3 = c.V0 + 0x1u;  }
+        { c.A3 = c.V0 + (uint)(mem.LineCount - DialogueGlyphs.VisibleLines(mem));  }
         { c.V0 = (int)c.A3 < 5 ? 1u : 0u;  }
         if (c.V0 != 0u) {
             goto L801A24A4;

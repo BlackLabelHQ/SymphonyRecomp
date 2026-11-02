@@ -62,7 +62,7 @@ internal sealed class TextPack
                     uint[] pointers = location.TryGetProperty("pointers", out var referencePointers)? referencePointers.EnumerateArray().Select(p => p.GetUInt32()).ToArray() : [];
                     string? reader = location.TryGetProperty("reader", out var consumer) ? consumer.GetString() : null;
                     
-                    if (replacement.Length > original.Length && pointers.Length == 0 && reader != "menu")
+                    if (replacement.Length > original.Length && pointers.Length == 0 && reader is not ("menu" or "message"))
                         throw new InvalidDataException($"Text exceeds its {original.Length}-byte slot and has no relocatable pointers.");
                     
                     if (replacement.Length <= original.Length) Array.Resize(ref replacement, original.Length);

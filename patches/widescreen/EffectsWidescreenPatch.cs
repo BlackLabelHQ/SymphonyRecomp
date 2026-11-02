@@ -11,10 +11,16 @@ public static partial class WidescreenPatch
     const int FlashW = 256;
     const int FlashH = 240;
     const int TeleportW = 0xC0;
+    const int SpyglassFirstStep = 3;
+    const int SpyglassLastStep = 6;
+
+    static bool _spyglass;
 
     public static void RegisterEffectPrims()
     {
         Event.AddListener<RenderPrimEvent>(WidenScreenFlash);
+        Event.AddListener<RenderPrimEvent>(WidenSpyglass);
+        Event.AddListener<TilemapRenderedEvent>(TrackSpyglass);
         Event.AddListener<TilemapRenderedEvent>(ExtendStageBackgrounds);
         Event.AddListener<TilemapRenderedEvent>(ExtendStageDestruction);
         Event.AddListener<TilemapRenderedEvent>(FixCornerText);
@@ -40,6 +46,44 @@ public static partial class WidescreenPatch
             e.X[0] -= margin;
         else if (width == TeleportW && left == TeleportW)
             e.X[1] = Math.Max(e.X[1], e.DrawLeft + FlashW + margin);
+    }
+
+    static void TrackSpyglass(TilemapRenderedEvent e)
+    {
+        _spyglass = false;
+        if (OriginalAspect || !DisplayModeHooks.IsStage) return;
+        var m = e.Memory;
+        if (!string.Equals(StageOverlay(m)?.Name, "no1", StringComparison.OrdinalIgnoreCase)) return;
+        uint fn = StageSym(m, "func_us_801BA290").Addr;
+        if (fn == 0) return;
+        for (int i = StageEntityStart; i < TotalEntityCount; i++)
+        {
+            uint entity = PedAt(i);
+            if (m.ReadU32(entity + EntPfnUpdate) != fn) continue;
+            _spyglass = m.ReadU16(entity + EntStep) is >= SpyglassFirstStep and <= SpyglassLastStep;
+            return;
+        }
+    }
+
+    static void WidenSpyglass(RenderPrimEvent e)
+    {
+        if (!_spyglass || e.Textured || OriginalAspect || !DisplayModeHooks.IsStage) return;
+        int margin = StageMargin();
+        if (margin <= 0) return;
+
+        int min = int.MaxValue, max = int.MinValue;
+        for (int i = 0; i < e.Count; i++)
+        {
+            min = Math.Min(min, e.X[i]);
+            max = Math.Max(max, e.X[i]);
+        }
+
+        int left = min - e.DrawLeft, right = max - e.DrawLeft;
+        for (int i = 0; i < e.Count; i++)
+        {
+            if (left <= 0 && e.X[i] == min) e.X[i] -= margin;
+            if (right >= FlashW - 1 && e.X[i] == max) e.X[i] += margin;
+        }
     }
 
 //todo: this can probably be shortned
@@ -1869,6 +1913,7 @@ public static partial class WidescreenPatch
         c.V0 = m.ReadU16((c.S0 + 0x30u));
         if (c.V0 == 0u) {
             c.A3 = c.A3 + 0x130u;
+            while ((int)c.A3 < 256 + StageMargin()) c.A3 = c.A3 + 0x26u;
             goto L801B941C;
         }
         c.A3 = c.A3 + 0x130u;
@@ -1915,7 +1960,7 @@ public static partial class WidescreenPatch
         m.WriteU16((c.A2 + 0x22u), (ushort)c.V1);
         m.WriteU16((c.A2 + 0x32u), (ushort)c.V0);
         c.A2 = m.ReadU32(c.A2);
-        if ((int)c.A3 > -StageMargin()) {
+        if ((int)c.A3 > -StageMargin() && c.A2 != 0u) {
             c.V0 = c.A3 + 0u;
             goto L801B9464;
         }
@@ -2129,6 +2174,7 @@ public static partial class WidescreenPatch
         c.V0 = m.ReadU16((c.S0 + 0x30u));
         if (c.V0 == 0u) {
             c.A3 = c.A3 + 0x130u;
+            while ((int)c.A3 < 256 + StageMargin()) c.A3 = c.A3 + 0x26u;
             goto L801B3C50;
         }
         c.A3 = c.A3 + 0x130u;
@@ -2175,7 +2221,7 @@ public static partial class WidescreenPatch
         m.WriteU16((c.A2 + 0x22u), (ushort)c.V1);
         m.WriteU16((c.A2 + 0x32u), (ushort)c.V0);
         c.A2 = m.ReadU32(c.A2);
-        if ((int)c.A3 > -StageMargin()) {
+        if ((int)c.A3 > -StageMargin() && c.A2 != 0u) {
             c.V0 = c.A3 + 0u;
             goto L801B3C98;
         }
@@ -2882,6 +2928,7 @@ public static partial class WidescreenPatch
     const uint OuterWallWaveOffsets = 0x801D635C;
     const int OuterWallWaveRows = 13;
     const int OuterWallWaveFirstPrim = 5;
+    const int InvertedOuterWallPrims = 64;
 
     static bool OuterWallSkyRange(IMemory m, int param, int scrollX, int scrollY, out int xMin, out int xMax)
     {
@@ -2942,6 +2989,27 @@ public static partial class WidescreenPatch
             int b = Math.Min(rightEnd == 0xFF ? ViewRight : rightEnd + 256, ViewRight);
             if (a < b) OuterWallSkyBand(m, prims[..n], weather, waves, a, b, true, ref count);
         }
+    }
+
+    static void ExtendInvertedOuterWallSky(IMemory m, uint entity, ref int count)
+    {
+        int index = (short)m.ReadU16(entity + EntPrimIndex);
+        if (index < 0 || index >= 0x400) return;
+        Span<BackgroundQuad> quads = stackalloc BackgroundQuad[InvertedOuterWallPrims];
+        int n = 0;
+        for (uint p = PrimBufAddr + (uint)index * PrimStride; BackgroundPrimitive(m, p) && n < quads.Length; p = m.ReadU32(p))
+            quads[n++] = ReadBackgroundQuad(m, p);
+        if (n < OuterWallWaveFirstPrim) return;
+
+        for (int i = 0; i < 2; i++)
+        {
+            var q = quads[i];
+            if ((q.Mode & 8) != 0) continue;
+            EmitBackground(m, BackgroundRect(q, ViewLeft, q.A.Y, Margin, q.C.Y - q.A.Y), ref count);
+            EmitBackground(m, BackgroundRect(q, 256, q.A.Y, Margin, q.C.Y - q.A.Y), ref count);
+        }
+        ExtendBackgroundRows(m, quads[2..4], 0, ref count);
+        ExtendBackgroundRows(m, quads[OuterWallWaveFirstPrim..n], 0, ref count);
     }
 
     static void OuterWallSkyBand(IMemory m, ReadOnlySpan<uint> prims, uint weather, bool waves, int a, int b,
@@ -3059,8 +3127,9 @@ public static partial class WidescreenPatch
             bool corridor = (stage == "no0" && Match("func_us_801CC750")) ||
                 (stage == "rno0" && Match("func_801C08F8"));
             bool outerWallSky = stage == "no1" && Match("func_us_801B6490");
+            bool invertedOuterWallSky = stage == "rno1" && Match("func_801A68AC");
             if (!columns && !rows && !corridor && !waterfalls && !cavernBackdrop && !warp && !clouds && !bushes &&
-                !outerWallSky) continue;
+                !outerWallSky && !invertedOuterWallSky) continue;
             if (cavernBackdrop)
             {
                 ExtendCavernBackdrop(m, entity, e.ScrollX, e.ScrollY, ref count);
@@ -3069,6 +3138,11 @@ public static partial class WidescreenPatch
             if (outerWallSky)
             {
                 ExtendOuterWallSky(m, entity, e.ScrollX, e.ScrollY, ref count);
+                continue;
+            }
+            if (invertedOuterWallSky)
+            {
+                ExtendInvertedOuterWallSky(m, entity, ref count);
                 continue;
             }
             int index = (short)m.ReadU16(entity + 0x64);

@@ -600,7 +600,7 @@ public sealed class UpdatePopup : Popup
         if (AutoUpdater.CurrentPhase is AutoUpdater.Phase.Downloading or AutoUpdater.Phase.Applying)
             footer += ImGui.GetFrameHeightWithSpacing();
 
-        ImGui.BeginChild("##notes", new Vector2(0, -footer), ImGuiChildFlags.Border);
+        ImGui.BeginChild("##notes", new Vector2(0, -footer), ImGuiChildFlags.Borders);
         AutoUpdater.DrawNotes();
         ImGui.EndChild();
 

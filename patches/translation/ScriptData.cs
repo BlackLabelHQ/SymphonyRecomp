@@ -115,6 +115,7 @@ internal static class ScriptData
         if (replacement.Count == 0) throw new InvalidDataException($"{key}: an empty script cannot be executed.");
         if (replacement.Count > 0xFFFFFF) throw new InvalidDataException($"{key}: script exceeds the 16 MiB buffer capacity.");
         if (original.Length > 0) labels[address] = 0;
+        if (original.Length > 0 && kind == "dialogue") MapScenes(key, rows, layout, original, address, labels);
 
         nextLabel = counter;
         return new(key, overlay, address, original, replacement.ToArray(), labels) { Glyphs = glyphs };
@@ -161,6 +162,45 @@ internal static class ScriptData
             }
         }
         return new(address, data.ToArray(), timelines);
+    }
+
+    private static void MapScenes(string key, IReadOnlyList<string[]> rows, int[] layout, byte[] original, uint address, Dictionary<uint, int> labels)
+    {
+        var scenes = new List<int>();
+        int end = -1;
+        uint limit = address + (uint)original.Length;
+        for (int i = 0; i < rows.Count; i++)
+        {
+            if (rows[i][0] == "SET_EVENTS" && unchecked((uint)Value(key, rows[i], i, 1)) is var events && events > address) limit = Math.Min(limit, events);
+            if (rows[i][0] != "END_CUTSCENE") continue;
+            end = layout[i];
+            if (i + 1 < rows.Count) scenes.Add(layout[i + 1]);
+        }
+        if (end < 0) return;
+
+        var starts = SceneStarts(original);
+        for (int k = 0; k < starts.Count && address + (uint)starts[k] < limit; k++)
+            labels.TryAdd(address + (uint)starts[k], k < scenes.Count ? scenes[k] : end);
+    }
+
+    private static List<int> SceneStarts(byte[] original)
+    {
+        var starts = new List<int>();
+        int i = 0;
+        while (i < original.Length)
+        {
+            byte op = original[i++];
+            if (op >= 0x20) continue;
+            if (op >= Dialogue.Length) return [];
+            if (op == Switch)
+            {
+                i += 4;
+                while (i + 4 <= original.Length && original[i] >= 0x80) i += 4;
+            }
+            else i += Dialogue[op].Sizes.Sum();
+            if (op == 0 && i < original.Length && original.AsSpan(i).IndexOfAnyExcept((byte)0, (byte)0xFF) >= 0) starts.Add(i);
+        }
+        return starts;
     }
 
     private static Command[] Commands(string kind) => kind switch

@@ -9,7 +9,7 @@ public static partial class WidescreenPatch
 {
     public static bool Unstretch => WidescreenOptions.Unstretch;
     public static bool OriginalAspect => WidescreenOptions.OriginalAspect;
-    public static bool Zoomed => !WidescreenOptions.Letterbox && !OriginalAspect;
+    public static bool Zoomed => !WidescreenOptions.Letterbox && !OriginalAspect && !_zoomSuspended;
     public static float StageAspect => WidescreenOptions.Aspect;
     public const int StageWidth = 256;
     public const int StageHeight = 240;
@@ -74,8 +74,13 @@ public static partial class WidescreenPatch
 
     static void OnDisplayMode(DisplayModeEvent e)
     {
-        if (e.Mode == DisplayMode.Stage) _viewPending = true;
+        if (e.Mode == DisplayMode.Stage)
+        {
+            _zoomSuspended = false;
+            _viewPending = true;
+        }
         ApplyDisplay(e.Mode);
+        if (e.Mode == DisplayMode.Stage && e.Memory is { } m) RefreshFade(e.Context, m);
     }
 
     public static void Refresh() => ApplyDisplay(DisplayModeHooks.Current);
@@ -96,6 +101,7 @@ public static partial class WidescreenPatch
     }
 
     static bool _viewPending;
+    static bool _zoomSuspended;
 
     static void ApplyPendingView(TilemapRenderedEvent e)
     {
@@ -106,7 +112,21 @@ public static partial class WidescreenPatch
 
         var m = e.Memory;
         ApplyStageView(m);
-        if (Zoomed || RecompOne.Runtime.Runtime.Gpu is not { } gpu) return;
+        if (!Zoomed) ClearStageBuffers(m);
+    }
+
+    static void SuspendZoom(IMemory m)
+    {
+        if (!Zoomed) return;
+        _zoomSuspended = true;
+        Refresh();
+        ApplyStageView(m);
+        ClearStageBuffers(m);
+    }
+
+    static void ClearStageBuffers(IMemory m)
+    {
+        if (RecompOne.Runtime.Runtime.Gpu is not { } gpu) return;
         for (int i = 0; i < 2; i++)
         {
             uint draw = Buf(i) + DrawOfs;
@@ -327,9 +347,13 @@ public static partial class WidescreenPatch
         uint pool = ExtSprite16Base + (buf == Buf(1) ? ExtSprite16Stride : 0u);
         BeginMirror(buf);
 
+        bool bgMargins = StageOverlay(m)?.Name.ToLowerInvariant() is not ("wrp" or "rwrp");
         for (int i = 0; i < n; i++)
-            DrawLayer(m, in layers[i], buf, pool, ot, bbX, bbY, marginCols, ref sp16, ref dm,
-                i == 0 && fgVisible);
+        {
+            bool foreground = i == 0 && fgVisible;
+            DrawLayer(m, in layers[i], buf, pool, ot, bbX, bbY, foreground || bgMargins ? marginCols : 0,
+                ref sp16, ref dm, foreground);
+        }
 
         m.WriteU32(GpuUsageAddr + 0x14, sp16);
         m.WriteU32(GpuUsageAddr + 0x00, dm);
@@ -421,6 +445,10 @@ public static partial class WidescreenPatch
         _layerEvent.Context = null;
         _layerEvent.Memory = m;
         _layerEvent.Foreground = foreground;
+        _layerEvent.Layout = L.Layout;
+        _layerEvent.Columns = L.RoomW;
+        _layerEvent.Rows = L.RoomH;
+        _layerEvent.Wrap = L.Wrap;
         _layerEvent.Pool = pool;
         _layerEvent.Ot = ot;
         _layerEvent.GfxPage = L.GfxPage;

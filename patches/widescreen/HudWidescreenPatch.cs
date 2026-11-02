@@ -10,30 +10,48 @@ public static partial class WidescreenPatch
     const uint StageIdAddr = 0x800974A0;
     const uint GameOverPrimAddr = 0x8013640C;
 
+    const uint GameOverDone = 11;
+    const uint GameOverDoneAlt = 111;
+
     public static void PostHandleGameOver(CpuContext c, IMemory m)
     {
         if (OriginalAspect) return;
-        int margin = StageMargin();
-        if (margin == 0) return;
         uint step = m.ReadU32(GameStepAddr);
+        if (step is GameOverDone or GameOverDoneAlt)
+        {
+            SuspendZoom(m);
+            return;
+        }
         if (step < 2 || step > 8) return;
         if (m.ReadU32(StageIdAddr) == 0x1F) return;
 
         uint red = PrimBufAddr + m.ReadU32(GameOverPrimAddr) * PrimStride;
         if (m.ReadU16(red + 0x1A) != 8) return;
         uint left = m.ReadU32(red);
-        if (left == 0 || (short)m.ReadU16(left + 0x08) != 0) return;
-
-        SetPrimX(m, red, -margin, 0xFF + margin);
+        if (left == 0) return;
         uint right = m.ReadU32(left);
-        SetPrimX(m, left, -margin, 0x80);
         if (right == 0) return;
-        SetPrimX(m, right, 0x80, 0x100 + margin);
 
+        int margin = StageMargin();
         int wide = 0x100 + margin * 2;
+        bool zoomed = Zoomed;
         uint prim = m.ReadU32(right);
         for (int i = 0; i < 0x100 && prim != 0; i++, prim = m.ReadU32(prim))
-            SetPrimX(m, prim, -margin + i * wide / 0x100, -margin + (i + 1) * wide / 0x100);
+        {
+            if (margin != 0) SetPrimX(m, prim, -margin + i * wide / 0x100, -margin + (i + 1) * wide / 0x100);
+            if (zoomed) FitMeltStrip(m, prim);
+        }
+    }
+
+    static void FitMeltStrip(IMemory m, uint prim)
+    {
+        if (m.ReadU16(prim + 0x0A) != 0 || m.ReadU16(prim + 0x22) != 0xF0 || m.ReadU8(prim + 0x25) != 0xF0) return;
+        m.WriteU16(prim + 0x0A, StageViewTop);
+        m.WriteU16(prim + 0x16, StageViewTop);
+        m.WriteU16(prim + 0x22, StageViewTop + StageViewHeight);
+        m.WriteU16(prim + 0x2E, StageViewTop + StageViewHeight);
+        m.WriteU8(prim + 0x25, StageViewHeight);
+        m.WriteU8(prim + 0x31, StageViewHeight);
     }
 
     static void SetPrimX(IMemory m, uint prim, int x0, int x1)
@@ -156,33 +174,22 @@ public static partial class WidescreenPatch
     const uint CornerTextTimerAddr = 0x80097410;
     const uint CornerTextPrimsAddr = 0x80097414;
     const byte CornerTextLeftBlue = 0xAF;
-
-    static int _cornerTextPrims = -1;
-    static int _cornerTextMargin;
+    const int CornerTextLeftX = 7;
+    const int CornerTextRightX = 0xF4;
 
     static void FixCornerText(TilemapRenderedEvent e)
     {
         var m = e.Memory;
-        if (m.ReadU32(CornerTextTimerAddr) == 0)
-        {
-            _cornerTextPrims = -1;
-            return;
-        }
+        if (m.ReadU32(CornerTextTimerAddr) == 0) return;
 
-        int index = (int)m.ReadU32(CornerTextPrimsAddr);
-        if (index != _cornerTextPrims)
-        {
-            _cornerTextPrims = index;
-            _cornerTextMargin = 0;
-        }
-
-        int delta = HudMargin() - _cornerTextMargin;
+        uint box = PrimBufAddr + m.ReadU32(CornerTextPrimsAddr) * PrimStride;
+        int margin = HudMargin();
+        int delta = m.ReadU8(box + 0x06) == CornerTextLeftBlue
+            ? CornerTextLeftX - margin - (short)m.ReadU16(box + 0x08)
+            : CornerTextRightX + margin - (short)m.ReadU16(box + 0x14);
         if (delta == 0) return;
 
-        uint prim = PrimBufAddr + (uint)index * PrimStride;
-        int side = m.ReadU8(prim + 0x06) == CornerTextLeftBlue ? -1 : 1;
-        for (; prim != 0; prim = m.ReadU32(prim))
-            ShiftPrimX(m, prim, side * delta);
-        _cornerTextMargin += delta;
+        for (uint prim = box; prim != 0; prim = m.ReadU32(prim))
+            ShiftPrimX(m, prim, delta);
     }
 }

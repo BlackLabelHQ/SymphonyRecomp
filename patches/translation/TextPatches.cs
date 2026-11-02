@@ -8,7 +8,11 @@ public static class TextPatches
 {
     private static Dictionary<string, TextWrite[]> _writes = new(StringComparer.OrdinalIgnoreCase);
     private static Dictionary<uint, TextWrite> _menuTexts = [];
+    private static Dictionary<uint, (string Overlay, TextWrite Write)[]> _messageTexts = [];
     private static readonly Dictionary<string, uint> Allocated = [];
+    private const uint TextBase = 0x80400000;
+    private const uint TextEnd = 0x80500000;
+    private static uint _textNext = TextBase;
     private static readonly HashSet<string> Pending = new(StringComparer.OrdinalIgnoreCase);
     private static readonly HashSet<string> Reported = new(StringComparer.Ordinal);
     internal static string? LoadError { get; private set; }
@@ -34,11 +38,14 @@ public static class TextPatches
                         if (Matches(memory, change.Address, change.After)) memory.LoadBytes(change.Address, change.Before);
         Changes.Clear();
         Reported.Clear();
+        Allocated.Clear();
+        _textNext = TextBase;
         ScriptMemory.Load(pack.Scripts);
         DialogueGlyphs.Load(font);
         DialogueScripts.Reset(Math.Max(0x80100000u, pack.NextLabel));
         _writes = pack.Overlays.ToDictionary(p => p.Key, p => p.Value.Where(w => w.Changed).ToArray(), StringComparer.OrdinalIgnoreCase);
         _menuTexts = _writes.GetValueOrDefault("sel", []).Where(w => w.Reader == "menu" && w.Relocated).GroupBy(w => w.Address).ToDictionary(g => g.Key, g => g.First());
+        _messageTexts = _writes.SelectMany(p => p.Value.Where(w => w.Reader == "message" && w.Relocated).Select(w => (Overlay: p.Key, Write: w))).GroupBy(w => w.Write.Address).ToDictionary(g => g.Key, g => g.ToArray());
         LoadError = pack.Errors.Count == 0 ? null : $"{pack.Errors.Count} text/script entries were rejected. See the log for mor information.";
         foreach (string error in pack.Errors) Console.Error.WriteLine($"[translation] {error}.");
         if (memory != null)
@@ -149,6 +156,19 @@ public static class TextPatches
         if (Allocated.TryGetValue(key, out uint address) && Matches(memory, address, write.Replacement)) context.A0 = address;
     }
 
+    public static void MessageBox(CpuContext context, IMemory memory)
+    {
+        if (memory.ReadU16(context.A0 + 0x2C) != 0 || !_messageTexts.TryGetValue(memory.ReadU32(context.A0 + 0x7C), out var writes)) return;
+        foreach (var (overlay, write) in writes)
+        {
+            if (!IsCurrent(overlay)) continue;
+            ApplyRelocated(overlay, write, memory);
+            if (Allocated.TryGetValue(Convert.ToHexString(write.Replacement), out uint address) && Matches(memory, address, write.Replacement))
+                memory.WriteU32(context.A0 + 0x7C, address);
+            return;
+        }
+    }
+
     private static void ApplyRelocated(string overlay, TextWrite write, IMemory memory)
     {
         string key = Convert.ToHexString(write.Replacement);
@@ -166,16 +186,15 @@ public static class TextPatches
         {
             for (int i = 0; i < write.Original.Length; i++)
                 if (memory.ReadU8(write.Address + (uint)i) != write.Original[i]) return;
-            var context = new CpuContext { A0 = (uint)write.Replacement.Length };
-            SoTN_main.malloc(context, memory);
-            address = context.V0;
-            if (address == 0)
+            address = _textNext;
+            if (address + (uint)write.Replacement.Length > TextEnd)
             {
                 if (Reported.Add(overlay + ":" + write.Key)) Console.Error.WriteLine($"[translation] {overlay}/{write.Key}: no heap space, translation not aplied");
                 return;
             }
             memory.LoadBytes(address, write.Replacement);
             Allocated[key] = address;
+            _textNext = (address + (uint)write.Replacement.Length + 3) & ~3u;
         }
         foreach (uint pointer in write.Pointers)
             if (memory.ReadU32(pointer) != address) Write(overlay, memory, pointer, BitConverter.GetBytes(address));

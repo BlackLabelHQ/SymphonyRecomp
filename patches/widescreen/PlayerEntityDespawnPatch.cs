@@ -13,6 +13,7 @@ public static partial class WidescreenPatch
     const uint PedEntityId = 0x26;
 
     const uint PedDespawnReturn = 0x8011A6B0;
+    const uint RicDespawnReturn = 0x801604C8;
     const int PedBoundRight = 288;
     const int PedBoundLeft = -32;
     const int PedBoundBottom = 256;
@@ -23,7 +24,7 @@ public static partial class WidescreenPatch
     public static bool PreDestroyPlayerEntity(CpuContext c, IMemory m)
     {
         if (OriginalAspect) return true;
-        if (c.RA != PedDespawnReturn) return true;
+        if (c.RA != PedDespawnReturn && c.RA != RicDespawnReturn) return true;
 
         int margin = StageMargin();
         if (margin == 0) return true;

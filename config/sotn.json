@@ -1638,6 +1638,54 @@
       "target": "Recompiled.WidescreenPatch.PreDestroyPlayerEntity"
     },
     {
+      "overlay": "ric",
+      "function": "DestroyEntity",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.PreDestroyPlayerEntity"
+    },
+    {
+      "overlay": "ric",
+      "function": "RicStepSlide",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.RicStepSlideWide"
+    },
+    {
+      "overlay": "ric",
+      "function": "RicCheckInput",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.RicCheckInputWide"
+    },
+    {
+      "overlay": "ric",
+      "function": "RicEntitySubwpnCross",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.RicEntitySubwpnCrossWide"
+    },
+    {
+      "overlay": "ric",
+      "function": "RicEntitySubwpnReboundStone",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.RicEntitySubwpnReboundStoneWide"
+    },
+    {
+      "overlay": "ric",
+      "function": "RicEntitySubwpnAgunea",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.RicEntitySubwpnAguneaWide"
+    },
+    {
+      "overlay": "nz0",
+      "function": "DestroyEntity",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.PreDestroyFadingActor"
+    },
+    {
+      "overlay": "dai",
+      "function": "DestroyEntity",
+      "mode": "pre",
+      "target": "Recompiled.WidescreenPatch.PreDestroyFadingActor"
+    },
+    {
       "overlay": "dra",
       "function": "EntityNumberMovesToHpMeter",
       "mode": "pre",
@@ -3488,6 +3536,126 @@
       "function": "func_801B248C",
       "mode": "pre",
       "target": "Recompiled.Translation.TextPatches.MenuText"
+    },
+    {
+      "overlay": "are",
+      "address": "0x801BF3B0",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "dai",
+      "address": "0x801CCC64",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "lib",
+      "address": "0x801C8294",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "no0",
+      "address": "0x801CB0B8",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "no1",
+      "address": "0x801C7A1C",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "nz0",
+      "address": "0x801C01B0",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "rno0",
+      "address": "0x801BE000",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "rnz0",
+      "address": "0x801B38E0",
+      "mode": "pre",
+      "target": "Recompiled.Translation.TextPatches.MessageBox"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7420",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.CutsceneUnk1_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7474",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.SetCutsceneScript_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7638",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.CutsceneUnk3_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7698",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.CutsceneUnk4_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7750",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.DrawCutsceneActorName_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A78D4",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.SetCutsceneEnd_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7900",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.CutsceneRun_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7BDC",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.CutsceneSkip_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7CBC",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.ScaleCutsceneAvatar_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801A7DC0",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.func_us_801A7DC0"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801AFC38",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.EntityRelicOrb_bo6"
+    },
+    {
+      "overlay": "bo6",
+      "address": "0x801B0824",
+      "mode": "pre",
+      "target": "Recompiled.Translation.ScriptFunctions_bo6.EntityMessageBox_bo6"
     }
   ]
 }

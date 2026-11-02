@@ -36,6 +36,7 @@ public static class GameLanguage
         Event.AddListener<RuntimeReadyEvent>(_ => EnsureLoaded());
         Event.AddListener<OverlayLoadedEvent>(overlay => TextPatches.OverlayLoaded(overlay.Name));
         Event.AddListener<VSyncEvent>(Update);
+        Event.AddListener<TilemapRenderedEvent>(CornerTextMarks.Combine);
     }
 
     public static void Select(string id)

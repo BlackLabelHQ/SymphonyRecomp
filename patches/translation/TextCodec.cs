@@ -59,7 +59,7 @@ internal sealed class TextCodec
             case "ascii":
             case "shift-jis":
                 if (itemDescription) text = text.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\n', '@').Replace('\r', '@');
-                bytes.AddRange(_sjis.GetBytes(Cp932Aliases(text)));
+                AddText(bytes, text);
                 bytes.Add(0);
                 break;
             case "credits-mixed":
@@ -81,6 +81,18 @@ internal sealed class TextCodec
             default: throw new InvalidDataException($"Unknown text encoding: {encoding}");
         }
         return bytes.ToArray();
+    }
+
+    private void AddText(List<byte> bytes, string text)
+    {
+        int start = 0;
+        for (int i = 0; i <= text.Length; i++)
+        {
+            if (i < text.Length && text[i] is < '\uE000' or > '\uE0FF') continue;
+            if (i > start) bytes.AddRange(_sjis.GetBytes(Cp932Aliases(text[start..i])));
+            if (i < text.Length) bytes.Add((byte)(text[i] - '\uE000'));
+            start = i + 1;
+        }
     }
 
     private byte Glyph(string character) => _glyphs.TryGetValue(character, out var code)

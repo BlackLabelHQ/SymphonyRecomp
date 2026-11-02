@@ -2,7 +2,7 @@ using RecompOne.Runtime.Memory;
 
 namespace Recompiled.Translation;
 
-internal readonly struct ScriptMemory(IMemory memory, string overlay, uint cursor) : IMemory
+internal readonly struct ScriptMemory(IMemory memory, string overlay, uint cursor, bool layout = true) : IMemory
 {
     private sealed record Buffer(ScriptWrite Script, uint Base, Dictionary<uint, uint> Labels);
     private static readonly Dictionary<string, Buffer[]> Scripts = new(StringComparer.OrdinalIgnoreCase);
@@ -86,6 +86,7 @@ internal readonly struct ScriptMemory(IMemory memory, string overlay, uint curso
 
     internal IMemory Native => memory;
     internal uint Cursor => cursor;
+    internal bool Layout => layout;
     internal int LineCount => Ferryman ? 3 : 5;
     internal bool Richter => overlay.Equals("st0", StringComparison.OrdinalIgnoreCase);
     internal bool Ferryman => overlay.Equals("no4", StringComparison.OrdinalIgnoreCase);

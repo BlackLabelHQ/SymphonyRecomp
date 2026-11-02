@@ -2637,7 +2637,7 @@ public static class ScriptFunctions_sel
     }
     private static void func_801B76F0_Body(CpuContext c, IMemory m)
     {
-        var mem = new ScriptMemory(m, "sel", 0x801BC354u);
+        var mem = new ScriptMemory(m, "sel", 0x801BC354u, false);
         { c.SP = c.SP - 0x18u;  }
         mem.WriteU32((c.SP + 0x10u), c.S0); 
         c.S0 = c.A0; 
@@ -2757,7 +2757,7 @@ public static class ScriptFunctions_sel
     }
     private static void func_801B786C_Body(CpuContext c, IMemory m)
     {
-        var mem = new ScriptMemory(m, "sel", 0x801BC354u);
+        var mem = new ScriptMemory(m, "sel", 0x801BC354u, false);
         { c.SP = c.SP - 0x20u;  }
         { c.V0 = 0u | 0x0200u;  }
         { c.A0 = c.A0 << 16;  }
@@ -2787,7 +2787,7 @@ public static class ScriptFunctions_sel
     }
     private static void func_801B79D4_Body(CpuContext c, IMemory m)
     {
-        var mem = new ScriptMemory(m, "sel", 0x801BC354u);
+        var mem = new ScriptMemory(m, "sel", 0x801BC354u, false);
         { c.SP = c.SP - 0x58u;  }
         mem.WriteU32((c.SP + 0x40u), c.S0); 
         c.S0 = c.A0; 

@@ -206,6 +206,7 @@ public static class ScriptFunctions_bo5
     private static void BO5_CutsceneUnk4_Body(CpuContext c, IMemory m)
     {
         var mem = new ScriptMemory(m, "bo5", 0x801B553Cu);
+        DialogueGlyphs.PrepareLine(c, mem);
         { c.SP = c.SP - 0x18u;  }
         mem.WriteU32((c.SP + 0x10u), c.S0); 
         c.S0 = 0x801B0000u; 
@@ -247,6 +248,7 @@ public static class ScriptFunctions_bo5
         c.RA = mem.ReadU32((c.SP + 0x14u)); 
         c.S0 = mem.ReadU32((c.SP + 0x10u)); 
         { c.SP = c.SP + 0x18u;  }
+        DialogueGlyphs.BeginLine(mem);
         return;
         }
     public static bool BO5_DrawCutsceneActorName(CpuContext c, IMemory m)
@@ -608,7 +610,7 @@ public static class ScriptFunctions_bo5
         var mem = new ScriptMemory(m, "bo5", 0x801B553Cu);
         c.V0 = 0x801B0000u; 
         c.V0 = (uint)(short)mem.ReadU16((c.V0 + 0x554Au)); 
-        { c.A3 = c.V0 + 0x1u;  }
+        { c.A3 = c.V0 + (uint)(mem.LineCount - DialogueGlyphs.VisibleLines(mem));  }
         { c.V0 = (int)c.A3 < 5 ? 1u : 0u;  }
         if (c.V0 != 0u) {
             goto L801A4D6C;

@@ -65,6 +65,7 @@ internal static class DialogueGlyphs
 
     private static int Field(ScriptMemory memory, uint address)
     {
+        if (!memory.Layout) return 0;
         uint pointers = memory.Cursor + (memory.Ferryman ? 12u : 24u);
         
         for (int i = 0; i < memory.LineCount; i++)

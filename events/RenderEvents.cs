@@ -15,6 +15,10 @@ public sealed class TilemapRenderedEvent : GameEvent
 public sealed class TilemapLayerDrawnEvent : GameEvent
 {
     public bool Foreground;
+    public uint Layout;
+    public int Columns;
+    public int Rows;
+    public bool Wrap;
     public uint Pool;
     public uint Ot;
     public uint GfxPage;
