@@ -12,6 +12,8 @@ RecompOne.Runtime.Runtime.SetStartupNotice("startup.beta", "startup.title", "Sym
 
 RecompOne.Runtime.Features.FrameInterpolation = false;
 
+Directory.CreateDirectory("translations");
+
 DiscCheck.Register();
 Recompiled.Translation.GameLanguage.Register();
 WidescreenPatch.Register();

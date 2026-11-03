@@ -909,7 +909,7 @@
             "pt-BR": "Você abriu um save randomizado, a configuração desse save foi aplicada automaticamente",
             "es-419": "Abriste un save randomizado, la configuración de ese save se aplicó automáticamente",
             "ja-jp": "ランダム化されたセーブデータを開きました。このセーブデータの設定が自動的に適用されました。",
-            "zh-CN": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。"
+            "zh-CN": "你打开了之前随机化过的存档。为本存档设置的随机生成状态会自动被加载。",
             "fr-FR": "Vous avez choisi une sauvegarde randomizée, la configuration pour cette sauvegarde a été automatiquement appliquée"
         },
         "rando.toast.applied_title": {
@@ -961,7 +961,7 @@
             "pt-BR": "Não foi possível carregar o pacote de idioma.",
             "es-419": "No se pudo cargar el paquete de idioma.",
             "zh-CN": "语言包无法加载",
-            "fr-fr" "Impossible de charger le pack de langue"
+            "fr-fr": "Impossible de charger le pack de langue"
         },
         "translation.applying": {
             "en": "Applying language...",

@@ -32,6 +32,7 @@ public static class GameLanguage
 
     public static void Register()
     {
+        LanguagePacks.EnsureRoot();
         TranslationSettings.Register();
         Event.AddListener<RuntimeReadyEvent>(_ => EnsureLoaded());
         Event.AddListener<OverlayLoadedEvent>(overlay => TextPatches.OverlayLoaded(overlay.Name));

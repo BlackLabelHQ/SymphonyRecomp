@@ -24,6 +24,19 @@ public static class LanguagePacks
         Path.GetFullPath("translations"), Path.Combine(AppContext.BaseDirectory, "translations")
     }.Distinct(StringComparer.Ordinal);
 
+    public static void EnsureRoot()
+    {
+        if (Roots.Any(Directory.Exists)) return;
+        try
+        {
+            Directory.CreateDirectory(Path.GetFullPath("translations"));
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            Console.Error.WriteLine($"[translation] cannot create the translations folder: {e.Message}");
+        }
+    }
+
     public static IReadOnlyList<LanguagePackInfo> Scan(out string? error)
     {
         error = null;
