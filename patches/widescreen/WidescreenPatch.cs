@@ -463,8 +463,13 @@ public static partial class WidescreenPatch
         _layerEvent.ScrollY = L.ScrollY;
         _layerEvent.Sprites = sp16;
         _layerEvent.MaxSprites = ExtMaxSprt16;
+        _layerEvent.TpageBase = 8 + L.TpageBase + ((L.Flags & LayerTpageAlt) != 0 ? 0x80 : 0);
+        _layerEvent.DrawModesAddr = buf + DrawModesOfs;
+        _layerEvent.DrawModes = dm;
+        _layerEvent.MaxDrawModes = MaxDrawModes;
         Event.Dispatch(_layerEvent);
         sp16 = _layerEvent.Sprites;
+        dm = _layerEvent.DrawModes;
 
         for (int i = 0; i < 24; i++)
         {

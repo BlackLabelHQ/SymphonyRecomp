@@ -408,15 +408,47 @@ public static class RoomFills
                 ushort clut = m.ReadU16(ClutIdsAddr + (e.ClutBase + clutIdx) * 2);
 
                 uint prim = e.Pool + sprites * 16;
-                AddPrim(m, e.Ot, Math.Min(e.Order + page, ImageMaxOrder), prim, 3);
                 m.WriteU32(prim + 4, e.Cmd << 24 | 0x808080);
                 m.WriteU32(prim + 8, (uint)(ushort)y0 << 16 | (ushort)(baseX + tx * 16));
                 m.WriteU32(prim + 12, (uint)clut << 16 | (uint)(byte)(g & 0xF0) << 8 | (byte)(g << 4));
                 sprites++;
+
+                if (e.Order + page <= ImageMaxOrder) AddPrim(m, e.Ot, e.Order + page, prim, 3);
+                else _lifted.Add((page, prim));
             }
         }
 
         e.Sprites = sprites;
+        LiftBehindEntities(m, e);
+    }
+
+    static readonly List<(byte Page, uint Prim)> _lifted = [];
+
+    static void LiftBehindEntities(IMemory m, TilemapLayerDrawnEvent e) //esta PORRA agora vai funcionar direito, sem pegar a porcaria do DR_MODE errado 
+    {
+        if (_lifted.Count == 0) return;
+        _lifted.Sort((a, b) => a.Page.CompareTo(b.Page));
+
+        for (int start = 0; start < _lifted.Count;)
+        {
+            byte page = _lifted[start].Page;
+            int end = start;
+            while (end < _lifted.Count && _lifted[end].Page == page) end++;
+
+            if (e.DrawModes < e.MaxDrawModes)
+            {
+                for (int i = start; i < end; i++) AddPrim(m, e.Ot, ImageMaxOrder, _lifted[i].Prim, 3);
+                uint mode = e.DrawModesAddr + e.DrawModes * 12;
+                AddPrim(m, e.Ot, ImageMaxOrder, mode, 2);
+                m.WriteU32(mode + 4, 0xE1000000u | ((uint)(e.TpageBase + page) & 0x9FF));
+                m.WriteU32(mode + 8, 0xE2000000u);
+                e.DrawModes++;
+            }
+
+            start = end;
+        }
+
+        _lifted.Clear();
     }
 
     static bool Covered(IMemory m, TilemapLayerDrawnEvent e, int column, int row)

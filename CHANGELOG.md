@@ -1,15 +1,39 @@
-# pre-release version
+# pre-release 1.1.2 (this is a pre-release for 1.0.0)
+this is a pre-release, it has a lot of new stuff and wasnt tested as much as a full release, so expect some bugs, please report anything you find!
 
-notes to be added
+heads up: the settings system was rewritten, so your settings from previous versions are reset to the defaults
 
+# Changes
+- added language packs (put them in the translations folder)
+- added a game text language option, separate from the interface language
+- added room extension (settings > display), fills the area outside the room on widescreen with custom fills, a color fill, or tun off
+- added room fills for most rooms of the castle, some still need revision tho
+- added support for slang/libretro shader presets through ShaderMod
+- added the Asset Pack manager and an in-game Asset Pack Editor to create and edit packs
+- texture replacement now works properly on alucard, enemies, items, hud and tilesets with a custom provider (games sends this data weirdly by default)
+- added true 24bit color option
+- added option to control the display of the dithering
+- added autohide for top bar
+- added autohide mouse after 5 seconds
+- added a crash popup that shows where the crash log was saved
+- added skip prologue to the QoL options
+- disabling letterbox now zooms the image to cover the bars instead of removing the bars
+- fixed water in the underground caverns, reverse caverns, castle entrance and scylla fight in widescreen
+- fixed lava glow in the catacombs in widescreen
+- fixed trees and foliage in the castle entrance intro in widescreen
+- fixed the castle destruction effect in the prologue in widescreen
+- fixed static backgrounds ending at the 4:3 border in some rooms
+- fixed characters disappearing early near the screen edges, they now fade
+- richter's hud now follows the widescreen margin correctly
+- fixed the game over screen melting effect being corrupted without letterbox, the game over image being stretched and the title screen corrupting after it
+- fixed richter not being able to slide near the screen edges in widescreen
+- fixed richter's whip, subweapons and effects disappearing near the screen edges in widescreen
+- fixed richter's cross, rebound stone and agunea disappearing before leaving the screen
+- fixed a one frame jump on horizontal room transitions
+- improved stability overhaul
+- improved other widescreen effects
 
-# a note from flaffy
-
-Hello there, im flaffy, the "lead" developer? i think? i just want to say that i will be taking a small break after this release, my univeristy semester started and things are getting messy, i will go on for smaller projects for fun, this doesnt mean SymphonyRecomp will be abandoned xD there still a team and i will be still arround fixing some minor bugs, it will just not be my main focus for now
-
-if you want to follow what i will be up to next you can follow my [youtube channel](https://www.youtube.com/@flaffymg), i plan on doing some devlogs of the stuff im up to, i also made a patreon but since i dont want to make it related to the recomp, due to legal reasons, i wont link it here.
-
-See you all arround! i hope you enjoy this project, me and the rest of the team have put a lot of effort on it! <3
+Just to reinterate, this is a pre-release version, some stuff is not yet fully tested or finished
 
 # Dependencies
 
