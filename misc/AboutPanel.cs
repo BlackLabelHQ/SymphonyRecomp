@@ -1,6 +1,7 @@
 using System.Numerics;
-using ImGuiNET;
-using RecompOne.Runtime.Host.Window;
+using Hexa.NET.ImGui;
+using RecompOne.UI;
+using RecompOne.Runtime.Updates;
 
 namespace Recompiled;
 

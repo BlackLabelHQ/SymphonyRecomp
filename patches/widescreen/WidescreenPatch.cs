@@ -1,3 +1,4 @@
+using RecompOne.Runtime.Dispatch;
 using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Events;
 using RecompOne.Runtime.Memory;
@@ -11,6 +12,7 @@ public static partial class WidescreenPatch
     public static bool OriginalAspect => WidescreenOptions.OriginalAspect;
     public static bool Zoomed => !WidescreenOptions.Letterbox && !OriginalAspect && !_zoomSuspended;
     public static float StageAspect => WidescreenOptions.Aspect;
+    const uint StageOverlayBase = 0x80180000;
     public const int StageWidth = 256;
     public const int StageHeight = 240;
     public const int StageViewTop = 0x14;
@@ -63,14 +65,28 @@ public static partial class WidescreenPatch
         Display.TargetAspect = StageAspect;
         Event.AddListener<DisplayModeEvent>(OnDisplayMode);
         WidescreenOptions.Aspect.Changed += _ => Refresh();
-        WidescreenOptions.OriginalAspect.Changed += _ => _viewPending = true;
+        WidescreenOptions.OriginalAspect.Changed += _ =>
+        {
+            _viewPending = true;
+            if (!DisplayModeHooks.IsStage) Refresh();
+        };
         WidescreenOptions.Unstretch.Changed += _ => Refresh();
         WidescreenOptions.Letterbox.Changed += _ => _viewPending = true;
         Event.AddListener<TilemapRenderedEvent>(ApplyPendingView);
-        Event.AddListener<OverlayLoadedEvent>(_ => _viewPending = true);
+        Event.AddListener<OverlayLoadedEvent>(OnOverlayLoaded);
         RegisterEffectPrims();
         WidescreenSettings.Register();
     }
+
+    static void OnOverlayLoaded(OverlayLoadedEvent e)
+    {
+        _viewPending = true;
+        if (LeavesPrologue(e.Name)) _zoomSuspended = false;
+    }
+
+    static bool LeavesPrologue(string overlay) =>
+        overlay is not ("st0" or "sel") &&
+        Dispatcher.Overlays.TryGetValue(overlay, out var loaded) && loaded.Base == StageOverlayBase;
 
     static void OnDisplayMode(DisplayModeEvent e)
     {
@@ -89,9 +105,10 @@ public static partial class WidescreenPatch
     {
         Display.TargetAspect = StageAspect;
         bool stage = mode == DisplayMode.Stage;
+        bool wide = !OriginalAspect && mode is DisplayMode.Stage or DisplayMode.Menu or DisplayMode.Title;
         Display.SourceAspect = stage ? SourceAspect : 4f / 3f;
         Display.OutputAspect = 4f / 3f;
-        Display.WideAspect = stage && !OriginalAspect ? StageAspect : 0f;
+        Display.WideAspect = wide ? StageAspect : 0f;
     }
 
     public static void ConfigStageClip(CpuContext c, IMemory m)
@@ -228,7 +245,7 @@ public static partial class WidescreenPatch
         m.WriteU8(env + 0x13, 0);
     }
 
-    static int StageMargin() => Display.WideMargin(256);
+    static int StageMargin() => DisplayModeHooks.IsStage ? Display.WideMargin(256) : 0;
 
     static void LayoutFadePrims(IMemory m, uint fadePrim, int width)
     {
@@ -314,7 +331,7 @@ public static partial class WidescreenPatch
         uint ot = buf + OtOfs;
         int bbX = (int)m.ReadU32(BackbufferX);
         int bbY = (int)m.ReadU32(BackbufferY);
-        int marginCols = (Display.WideMargin(256) + 15) / 16;
+        int marginCols = (StageMargin() + 15) / 16;
 
         uint sp16 = m.ReadU32(GpuUsageAddr + 0x14);
         uint dm = m.ReadU32(GpuUsageAddr + 0x00);

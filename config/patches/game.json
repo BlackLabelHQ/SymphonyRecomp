@@ -1,0 +1,31 @@
+{
+  "patches": [
+    { "overlay": "dra", "function": "LoadRoomLayer", "mode": "pre", "target": "Recompiled.LevelEventHooks.PreLoadRoomLayer" },
+    { "overlay": "dra", "function": "LoadRoomLayer", "mode": "post", "target": "Recompiled.LevelEventHooks.PostLoadRoomLayer" },
+    { "overlay": "dra", "function": "SetRoomForegroundLayer", "mode": "pre", "target": "Recompiled.LevelEventHooks.PreForegroundLayer" },
+    { "overlay": "dra", "function": "SetRoomForegroundLayer", "mode": "post", "target": "Recompiled.LevelEventHooks.PostForegroundLayer" },
+    { "overlay": "dra", "function": "SetRoomBackgroundLayer", "mode": "pre", "target": "Recompiled.LevelEventHooks.PreBackgroundLayer" },
+    { "overlay": "dra", "function": "SetRoomBackgroundLayer", "mode": "post", "target": "Recompiled.LevelEventHooks.PostBackgroundLayer" },
+    { "overlay": "bo3", "function": "func_801A1BE8", "mode": "pre", "target": "Recompiled.FunctionFixes.ScyllaDoorFix" },
+    { "overlay": "bo0", "function": "func_801B551C", "mode": "pre", "target": "Recompiled.FunctionFixes.OlroxExploFix" },
+    { "overlay": "nz1", "function": "EntitySecretAreaDoor", "mode": "pre", "target": "Recompiled.FunctionFixes.ClockCollisionFix" },
+    { "overlay": "bo2", "function": "func_801A6EF8", "mode": "pre", "target": "Recompiled.FunctionFixes.MinotaurAndWerewolfFix" },
+    { "overlay": "dra", "function": "func_800F2860", "mode": "pre", "target": "Recompiled.FairySongPatch.RestoreNocturne" },
+    { "overlay": "dra", "function": "InitStatsAndGear", "mode": "post", "target": "Recompiled.GameHooks.OnInitStatsAndGear" },
+    { "overlay": "dra", "function": "ApplySaveData", "mode": "post", "target": "Recompiled.GameHooks.OnApplySaveData" },
+    { "overlay": "sel", "function": "ApplySaveData", "mode": "post", "target": "Recompiled.GameHooks.OnApplySaveData" },
+    { "overlay": "dra", "function": "StoreSaveData", "mode": "post", "target": "Recompiled.GameHooks.OnStoreSaveData" },
+    { "overlay": "sel", "function": "StoreSaveData", "mode": "post", "target": "Recompiled.GameHooks.OnStoreSaveData" },
+    { "overlay": "dra", "function": "StoreSaveData", "mode": "pre", "target": "Recompiled.GameHooks.PreStoreSaveData" },
+    { "overlay": "sel", "function": "StoreSaveData", "mode": "pre", "target": "Recompiled.GameHooks.PreStoreSaveData" },
+    { "overlay": "dra", "function": "ApplySaveData", "mode": "pre", "target": "Recompiled.GameHooks.PreApplySaveData" },
+    { "overlay": "sel", "function": "ApplySaveData", "mode": "pre", "target": "Recompiled.GameHooks.PreApplySaveData" },
+    {
+      "comment": "fix richter position on coleseum",
+      "overlay": "bo2",
+      "function": "func_801A7340",
+      "mode": "pre",
+      "target": "Recompiled.RichterCutscenePatch.ForceCenter"
+    }
+  ]
+}

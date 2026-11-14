@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
-using ImGuiNET;
-using RecompOne.Runtime.Host.Window;
+using Hexa.NET.ImGui;
+using RecompOne.UI;
 using RecompOne.Runtime.Memory;
 
 namespace Recompiled;
@@ -99,12 +99,12 @@ public sealed class TrackerOverlayPanel : IPanel
         if (!ImGui.BeginMenuBar()) return;
         if (ImGui.BeginMenu("View"))
         {
-            if (ImGui.MenuItem("Progress bar", null, ref _showProgress)) Persist();
-            if (ImGui.MenuItem("Sectioning", null, ref _sectioning)) Persist();
-            if (ImGui.MenuItem("Fixed icon size", null, ref _fixedIconSize)) Persist();
-            if (ImGui.MenuItem("JP exclusives", null, ref _showJp)) Persist();
-            if (ImGui.MenuItem("Hand Items", null, ref _showHand)) Persist();
-            if (ImGui.MenuItem("Body Items", null, ref _showBody)) Persist();
+            if (ImGui.MenuItem("Progress bar", (string?)null, ref _showProgress)) Persist();
+            if (ImGui.MenuItem("Sectioning", (string?)null, ref _sectioning)) Persist();
+            if (ImGui.MenuItem("Fixed icon size", (string?)null, ref _fixedIconSize)) Persist();
+            if (ImGui.MenuItem("JP exclusives", (string?)null, ref _showJp)) Persist();
+            if (ImGui.MenuItem("Hand Items", (string?)null, ref _showHand)) Persist();
+            if (ImGui.MenuItem("Body Items", (string?)null, ref _showBody)) Persist();
             ImGui.SetNextItemWidth(140f);
             if (ImGui.SliderInt("Columns", ref _columns, 1, 12))
                 _columns = Math.Clamp(_columns, 1, 12);

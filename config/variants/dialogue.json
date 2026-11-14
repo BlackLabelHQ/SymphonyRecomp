@@ -1,0 +1,190 @@
+{
+  "variants": [
+    {
+      "name": "dialogue",
+      "condition": "Recompiled.Translation.ScriptMemory.Enabled(\"{overlay}\", m, {active})",
+      "view": "new Recompiled.Translation.ScriptMemory(m, \"{overlay}\", {cursor}{layout})",
+      "vars": {
+        "active": "true",
+        "layout": ""
+      },
+      "rules": {
+        "replaceCall": {
+          "ClearImage": "Recompiled.Translation.DialogueGlyphs.Clear(c, mem);"
+        },
+        "guardCall": {
+          "MoveImage": "!Recompiled.Translation.DialogueGlyphs.Draw(c, mem)"
+        }
+      },
+      "roles": {
+        "start": {
+          "onEnter": "c.A0 = Recompiled.Translation.DialogueScripts.ResolveStart(\"{overlay}\", c.A0, m);"
+        },
+        "line": {
+          "onEnter": "Recompiled.Translation.DialogueGlyphs.PrepareLine(c, mem);",
+          "onExit": "Recompiled.Translation.DialogueGlyphs.BeginLine(mem);"
+        },
+        "avatar": {
+          "replaceImmediate": [
+            {
+              "op": "addiu",
+              "value": 1,
+              "occurrence": 1,
+              "with": "(uint)(mem.LineCount - Recompiled.Translation.DialogueGlyphs.VisibleLines(mem))"
+            }
+          ]
+        },
+        "passive": {
+          "vars": {
+            "active": "false"
+          }
+        },
+        "noLayout": {
+          "vars": {
+            "layout": ", false"
+          }
+        }
+      },
+      "functions": {
+        "CutsceneUnk1": [],
+        "SetCutsceneScript": ["start"],
+        "CutsceneUnk3": ["passive"],
+        "CutsceneUnk4": ["line"],
+        "DrawCutsceneActorName": [],
+        "SetCutsceneEnd": [],
+        "CutsceneRun": [],
+        "CutsceneSkip": [],
+        "ScaleCutsceneAvatar": ["avatar"],
+        "EntityCutscene": [],
+        "EntityRelicOrb": ["passive"],
+        "EntityMessageBox": ["passive"]
+      },
+      "overlays": {
+        "bo2": {
+          "vars": { "cursor": "0x801B6840u" },
+          "functions": {
+            "func_801A5910": [],
+            "func_801A593C": [],
+            "func_801A5DCC": []
+          },
+          "without": ["SetCutsceneEnd", "CutsceneRun", "EntityCutscene"]
+        },
+        "bo5": {
+          "vars": { "cursor": "0x801B553Cu" },
+          "functions": {
+            "func_801A4A4C": [],
+            "func_801A4E40": []
+          },
+          "without": ["SetCutsceneEnd", "CutsceneSkip", "EntityCutscene"]
+        },
+        "bo6": {
+          "vars": { "cursor": "0x801D1114u" },
+          "functions": {
+            "func_us_801A7DC0": []
+          },
+          "without": ["EntityCutscene"]
+        },
+        "cen": {
+          "vars": { "cursor": "0x8019D378u" },
+          "functions": {
+            "func_8018E810": []
+          },
+          "without": ["CutsceneSkip"]
+        },
+        "dai": {
+          "vars": { "cursor": "0x801DB310u" },
+          "functions": {
+            "EntityCutsceneDialogue": []
+          },
+          "without": ["CutsceneSkip", "EntityCutscene"]
+        },
+        "dre": {
+          "vars": { "cursor": "0x801A3ED8u" },
+          "functions": {
+            "EntityCutsceneDialogue": []
+          },
+          "without": ["EntityCutscene"]
+        },
+        "lib": {
+          "vars": { "cursor": "0x801D51D8u" },
+          "functions": {
+            "func_us_801B11A0": ["passive"]
+          }
+        },
+        "mar": {
+          "vars": { "cursor": "0x8019AE74u" },
+          "without": ["CutsceneSkip"]
+        },
+        "no3": {
+          "vars": { "cursor": "0x801D7D24u" }
+        },
+        "no4": {
+          "vars": { "cursor": "0x801DF784u" },
+          "functions": {
+            "ScaleCutsceneAvatar": []
+          },
+          "without": ["SetCutsceneEnd", "CutsceneRun", "CutsceneSkip"]
+        },
+        "nz0": {
+          "vars": { "cursor": "0x801CB688u" },
+          "without": ["CutsceneSkip"]
+        },
+        "rbo2": {
+          "vars": { "cursor": "0x801AE854u" },
+          "functions": {
+            "func_8019FDC4": [],
+            "func_801A0220": [],
+            "func_801A062C": [],
+            "func_801A7B64": ["passive"]
+          },
+          "without": ["SetCutsceneScript", "SetCutsceneEnd", "CutsceneSkip", "EntityCutscene", "EntityRelicOrb"]
+        },
+        "rbo6": {
+          "vars": { "cursor": "0x801B3F50u" },
+          "functions": {
+            "func_801A1BE0": [],
+            "func_801A208C": [],
+            "func_801A2578": [],
+            "func_801AB5A0": ["passive"]
+          },
+          "without": ["CutsceneUnk1", "SetCutsceneEnd", "EntityCutscene", "EntityRelicOrb"]
+        },
+        "rcen": {
+          "vars": { "cursor": "0x801AD2E0u" },
+          "functions": {
+            "func_8019DB78": [],
+            "func_8019DBA4": [],
+            "func_8019E064": []
+          },
+          "without": ["SetCutsceneEnd", "CutsceneRun", "EntityCutscene"]
+        },
+        "sel": {
+          "vars": { "cursor": "0x801BC354u" },
+          "functions": {
+            "ClearBackbuffer": ["passive"],
+            "func_801B5A7C": ["passive"],
+            "func_801B60D4": ["passive"],
+            "func_801B76F0": ["noLayout"],
+            "func_801B786C": ["passive", "noLayout"],
+            "func_801B79D4": ["noLayout"]
+          },
+          "without": ["CutsceneRun", "CutsceneSkip", "EntityRelicOrb", "EntityMessageBox"]
+        },
+        "st0": {
+          "vars": { "cursor": "0x801C24CCu" },
+          "functions": {
+            "func_801AF774": ["passive"],
+            "ClearScreen": ["passive"],
+            "func_801B101C": [],
+            "func_801B1198": ["passive"],
+            "func_801B1298": []
+          },
+          "without": ["CutsceneSkip", "EntityMessageBox"]
+        },
+        "top": {
+          "vars": { "cursor": "0x801BC464u" }
+        }
+      }
+    }
+  ]
+}

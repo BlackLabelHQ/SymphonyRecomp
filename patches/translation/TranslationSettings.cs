@@ -1,5 +1,5 @@
-using ImGuiNET;
-using RecompOne.Runtime.Host.Window;
+using Hexa.NET.ImGui;
+using RecompOne.UI;
 
 namespace Recompiled.Translation;
 
@@ -24,23 +24,20 @@ internal static class TranslationSettings
             ? original
             : _packs!.FirstOrDefault(p => p.Id == selected)?.Name ?? selected;
 
+        var packs = _packs!.ToList();
+        string[] items = [original, .. packs.Select(static p => p.Name)];
+        int index = selected == GameLanguage.OriginalPack ? 0 : packs.FindIndex(p => p.Id == selected) + 1;
+        if (index == 0 && selected != GameLanguage.OriginalPack) index = -1;
+
         ImGui.SetNextItemWidth(-1f);
-        if (ImGui.BeginCombo("##game-language", label))
-        {
-            if (ImGui.Selectable(original, selected == GameLanguage.OriginalPack)) GameLanguage.Select(GameLanguage.OriginalPack);
-
-            foreach (var pack in _packs!)
-                if (ImGui.Selectable($"{pack.Name}##pack-{pack.Id}", selected == pack.Id))
-                    GameLanguage.Select(pack.Id);
-
-            ImGui.EndCombo();
-        }
+        if (Ui.Combo("##game-language", label, items, ref index))
+            GameLanguage.Select(index == 0 ? GameLanguage.OriginalPack : packs[index - 1].Id);
 
         SettingsWidgets.Note("translation.hint");
 
         if (GameLanguage.Pending)
             ImGui.TextWrapped(Localization.T("translation.applying"));
-        if (ImGui.Button(Localization.T("translation.rescan"))) Rescan();
+        if (Ui.Button(Localization.T("translation.rescan"))) Rescan();
         if (_scanError != null) ImGui.TextWrapped(_scanError);
         if (TextPatches.LoadError != null) ImGui.TextWrapped(TextPatches.LoadError);
         if (GameLanguage.Error != null)

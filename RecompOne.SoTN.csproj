@@ -16,6 +16,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="RecompOne/RecompOne.Runtime/RecompOne.Runtime.csproj" UndefineProperties="OutputType" />
+    <ProjectReference Include="RecompOne/RecompOne.UI/RecompOne.UI.csproj" UndefineProperties="OutputType" />
+    <ProjectReference Include="RecompOne/RecompOne.UI.BigPicture/RecompOne.UI.BigPicture.csproj" UndefineProperties="OutputType" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="assets/tracker/*.png" />

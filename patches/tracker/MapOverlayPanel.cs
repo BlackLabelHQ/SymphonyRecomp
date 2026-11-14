@@ -3,9 +3,9 @@
 using System.Collections.Generic;
 using System.Numerics;
 using System.Reflection;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using RecompOne.Runtime.Host;
-using RecompOne.Runtime.Host.Window;
+using RecompOne.UI;
 using RecompOne.Runtime.Memory;
 
 namespace Recompiled;
@@ -98,7 +98,8 @@ public sealed class MapOverlayPanel : IPanel
         ImGui.Text($"Castle {_curCastle}");
         ImGui.SameLine();
         ImGui.SetNextItemWidth(140f);
-        if (ImGui.Combo("Checks", ref _checkSet, CheckSetNames, CheckSetNames.Length)) Persist();
+        string preview = CheckSetNames[Math.Clamp(_checkSet, 0, CheckSetNames.Length - 1)];
+        if (Ui.CompactCombo("Checks", preview, CheckSetNames, ref _checkSet)) Persist();
         ImGui.SameLine();
         if (ImGui.SmallButton("Reset"))
         {
@@ -178,7 +179,7 @@ public sealed class MapOverlayPanel : IPanel
 
         uint tex = _curCastle == 2 ? _tex2 : _tex1;
         if (tex != 0)
-            dl.AddImage((nint)tex, origin, new Vector2(origin.X + 320 * s, origin.Y + 255 * s));
+            dl.AddImage(RecompOne.UI.ImGuiUtils.Tex((nint)tex), origin, new Vector2(origin.X + 320 * s, origin.Y + 255 * s));
 
         DrawChecks(origin, s, cell);
 

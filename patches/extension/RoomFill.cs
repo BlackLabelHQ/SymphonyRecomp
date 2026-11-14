@@ -73,6 +73,11 @@ public sealed class RoomFill
     public string? HideWhenEntity { get; set; }
     public string? Note { get; set; }
     public RoomFadeArea? FadeArea { get; set; }
+    public string? Kind { get; set; }
+    public string? Castle { get; set; }
+    public int? Order { get; set; }
+    public int OffsetX { get; set; }
+    public int OffsetY { get; set; }
 
     [JsonIgnore] public uint HideEntityAddr;
     [JsonIgnore] public ushort[]? TileData;
@@ -98,6 +103,9 @@ public static class RoomFills
     const int TilesPerScreen = 16;
 
     const uint ClutIdsAddr = 0x8003C104;
+    const uint RoomKindFlags = 0x8003C708;
+    const ushort SaveRoom = 0x20;
+    const ushort LoadingRoom = 0x40;
 
     sealed class Loaded
     {
@@ -186,8 +194,7 @@ public static class RoomFills
 
         foreach (var fill in _fills)
         {
-            if (!InRoom(fill, left, top, right, bottom)) continue;
-            if (!string.Equals(fill.Overlay, overlay, StringComparison.OrdinalIgnoreCase)) continue;
+            if (!Matches(fill, m, overlay, left, top, right, bottom)) continue;
             if (fill.HideEntityAddr != 0 && EntityActive(fill.HideEntityAddr)) continue;
             if (Visible != null && !Visible(fill)) continue;
 
@@ -202,9 +209,10 @@ public static class RoomFills
                 table = true;
             }
 
-            int x = bx + fill.TileX * Screen - e.ScrollX;
-            int y = by + fill.TileY * Screen - e.ScrollY;
-            GpuPrims.Sprite(Math.Min(order, ImageMaxOrder), image.Image, x, y, image.Width, image.Height);
+            int x = bx + fill.TileX * Screen + fill.OffsetX - e.ScrollX;
+            int y = by + fill.TileY * Screen + fill.OffsetY - e.ScrollY;
+            int depth = fill.Order is { } custom ? Math.Clamp(custom, 0, OtSize - 1) : Math.Min(order, ImageMaxOrder);
+            GpuPrims.Sprite(depth, image.Image, x, y, image.Width, image.Height);
         }
     }
 
@@ -223,12 +231,12 @@ public static class RoomFills
 
         foreach (var fill in _fills)
         {
-            if (!InRoom(fill, left, top, right, bottom)) continue;
-            if (!string.Equals(fill.Overlay, overlay, StringComparison.OrdinalIgnoreCase)) continue;
+            if (!Matches(fill, m, overlay, left, top, right, bottom)) continue;
             if (Visible != null && !Visible(fill)) continue;
             if (fill.HasTiles || !LayerMatches(fill, true) || string.IsNullOrWhiteSpace(fill.Image)) continue;
             if (Resolve(fill) is not { } image) continue;
-            images.Add((image.Rgba, image.Width, image.Height, fill.TileX * Screen - scrollX, fill.TileY * Screen - scrollY));
+            images.Add((image.Rgba, image.Width, image.Height, fill.TileX * Screen + fill.OffsetX - scrollX,
+                fill.TileY * Screen + fill.OffsetY - scrollY));
         }
 
         return images;
@@ -252,8 +260,7 @@ public static class RoomFills
         foreach (var fill in _fills)
         {
             if (fill.HasTiles || string.IsNullOrWhiteSpace(fill.Image)) continue;
-            if (!InRoom(fill, left, top, right, bottom)) continue;
-            if (!string.Equals(fill.Overlay, overlay, StringComparison.OrdinalIgnoreCase)) continue;
+            if (!Matches(fill, m, overlay, left, top, right, bottom)) continue;
             if (Visible != null && !Visible(fill)) continue;
             sides.Left |= fill.TileX < 0;
             sides.Right |= fill.TileX >= screensX;
@@ -288,8 +295,7 @@ public static class RoomFills
         foreach (var fill in _fills)
         {
             if (!LayerMatches(fill, e.Foreground)) continue;
-            if (!InRoom(fill, left, top, right, bottom)) continue;
-            if (!string.Equals(fill.Overlay, overlay, StringComparison.OrdinalIgnoreCase)) continue;
+            if (!Matches(fill, m, overlay, left, top, right, bottom)) continue;
             if (fill.HideEntityAddr != 0 && EntityActive(fill.HideEntityAddr)) continue;
             if (Visible != null && !Visible(fill)) continue;
 
@@ -306,8 +312,8 @@ public static class RoomFills
         if (image == null) return;
         GpuPrims.SetOrderingTable(e.Ot, OtSize);
         GpuPrims.Sprite(Math.Clamp(e.Order, 0, ImageMaxOrder), image.Image,
-            e.BackbufferX + fill.TileX * Screen - e.ScrollX,
-            e.BackbufferY + fill.TileY * Screen - e.ScrollY, image.Width, image.Height);
+            e.BackbufferX + fill.TileX * Screen + fill.OffsetX - e.ScrollX,
+            e.BackbufferY + fill.TileY * Screen + fill.OffsetY - e.ScrollY, image.Width, image.Height);
     }
 
     //WHY THIS FUCK DONT FUCKING WORK I HATE MYSELF
@@ -470,6 +476,26 @@ public static class RoomFills
         uint old = m.ReadU32(entry);
         m.WriteU32(prim, length << 24 | (old & 0xFFFFFFu));
         m.WriteU32(entry, (old & 0xFF000000u) | (prim & 0xFFFFFFu));
+    }
+
+    static bool Matches(RoomFill fill, IMemory m, string? overlay, int left, int top, int right, int bottom)
+    {
+        if (string.IsNullOrWhiteSpace(fill.Kind))
+            return InRoom(fill, left, top, right, bottom) &&
+                   string.Equals(fill.Overlay, overlay, StringComparison.OrdinalIgnoreCase);
+
+        if (!fill.InOriginalAspect && WidescreenPatch.OriginalAspect) return false;
+        ushort kind = fill.Kind.Trim().ToLowerInvariant() switch
+        {
+            "loading" or "cd" => LoadingRoom,
+            "save" => SaveRoom,
+            _ => 0
+        };
+        if (kind == 0 || (m.ReadU16(RoomKindFlags) & kind) == 0) return false;
+        if (string.IsNullOrWhiteSpace(fill.Castle)) return true;
+
+        bool inverted = overlay is { Length: 4 } && overlay[0] is 'r' or 'R';
+        return string.Equals(fill.Castle.Trim(), "inverted", StringComparison.OrdinalIgnoreCase) == inverted;
     }
 
     static bool InRoom(RoomFill fill, int left, int top, int right, int bottom)

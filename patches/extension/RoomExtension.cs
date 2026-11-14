@@ -1,8 +1,8 @@
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using RecompOne.Runtime.Config;
 using RecompOne.Runtime.Events;
 using RecompOne.Runtime.Hle;
-using RecompOne.Runtime.Host.Window;
+using RecompOne.UI;
 using RecompOne.Runtime.Memory;
 
 namespace Recompiled;

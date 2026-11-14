@@ -1,6 +1,6 @@
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using RecompOne.Runtime.Config;
-using RecompOne.Runtime.Host.Window;
+using RecompOne.UI;
 
 namespace Recompiled;
 
@@ -8,7 +8,7 @@ public static class WidescreenOptions
 {
     public static readonly Option<float> Aspect = Options.Float("widescreen.aspect", 16f / 9f)
         .Normalized(static v => Math.Clamp(v, 1f, 3f));
-    public static readonly Option<bool> OriginalAspect = Options.Bool("widescreen.original_aspect", true);
+    public static readonly Option<bool> OriginalAspect = Options.Bool("widescreen.original_aspect", false);
     public static readonly Option<bool> Letterbox = Options.Bool("widescreen.letterbox", false);
     public static readonly Option<bool> Unstretch = Options.Bool("widescreen.unstretch", true);
 }
@@ -38,23 +38,19 @@ public static class WidescreenSettings
         var customLabel = Localization.T("settings.interface.custom");
         string label = original ? originalLabel : selected >= 0 ? _presets[selected].Label : customLabel;
 
-        ImGui.TextUnformatted(Localization.T("widescreen.aspect"));
-        if (ImGui.BeginCombo("##aspect-preset", label))
+        string[] items = [originalLabel, .. _presets.Select(static p => p.Label), customLabel];
+        int index = original ? 0 : selected >= 0 ? selected + 1 : items.Length - 1;
+
+        Ui.Text(Localization.T("widescreen.aspect"));
+        if (Ui.Combo("##aspect-preset", label, items, ref index))
         {
-            if (ImGui.Selectable(originalLabel, original)) WidescreenOptions.OriginalAspect.Value = true;
-            for (int i = 0; i < _presets.Length; i++)
-            {
-                if (ImGui.Selectable(_presets[i].Label, !original && selected == i))
-                    Apply(_presets[i].Value);
-            }
-            if (ImGui.Selectable(customLabel, !original && selected < 0))
-                Apply(aspect);
-            ImGui.EndCombo();
+            if (index == 0) WidescreenOptions.OriginalAspect.Value = true;
+            else Apply(index <= _presets.Length ? _presets[index - 1].Value : aspect);
         }
 
         if (original) ImGui.BeginDisabled();
         float custom = aspect;
-        if (ImGui.SliderFloat("##aspect-custom", ref custom, 1.0f, 2.5f, "%.3f : 1"))
+        if (Ui.Slider("##aspect-custom", ref custom, 1.0f, 2.5f, "%.3f : 1"))
             Apply(custom);
         if (original) ImGui.EndDisabled();
 
@@ -77,9 +73,6 @@ public static class WidescreenSettings
 
     static void Apply(float aspect)
     {
-        if (WidescreenOptions.OriginalAspect)
-            RecompOne.Runtime.Runtime.ShowNotice(Localization.T("widescreen.warning"));
-
         WidescreenOptions.Aspect.Value = aspect;
         WidescreenOptions.OriginalAspect.Value = false;
     }

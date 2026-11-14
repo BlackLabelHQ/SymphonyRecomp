@@ -1,11 +1,11 @@
 using System.Numerics;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using RecompOne.Runtime.Config;
-using RecompOne.Runtime.Host.Window;
+using RecompOne.UI;
 
 namespace Recompiled;
 
-public sealed class QualityOfLifePanel : IPanel
+public sealed class QualityOfLifePanel : IEmbeddedPanel
 {
     public string Name => "Quality Of Life Options";
     public string TitleKey => "panel.qol";
@@ -22,7 +22,15 @@ public sealed class QualityOfLifePanel : IPanel
             return;
         }
 
-        ImGui.SeparatorText(Localization.T("qol.toggles"));
+        DrawContent();
+
+        IsOpen = open;
+        ImGui.End();
+    }
+
+    public void DrawContent()
+    {
+        Ui.Section(Localization.T("qol.toggles"));
 
         /* Toggles */
         Toggle(QualityOfLifeOptions.ColorBlind, "qol.color_blind");
@@ -36,11 +44,8 @@ public sealed class QualityOfLifePanel : IPanel
         Toggle(QualityOfLifeOptions.SkipPrologue, "qol.skip_prologue");
 
         /* Enhancements */
-        ImGui.SeparatorText(Localization.T("qol.enhancements"));
+        Ui.Section(Localization.T("qol.enhancements"));
         Toggle(QualityOfLifeOptions.RestoreFairySong, "qol.fairy_song");
-
-        IsOpen = open;
-        ImGui.End();
     }
 
     static void Toggle(Option<bool> option, string key)

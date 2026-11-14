@@ -1,14 +1,20 @@
 using RecompOne.Runtime.Memory;
+using RecompOne.Runtime.Updates;
 using Recompiled;
 
+RecompOne.Runtime.Config.PortSettings.PrimaryKind = RecompOne.Runtime.Config.PadKind.Digital;
+
 if (AutoUpdater.HandleRelaunch(args)) return 0;
+args = AutoUpdater.ConsumeArguments(args);
+
+RecompOne.Runtime.Runtime.UserInterface = RecompOne.UI.BigPicture.UserInterfaces.Create();
 
 var asm = System.Reflection.Assembly.GetExecutingAssembly();
 
 if (Array.Find(asm.GetManifestResourceNames(), n => n.EndsWith(".languages.json", StringComparison.OrdinalIgnoreCase)) is { } languagesRes)
-    RecompOne.Runtime.Runtime.AddLanguages(asm, languagesRes);
+    RecompOne.UI.Localization.MergeEmbedded(asm, languagesRes);
 
-RecompOne.Runtime.Runtime.SetStartupNotice("startup.beta", "startup.title", "SymphonyRecompBetaAck");
+RecompOne.UI.StartupNoticePopup.Set("startup.beta", "startup.title", "SymphonyRecompBetaAck");
 
 RecompOne.Runtime.Features.FrameInterpolation = false;
 
@@ -24,7 +30,7 @@ CheatMenu.Register();
 QualityOfLifeMenu.Register();
 TrackerMenu.Register();
 RandoMenu.Register();
-AutoUpdater.Register();
+AutoUpdater.Configure("BlackLabelHQ/SymphonyRecomp");
 HelpMenu.Register();
 
 var title = AutoUpdater.CurrentTag is { } tag ? $"SymphonyRecomp {tag}" : "SymphonyRecomp"; //get version too

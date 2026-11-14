@@ -620,7 +620,7 @@ public static partial class Randomizer
 
         SaveLoadManager.MarkApplied(SaveStamp.FromRandomizer());
 
-        if (notify) RecompOne.Runtime.Host.Window.ToastNotifications.Show("rando.toast.applied_title", "rando.toast.applied", SaveLoadManager.RandomIcon);
+        if (notify) RecompOne.UI.ToastNotifications.Show("rando.toast.applied_title", "rando.toast.applied", SaveLoadManager.RandomIcon);
     }
 
     public static void DoRandomizeDrops()

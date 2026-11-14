@@ -1,0 +1,26 @@
+{
+  "patches": [
+    { "overlay": "dra", "function": "func_801080DC", "mode": "pre", "target": "Recompiled.Translation.FontPatches.PrepareCdGraphics" },
+    { "overlay": "sel", "function": "func_801B2D6C", "mode": "pre", "target": "Recompiled.Translation.FontPatches.PrepareMenuPalette" },
+    { "overlay": "main", "function": "FntLoad", "mode": "pre", "target": "Recompiled.Translation.FontPatches.PrepareDebugFont" },
+    { "overlay": "dra", "function": "func_80106A28", "mode": "pre", "target": "Recompiled.Translation.FontPatches.PrepareBiosFallback" },
+    { "overlay": "main", "function": "main", "mode": "pre", "target": "Recompiled.Translation.TextPatches.PrepareMain" },
+    { "overlay": "dra", "function": "MainGame", "mode": "pre", "target": "Recompiled.Translation.TextPatches.PrepareDra" },
+    { "overlay": "dra", "function": "CopyStageOvlCallback", "mode": "post", "target": "Recompiled.Translation.TextPatches.AfterStageCopy" },
+    { "overlay": "dra", "function": "CopyRicOvlCallback", "mode": "post", "target": "Recompiled.Translation.TextPatches.AfterRicCopy" },
+    { "overlay": "dra", "function": "CopySupportOvlCallback", "mode": "post", "target": "Recompiled.Translation.TextPatches.AfterSupportCopy" },
+    { "overlay": "dra", "function": "LoadFileSimToMem", "mode": "post", "target": "Recompiled.Translation.TextPatches.AfterSimLoad" },
+    { "overlay": "main", "function": "Krom2RawAdd", "mode": "pre", "target": "Recompiled.Translation.FontPatches.KromGlyph" },
+    { "overlay": "dra", "function": "CdSoundCommand4", "mode": "pre", "target": "Recompiled.Translation.DialogueAudio.StartVoice" },
+    { "overlay": "sel", "function": "func_801B24F8", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MenuText" },
+    { "overlay": "sel", "function": "func_801B248C", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MenuText" },
+    { "overlay": "are", "address": "0x801BF3B0", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox" },
+    { "overlay": "dai", "address": "0x801CCC64", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox", "afterVariant": true },
+    { "overlay": "lib", "address": "0x801C8294", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox", "afterVariant": true },
+    { "overlay": "no0", "address": "0x801CB0B8", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox" },
+    { "overlay": "no1", "address": "0x801C7A1C", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox" },
+    { "overlay": "nz0", "address": "0x801C01B0", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox", "afterVariant": true },
+    { "overlay": "rno0", "address": "0x801BE000", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox" },
+    { "overlay": "rnz0", "address": "0x801B38E0", "mode": "pre", "target": "Recompiled.Translation.TextPatches.MessageBox" }
+  ]
+}

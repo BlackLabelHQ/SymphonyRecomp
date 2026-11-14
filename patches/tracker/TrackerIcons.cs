@@ -1,7 +1,7 @@
 using System.Numerics;
 using System.Reflection;
 using System.Text;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using RecompOne.Runtime.Host;
 
 namespace Recompiled;
@@ -125,7 +125,7 @@ public static class TrackerIcons
         {
             uint tex = owned ? color : (gray != 0 ? gray : color);
             uint tint = owned ? 0xFFFFFFFFu : 0xCCFFFFFFu;
-            dl.AddImage((nint)tex, pos, pos + size, uv0, uv1, tint);
+            dl.AddImage(RecompOne.UI.ImGuiUtils.Tex((nint)tex), pos, pos + size, uv0, uv1, tint);
             ImGui.Dummy(size);
             return;
         }

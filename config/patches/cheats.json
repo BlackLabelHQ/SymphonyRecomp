@@ -1,0 +1,9 @@
+{
+  "patches": [
+    { "overlay": "dra", "function": "CheckStageCollision", "mode": "pre", "target": "Recompiled.MovementCheat.PrePhysics" },
+    { "overlay": "ric", "function": "CheckStageCollision", "mode": "pre", "target": "Recompiled.MovementCheat.PrePhysics" },
+    { "overlay": "dra", "function": "func_800F0CD8", "mode": "pre", "target": "Recompiled.MovementCheat.PreCamera" },
+    { "overlay": "dra", "function": "CheckStageCollision", "mode": "post", "target": "Recompiled.MovementCheat.PostPhysics" },
+    { "overlay": "ric", "function": "CheckStageCollision", "mode": "post", "target": "Recompiled.MovementCheat.PostPhysics" }
+  ]
+}

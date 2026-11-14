@@ -2,7 +2,7 @@ using RecompOne.Runtime.Memory;
 
 namespace Recompiled.Translation;
 
-internal readonly struct ScriptMemory(IMemory memory, string overlay, uint cursor, bool layout = true) : IMemory
+internal sealed class ScriptMemory(IMemory memory, string overlay, uint cursor, bool layout = true) : MemoryView(memory)
 {
     private sealed record Buffer(ScriptWrite Script, uint Base, Dictionary<uint, uint> Labels);
     private static readonly Dictionary<string, Buffer[]> Scripts = new(StringComparer.OrdinalIgnoreCase);
@@ -30,8 +30,8 @@ internal readonly struct ScriptMemory(IMemory memory, string overlay, uint curso
     internal static uint Register(ScriptWrite script)
     {
         if (Buffers.Any(b => b.Script.Key == script.Key))
-            throw new InvalidDataException($"Script already registered: {script.Key}.");
-        if (Buffers.Count >= 32) throw new InvalidDataException("The script buffer capacity is 32 scripts.");
+            throw new InvalidDataException($"duplicate script: {script.Key}.");
+        if (Buffers.Count >= 32) throw new InvalidDataException("The script buffer exploded, the max is 32");
 
         uint address = 0x40000000u + (uint)Buffers.Count * 0x1000000u;
         var buffer = new Buffer(script, address, script.Labels.ToDictionary(p => p.Key, p => address + (uint)p.Value));
@@ -46,7 +46,7 @@ internal readonly struct ScriptMemory(IMemory memory, string overlay, uint curso
     {
         var buffer = Buffers.FirstOrDefault(b => b.Script.Key == id && b.Script.Overlay.Equals(overlay, StringComparison.OrdinalIgnoreCase)) ?? throw new KeyNotFoundException($"No script {id} for overlay {overlay}.");
         if (buffer.Script.Original.Length != 0 && (!Active.TryGetValue(overlay, out var labels) || !labels.ContainsKey(buffer.Script.Address)))
-            throw new InvalidOperationException("The script overlay has not been loaded or doesnt match the disc.");
+            throw new InvalidOperationException("The script overlay has not been loaded or doesnt match the disc");
 
         return buffer.Base;
     }
@@ -115,7 +115,7 @@ internal readonly struct ScriptMemory(IMemory memory, string overlay, uint curso
 
     private static bool Virtual(uint address) => address >= 0x40000000 && address < 0x60000000;
 
-    public byte ReadU8(uint address)
+    public override byte ReadU8(uint address)
     {
         if (!Virtual(address)) return (byte)DialogueGlyphs.ReadLayout(this, address, memory.ReadU8(address));
         int slot = (int)((address - 0x40000000) >> 24);
@@ -127,8 +127,8 @@ internal readonly struct ScriptMemory(IMemory memory, string overlay, uint curso
         return Buffers[slot].Script.Replacement[offset];
     }
 
-    public ushort ReadU16(uint address) => Virtual(address) ? (ushort)(ReadU8(address) | ReadU8(address + 1) << 8) : (ushort)DialogueGlyphs.ReadLayout(this, address, memory.ReadU16(address));
-    public uint ReadU32(uint address)
+    public override ushort ReadU16(uint address) => Virtual(address) ? (ushort)(ReadU8(address) | ReadU8(address + 1) << 8) : (ushort)DialogueGlyphs.ReadLayout(this, address, memory.ReadU16(address));
+    public override uint ReadU32(uint address)
     {
         if (Virtual(address)) return (uint)(ReadU8(address) | ReadU8(address + 1) << 8 | ReadU8(address + 2) << 16 | ReadU8(address + 3) << 24);
 
@@ -138,14 +138,7 @@ internal readonly struct ScriptMemory(IMemory memory, string overlay, uint curso
 
         
     }
-    public void WriteU32(uint address, uint value) => memory.WriteU32(address, IsCursor(address) ? Resolve(value) : value);
-    public void WriteU8(uint address, byte value) => memory.WriteU8(address, (byte)DialogueGlyphs.WriteLayout(this, address, value));
-    public void WriteU16(uint address, ushort value) => memory.WriteU16(address, (ushort)DialogueGlyphs.WriteLayout(this, address, value));
-    public uint ReadWordLeft(uint current, uint address) => memory.ReadWordLeft(current, address);
-    public uint ReadWordRight(uint current, uint address) => memory.ReadWordRight(current, address);
-    public void WriteWordLeft(uint address, uint value) => memory.WriteWordLeft(address, value);
-    public void WriteWordRight(uint address, uint value) => memory.WriteWordRight(address, value);
-    public void LoadBytes(uint address, byte[] data) => memory.LoadBytes(address, data);
-    public void ZeroRange(uint address, uint length) => memory.ZeroRange(address, length);
-    public void SetCd(RecompOne.Runtime.Cdrom.CdController cd) => memory.SetCd(cd);
+    public override void WriteU32(uint address, uint value) => memory.WriteU32(address, IsCursor(address) ? Resolve(value) : value);
+    public override void WriteU8(uint address, byte value) => memory.WriteU8(address, (byte)DialogueGlyphs.WriteLayout(this, address, value));
+    public override void WriteU16(uint address, ushort value) => memory.WriteU16(address, (ushort)DialogueGlyphs.WriteLayout(this, address, value));
 }

@@ -1,8 +1,8 @@
 using System.Numerics;
 using System.Text;
-using ImGuiNET;
+using Hexa.NET.ImGui;
 using RecompOne.Runtime.Cdrom;
-using RecompOne.Runtime.Host.Window;
+using RecompOne.UI;
 using RecompOne.Runtime.Memory;
 
 namespace Recompiled;

@@ -1,13 +1,13 @@
 using System;
 using System.Numerics;
-using ImGuiNET;
-using RecompOne.Runtime.Host.Window;
+using Hexa.NET.ImGui;
+using RecompOne.UI;
 using RecompOne.Runtime.Memory;
 using Sotn;
 
 namespace Recompiled;
 
-public sealed class StatsCheatPanel : IPanel
+public sealed class StatsCheatPanel : IEmbeddedPanel
 {
     public string Name => "Stats";
     public string TitleKey => "panel.cheats.stats";
@@ -26,55 +26,55 @@ public sealed class StatsCheatPanel : IPanel
             return;
         }
 
+        DrawContent();
+
+        IsOpen = open;
+        ImGui.End();
+    }
+
+    public void DrawContent()
+    {
         var m = RecompOne.Runtime.Runtime.Mem;
         if (m == null || !Cheats.InPlay())
         {
             ImGui.TextWrapped(Localization.T("common.not_in_play"));
-            
-            IsOpen = open;
-            ImGui.End();
             return;
         }
 
-        ImGui.Text($"Character: {Player.Character}");
-        ImGui.Separator();
+        Ui.Text($"Character: {Player.Character}");
+        Ui.Separator();
 
         Slider("Level", () => Player.Level, v => Player.Level = v, 1, 99);
 
-        ImGui.SeparatorText("Vitals");
+        Ui.Section("Vitals");
         Input("HP", () => Player.Hp, v => Player.Hp = v);
-        ImGui.SameLine();
-        if (ImGui.SmallButton("Max##hp")) Player.Hp = Player.HpMax;
+        if (MaxButton("HP")) Player.Hp = Player.HpMax;
         Input("HP Max", () => Player.HpMax, v => Player.HpMax = v);
         Input("MP", () => Player.Mp, v => Player.Mp = v);
-        ImGui.SameLine();
-        if (ImGui.SmallButton("Max##mp")) Player.Mp = Player.MpMax;
+        if (MaxButton("MP")) Player.Mp = Player.MpMax;
         Input("MP Max", () => Player.MpMax, v => Player.MpMax = v);
         Input("Hearts", () => Player.Hearts, v => Player.Hearts = v);
         Input("Hearts Max", () => Player.HeartsMax, v => Player.HeartsMax = v);
-        if (ImGui.Button("Full heal"))
+        if (Ui.Button("Full heal"))
         {
             Player.Hp = Player.HpMax;
             Player.Mp = Player.MpMax;
             Player.Hearts = Player.HeartsMax;
         }
 
-        ImGui.SeparatorText("Attributes");
+        Ui.Section("Attributes");
         Slider("STR", () => Player.Strength, v => Player.Strength = v, 1, 999);
         Slider("CON", () => Player.Constitution, v => Player.Constitution = v, 1, 999);
         Slider("INT", () => Player.Intelligence, v => Player.Intelligence = v, 1, 999);
         Slider("LCK", () => Player.Luck, v => Player.Luck = v, 1, 999);
 
-        ImGui.SeparatorText("Resources");
+        Ui.Section("Resources");
         Input("Gold", () => Player.Gold, v => Player.Gold = v);
         Input("EXP", () => Player.Exp, v => Player.Exp = v);
 
         //ImGui.SeparatorText("Map");
         //ImGui.Checkbox("Reveal full map", ref _revealMap); //broken, need to fix
         //if (_revealMap) RevealMap(m);
-
-        IsOpen = open;
-        ImGui.End();
     }
 
    /*  static void RevealMap(IMemory m)
@@ -83,17 +83,24 @@ public sealed class StatsCheatPanel : IPanel
             m.WriteU32(Cheats.CastleMap + i, 0xFFFFFFFFu); 
     } */
 
+    static bool MaxButton(string name)
+    {
+        if (Ui.UsesRows) return Ui.Button($"Max {name}##{name}");
+        ImGui.SameLine();
+        return ImGui.SmallButton($"Max##{name}");
+    }
+
     static void Slider(string label, Func<int> get, Action<int> set, int min, int max)
     {
         int v = get();
         ImGui.SetNextItemWidth(190);
-        if (ImGui.SliderInt(label, ref v, min, max)) set(v);
+        if (Ui.Slider(label, ref v, min, max)) set(v);
     }
 
     static void Input(string label, Func<int> get, Action<int> set)
     {
         int v = get();
         ImGui.SetNextItemWidth(130);
-        if (ImGui.InputInt(label, ref v)) set(Math.Max(0, v));
+        if (Ui.InputInt(label, ref v)) set(Math.Max(0, v));
     }
 }

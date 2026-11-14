@@ -96,6 +96,22 @@ jobs:
           -p:NoWarn=0162
           -o publish/${{ matrix.rid }}
 
+      - name: check achs
+        shell: bash
+        run: |
+          case "${{ matrix.rid }}" in
+            *-x64) want='x86-64|x86_64' ;;
+            *-arm64) want='aarch64|arm64|Aarch64|ARM64' ;;
+            *) exit 0 ;;
+          esac
+          bad=0
+          while IFS= read -r f; do
+            info=$(file -b "$f")
+            case "$info" in *Mono/.Net*|*text*) continue ;; esac
+            if ! echo "$info" | grep -Eq "$want"; then echo "::error file=$f::wrong architecture for ${{ matrix.rid }}: $info"; bad=1; fi
+          done < <(find "publish/${{ matrix.rid }}" -type f \( -name '*.dylib' -o -name '*.so' -o -name '*.so.*' -o -name '*.dll' \))
+          exit $bad
+
       - name: Bundle linux run launchr
         if: startsWith(matrix.rid, 'linux')
         run: |
@@ -147,13 +163,13 @@ jobs:
           path: dist
           merge-multiple: true
 
-      - name: Build release notes from CHANGELOG.md
+      - name: Build release notes
         run: |
-          if [ -s CHANGELOG.md ]; then
-            tail -n +2 CHANGELOG.md > release_notes.md
-          fi
-          if [ ! -s release_notes.md ]; then
-            echo "See CHANGELOG.md for the changes in this release." > release_notes.md
+          notes=$(ls changelog.md CHANGELOG.md 2>/dev/null | head -n 1)
+          if [ -n "$notes" ] && [ -s "$notes" ]; then
+            cp "$notes" release_notes.md
+          else
+            printf 'SymphonyRecomp %s\n' "$GITHUB_REF_NAME" > release_notes.md
           fi
 
       - name: Create GitHub release

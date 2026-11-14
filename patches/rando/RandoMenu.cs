@@ -1,4 +1,4 @@
-﻿using RecompOne.Runtime.Host.Window;
+﻿using RecompOne.UI;
 
 namespace Recompiled;
 
@@ -9,11 +9,6 @@ public static class RandoMenu
         PanelManager.Register(new RandoPanel());
         SaveLoadManager.Register();
 
-        MenuRegistry.BarItem("menu.randomizer", Toggle).After("menu.misc");
-    }
-
-    static void Toggle()
-    {
-        if (PanelManager.Get<RandoPanel>() is { } panel) panel.IsOpen = !panel.IsOpen;
+        MenuRegistry.BarPanel<RandoPanel>("menu.randomizer").Icon(FontSet.Star).After("menu.misc");
     }
 }

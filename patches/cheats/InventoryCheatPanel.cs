@@ -1,13 +1,13 @@
 using System;
 using System.Numerics;
 using System.Text;
-using ImGuiNET;
-using RecompOne.Runtime.Host.Window;
+using Hexa.NET.ImGui;
+using RecompOne.UI;
 using Sotn;
 
 namespace Recompiled;
 
-public sealed class InventoryCheatPanel : IPanel
+public sealed class InventoryCheatPanel : IEmbeddedPanel
 {
     public string Name => "Inventory";
     public string TitleKey => "panel.cheats.inventory";
@@ -40,18 +40,23 @@ public sealed class InventoryCheatPanel : IPanel
             return;
         }
 
+        DrawContent();
+
+        IsOpen = open;
+        ImGui.End();
+    }
+
+    public void DrawContent()
+    {
         if (RecompOne.Runtime.Runtime.Mem == null || !Cheats.InPlay())
         {
             ImGui.TextWrapped(Localization.T("common.not_in_play"));
-            
-            IsOpen = open;
-            ImGui.End();
             return;
         }
 
 
         ImGui.SetNextItemWidth(-1f);
-        ImGui.InputTextWithHint("##search", "Search items...", ref _search, 64);
+        Ui.Input("##search", ref _search, 64, "Search items...");
 
         if (ImGui.BeginTabBar("invtabs"))
         {
@@ -77,9 +82,6 @@ public sealed class InventoryCheatPanel : IPanel
             }
             ImGui.EndTabBar();
         }
-
-        IsOpen = open;
-        ImGui.End();
     }
 
     void DrawItems(string id, (string Display, int Id)[] list, Func<int, int> get, Action<int, int> set)
