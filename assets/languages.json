@@ -261,21 +261,24 @@
             "pt-BR": "Aumenta em 4 frames a invencibilidade de tudo que já a concede.",
             "es-419": "Aumenta en 4 frames la invencibilidad de todo lo que ya la otorga.",
             "ja-jp": "無敵時間を持つすべてのアクションにおいて、その無敵時間が4フレーム延長されます。",
-            "zh-CN": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。"
+            "zh-CN": "启用后对于拥有无敌时间的技能，其无敌时间额外增加4帧。",
+            "fr-FR": "Augmente de 4 frames l'invincibilité de tout ce qui en donne déjà."
         },
         "qol.skip_prologue": {
             "en": "Skip Prologue",
             "pt-br": "Pular Prólogo",
             "es-419": "Saltar el Prólogo",
             "ja-jp": "プロローグをスキップする",
-            "zh-CN": "跳过序章"
+            "zh-CN": "跳过序章",
+            "fr-FR": "Passer le prologue"
         },
         "qol.skip_prologue.hint": {
             "en": "This will cause the prologue sequence to be skipped when starting a new game.",
             "pt-br": "Isso fará com que a sequência do prólogo seja ignorada ao iniciar um novo jogo.",
             "es-419": "Esto hará que la secuencia del prólogo se omita al iniciar una nueva partida.",
             "ja-jp": "新しいゲームを開始する際、プロローグのシークエンスをスキップします。",
-            "zh-CN": "当开始一轮新游戏时，序章（Final Stage: Bloodlines）将会被跳过。"
+            "zh-CN": "当开始一轮新游戏时，序章（Final Stage: Bloodlines）将会被跳过。",
+            "fr-FR": "Permet de passer le prologue quand vous démarrez une nouvelle partie"
         },
         "qol.fairy_song": {
             "en": "Restore Sprite Familiar Nocturne Song",
@@ -370,13 +373,15 @@
             "pt-BR": "Continuar mesmo assim",
             "es-419": "Continuar de todos modos",
             "ja-jp": "いずれにせよ続行する",
-            "zh-CN": "强制继续"
+            "zh-CN": "强制继续",
+            "fr-FR": "Continuer quand même"
         },
         "settings.display.widescreen": {
             "en": "Widescreen",
             "pt-BR": "Widescreen",
             "es-419": "Pantalla ancha",
-            "zh-CN": "宽屏模式"
+            "zh-CN": "宽屏模式",
+            "fr-FR": "Ecran large"
         },
         "widescreen.aspect": {
             "en": "Aspect Ratio",
@@ -407,7 +412,8 @@
             "pt-BR": "Desligado: dá zoom para esconder as barras pretas",
             "es-419": "Desactivado: hace zoom para ocultar las barras negras",
             "ja-jp": "オフ：ズームして黒帯を隠す",
-            "zh-CN": "关闭：放大画面以隐藏黑边"
+            "zh-CN": "关闭：放大画面以隐藏黑边",
+            "fr-FR": "Désactivé: zoom dans l'écran pour cacher les barres noirs"
         },
         "widescreen.unstretch": {
             "en": "unstretch",
@@ -430,21 +436,24 @@
             "pt-BR": "Extensão das Salas",
             "es-419": "Extensión de Salas",
             "ja-jp": "ルーム拡張",
-            "zh-CN": "房间贴图扩展"
+            "zh-CN": "房间贴图扩展",
+            "fr-FR": "Extension de salles"
         },
         "room_extension.mode": {
             "en": "Mode",
             "pt-BR": "Modo",
             "es-419": "Modo",
             "ja-jp": "モード",
-            "zh-CN": "扩展模式"
+            "zh-CN": "扩展模式",
+            "fr-FR": "Mode"
         },
         "room_extension.custom": {
             "en": "Custom",
             "pt-BR": "Personalizado",
             "es-419": "Personalizado",
             "ja-jp": "カスタム",
-            "zh-CN": "自选"
+            "zh-CN": "自选",
+            "fr-FR": "Personnalisé"
             
         },
         "room_extension.fill": {
@@ -452,42 +461,48 @@
             "pt-BR": "Preencher",
             "es-419": "Rellenar",
             "ja-jp": "塗りつぶし",
-            "zh-CN": "填满"
+            "zh-CN": "填满",
+            "fr-FR": "Remplissage"
         },
         "room_extension.disabled": {
             "en": "Off",
             "pt-BR": "Desligado",
             "es-419": "Desactivado",
             "ja-jp": "オフ",
-            "zh-CN": "关闭"
+            "zh-CN": "关闭",
+            "fr-FR": "Désactivé"
         },
         "room_extension.mode_hint": {
             "en": "How the area outside the room is shown",
             "pt-BR": "Como a área fora da sala é exibida",
             "es-419": "Cómo se muestra el área fuera de la sala",
             "ja-jp": "ルーム外の表示方法",
-            "zh-CN": "原作可读取范围外的房间渲染方法"
+            "zh-CN": "原作可读取范围外的房间渲染方法",
+            "fr-FR": "Comment la zone hors de l'écran est montrée"
         },
         "room_extension.fade": {
             "en": "Fade",
             "pt-BR": "Fade",
             "es-419": "Degradado",
             "ja-jp": "フェード",
-            "zh-CN": "模糊处理"
+            "zh-CN": "模糊处理",
+            "fr-FR": "Dégradé"
         },
         "room_extension.fade_hint": {
             "en": "Blends the fill into the room edge",
             "pt-BR": "Mistura o preenchimento na borda da sala",
             "es-419": "Mezcla el relleno con el borde de la sala",
             "ja-jp": "塗りつぶしをルームの端になじませる",
-            "zh-CN": "将原作可读取范围外的贴图进行模糊处理"
+            "zh-CN": "将原作可读取范围外的贴图进行模糊处理",
+            "fr-FR": "Assombrit les coté de la pièce"
         },
         "room_extension.fade_width": {
             "en": "Fade width",
             "pt-BR": "Largura do fade",
             "es-419": "Ancho del degradado",
             "ja-jp": "フェード幅",
-            "zh-CN": "模糊幅度"
+            "zh-CN": "模糊幅度",
+            "fr-FR": "Largeur de dégradé"
         },
         "rando.no_memory": {
             "en": "Missing memory context.",
